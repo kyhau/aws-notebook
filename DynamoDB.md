@@ -32,6 +32,21 @@
         - Can be added to existing tables.
         - Eventual consistency
         - Consistency lags behind the main DynamoDB table.
+        - No size restrictions.
+        - Like adding another DynamoDB table which gets changes propagated from the main table.
+        - GSIs have their own provisioned throughput independent of the main table.
+        - If GSIs run out of provisioned throughput, the main table will be throttled not just the GSIs.
+
+- When to use LSI?
+    - Index data size has to be less than 10GB.
+    - Just need to have an additional sort key using the same primary key.
+    - All of those were true at the time you created the table.
+    - Strong consistency is required.
+- When to use GSI?
+    - Index data size is greater than 10GB.
+    - Eventual consistency works for you.
+    - Thought about it after you created the table.
+    - One of the attributes has too much data and it is not required; exclude it in the projected attributes.
 
 - Projected Attributes - attributes copied from the table to the index, in additional to the primary key attributes and index key attributes.
 - Projection Type
