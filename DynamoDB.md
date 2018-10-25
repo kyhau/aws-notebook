@@ -18,8 +18,21 @@
 - Indexing allows for faster retrieval of data.
 - The primary key is indexed by default.
 - Secondary indexes
-    - GSI: Use Global Secondary Indexes when you need to use a different partition key.
     - LSI: Use Local Secondary Indexes when you need to change the sort key.
+        - Use the primary key but with different sort keys; same attributes
+        - Up to 5 LSIs.
+        - LSIs count against the provisioned throughput (performance) of the DDB table.
+        - They need to be created at the time of table creation, and cannot be modified or deleted.
+        - Eventual consistency or strong consistency.
+        - Total size limited to 10GB.
+    - GSI: Use Global Secondary Indexes when you need to use a different partition key.
+        - Can use any attribute as secondary key, different sort key.
+        - Limit the projected attributes.
+        - Unlimited number of GSIs.
+        - Can be added to existing tables.
+        - Eventual consistency
+        - Consistency lags behind the main DynamoDB table.
+
 - Projected Attributes - attributes copied from the table to the index, in additional to the primary key attributes and index key attributes.
 - Projection Type
     1. KEYS_ONLY - Only the index and primary keys are projected (smallest index - more performant)
