@@ -47,6 +47,7 @@
     - Eventual consistency works for you.
     - Thought about it after you created the table.
     - One of the attributes has too much data and it is not required; exclude it in the projected attributes.
+    - Sparse index (e.g. only users have a certification); much smaller dataset.
 
 - Projected Attributes - attributes copied from the table to the index, in additional to the primary key attributes and index key attributes.
 - Projection Type
