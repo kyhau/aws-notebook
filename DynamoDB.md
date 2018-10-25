@@ -12,3 +12,16 @@
 - A partition can hold ~ 10GB of data.
     - E.g. If you provision 45GB of data
     - (45/10) = 4.5 -> 5 partitions
+
+## Indexing
+
+- Indexing allows for faster retrieval of data.
+- The primary key is indexed by default.
+- Secondary indexes
+    - GSI: Use Global Secondary Indexes when you need to use a different partition key.
+    - LSI: Use Local Secondary Indexes when you need to change the sort key.
+- Projected Attributes - attributes copied from the table to the index, in additional to the primary key attributes and index key attributes.
+- Projection Type
+    1. KEYS_ONLY - Only the index and primary keys are projected (smallest index - more performant)
+    2. INCLUDE - Only specified attributes are projected.
+    3. ALL - All attributes are projected (biggest index - least performant).
