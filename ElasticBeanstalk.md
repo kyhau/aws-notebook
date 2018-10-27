@@ -1,5 +1,12 @@
 # Elastic Beanstalk Deployment and Configurations
 
+Table of Contents
+- [Initialise EB Application](#initialise-eb-application)
+- [EB configurations and maintenance](#eb-configurations-and-maintenance)
+- [HTTPS and SSL Certificate](#https-and-ssl-certificate)
+- [Ignore files](#ignore-files)
+
+
 ## Initialise EB Application
 
 Run by Infra team; only need to do it once
@@ -129,7 +136,7 @@ Use: `eb config put [configuration-name]`
 Use: `eb ssh [environment-name] --profile [profile-name]`
 
 
-## HTTPS / SSL Certificate
+## HTTPS and SSL Certificate
 
 You can use a certificate stored in IAM with Elastic Load Balancing load balancers and CloudFront distributions.
 
