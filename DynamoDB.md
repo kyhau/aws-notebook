@@ -35,15 +35,17 @@ Table of Contents
 - **Read Capacity Unit (RCU)** provides 1 **strongly consistent read** (or **2 eventually consistent reads**) per second
   for items **< 4KB** in size.
     - E.g. Your items are 10KB in size and you want to read 80 strongly consistent items from a table per second.
-      <br/>How many RCUs in 10KB:  10KB / 4KB = 2.5   =>  3
-      <br/>Each item requires 3 RCUs; 80 items need:  3 * 80 = 240 RCUs.
-      <br/>Strongly consistent reads =>  240 RCUs
-      <br/>Eventually consistent reads => 120 RCUs
+      
+          How many RCUs in 10KB:  10KB / 4KB = 2.5   =>  3
+          Each item requires 3 RCUs; 80 items need:  3 * 80 = 240 RCUs.
+          Strongly consistent reads =>  240 RCUs
+          Eventually consistent reads => 120 RCUs
 - **Write Capacity Unit (WCU)** provides 1 write per second for items **< 1KB** in size.
     - Adding, updating, or deleting an item in a table also costs a WCU and additional WCUs to write to any LSI and GSI.
     - E.g. Your items are 1.5KB in size and you want to write 20 items per second.
-      <br/>How many WCUs in 1.5KB:  1.5KB / 1KB = 1.5   =>  2
-      <br/>Each item requires 2 RCUs; 20 items need:  2 * 20 = 40 WCUs
+    
+          How many WCUs in 1.5KB:  1.5KB / 1KB = 1.5   =>  2
+          Each item requires 2 RCUs; 20 items need:  2 * 20 = 40 WCUs
 - Scale without downtime but takes time.
 - Throughput - Throttling
     - Consistently reading or writing more than the provisioned RCU/WCU per partition.
@@ -65,10 +67,12 @@ Table of Contents
 - Partitions are automatically added or removed based on the provisioned throughput and storage requirements by DynamoDB.    
 - A partition can support a maximum of 3000 RCUs OR 1000 WCUs.
     - E.g. If you provision 5500 RCUs and 1500 WCUs
-    - (5500/3000) + (1500/1000) = 3.333 -> 4 partitions
+
+          (5500/3000) + (1500/1000) = 3.333 -> 4 partitions
 - A partition can hold ~ 10GB of data.
     - E.g. If you provision 45GB of data
-    - (45/10) = 4.5 -> 5 partitions
+    
+          (45/10) = 4.5 -> 5 partitions
 
 
 ## Indexing
@@ -76,14 +80,14 @@ Table of Contents
 - Indexing allows for faster retrieval of data.
 - The primary key is indexed by default.
 - Secondary indexes
-    - LSI: Use Local Secondary Indexes when you need to change the sort key.
+    - **LSI**: Use **Local Secondary Indexes** when you need to change the sort key.
         - Use the primary key but with different sort keys; same attributes.
         - Up to 5 LSIs.
         - LSIs count against the provisioned throughput (performance) of the DDB table.
         - They need to be created at the time of table creation, and cannot be modified or deleted.
         - Eventual consistency or strong consistency.
         - Total size limited to 10GB.
-    - GSI: Use Global Secondary Indexes when you need to use a different partition key.
+    - **GSI**: Use **Global Secondary Indexes** when you need to use a different partition key.
         - Can use any attribute as secondary key, different sort key.
         - Limit the projected attributes.
         - Unlimited number of GSIs.
@@ -95,27 +99,27 @@ Table of Contents
         - GSIs have their own provisioned throughput independent of the main table.
         - If GSIs run out of provisioned throughput, the main table will be throttled not just the GSIs.
 
-- When to use LSI?
-    - Index data size has to be less than 10GB.
+- When to use **LSI**?
+    - Index data size has to be **< 10GB**.
     - Just need to have an additional sort key using the same primary key.
     - All of those were true at the time you created the table.
     - Strong consistency is required.
     
-- When to use GSI?
-    - Index data size is greater than 10GB.
+- When to use **GSI**?
+    - Index data size is **> 10GB**.
     - Eventual consistency works for you.
     - Thought about it after you created the table.
     - One of the attributes has too much data and it is not required; exclude it in the projected attributes.
     - Sparse index (e.g. only users have a certification).
     - Much smaller data set.
 
-- Projected Attributes - attributes copied from the table to the index, in additional to the primary key attributes and
+- **Projected Attributes** - attributes copied from the table to the index, in additional to the primary key attributes and
   index key attributes.
   
 - Projection Type
-    1. KEYS_ONLY - Only the index and primary keys are projected (smallest index - more performant)
-    2. INCLUDE - Only specified attributes are projected.
-    3. ALL - All attributes are projected (biggest index - least performant).
+    1. **KEYS_ONLY** - Only the index and primary keys are projected (smallest index - more performant)
+    2. **INCLUDE** - Only specified attributes are projected.
+    3. **ALL** - All attributes are projected (biggest index - least performant).
 
 
 ## Reading Data
