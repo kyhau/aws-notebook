@@ -1,10 +1,27 @@
 # DynamoDB
 
 Table of Contents
+- [Limits](#limits)
 - [Partitions and Provisioning Reads and Writes](#partitions-and-provisioning-reads-and-writes)
 - [Indexing - Secondary, LSI, GSI](#indexing)
 - [Reading data - Primary Key Lookup, Query, Scan, Eventually Consistent vs. Strongly Consistent](#reading-data)
 - [Writing data](#writing-data)
+
+
+## Limits
+
+- Max item size: 400KB
+- Nested attributes up to 32 levels deep
+- Max num of tables: 256 (default)
+- US East:
+    - Per table: 40K RCUs and 40K WCUs (default)
+    - Per account: 80K RCUs and 80K WCUs (default)
+- Other regions:
+    - Per table: 10K RCUs and 10K WCUs (default)
+    - Per account: 20K RCUs and 20K WCUs (default)
+- LSIs per table: 5
+- GSI per table: 5
+- Max num of projected attributes per index: 20
 
 
 ## Partitions and Provisioning Reads and Writes
@@ -12,9 +29,9 @@ Table of Contents
 - DynamoDB read and write speeds are determined by the number of available partitions.
 - Partitions are automatically added or removed based on the provisioned throughput and storage requirements by DynamoDB.
 - Provisioning Reads and Writes
-    - Read Capacity Unit (RCU) provides one strongly consistent read (or 2 eventually consistent reads) per second for
+    - Read Capacity Unit (RCU) provides 1 strongly consistent read (or 2 eventually consistent reads) per second for
       items < 4KB in size.
-    - Write Capacity Unit (WCU) provides one write per second for items < 1KB in size.
+    - Write Capacity Unit (WCU) provides 1 write per second for items < 1KB in size.
 - A partition can support a maximum of 3000 RCUs OR 1000 WCUs.
     - E.g. If you provision 5500 RCUs and 1500 WCUs
     - (5500/3000) + (1500/1000) = 3.333 -> 4 partitions
@@ -95,9 +112,102 @@ When you request a strongly consistent read, DynamoDB returns a response with th
 updates from all prior write operations that were successful. A strongly consistent read might not be available if
 there is a network delay or outage.
 
-DynamoDB uses eventually consistent reads, unless you specify otherwise. Read operations (such as GetItem, Query, and
-Scan) provide a ConsistentRead parameter. If you set this parameter to true, DynamoDB uses strongly consistent reads
-during the operation.
+DynamoDB uses eventually consistent reads, unless you specify otherwise. Read operations (such as **GetItem**,
+**Query**, and **Scan**) provide a **ConsistentRead** parameter. If you set this parameter to true, DynamoDB uses
+strongly consistent reads during the operation.
 
 
 ## Writing Data
+
+- Writes are free Reads
+- Atomic Counters
+    - Allow you to increment or decrement the value of an attribute without interfering with other Write requests.
+        - $a += 1
+        - $a -= 1
+    - Requests are applied to the order that they are received.
+- Conditional Writes
+    - Help coordinate Writes
+    - Checks for a condition before proceeding with the operation.
+    - Supported for **PutItem**, **DeleteItem**, **UpdateItem** operations.
+    - Specify conditions in ConditionExpression:
+    - Can contain attribute names, conditional operators, and built-in functions.
+    - A failed conditional write returns **ConditionalCheckFailedException**.
+
+## Throughput
+
+### Provisioning Reads and Writes
+
+- **Read Capacity Unit (RCU)** provides 1 **strongly consistent read** (or **2 eventually consistent reads**) per second
+  for items **< 4KB** in size.
+    - E.g. Your items are 10KB in size and you want to read 80 strongly consistent items from a table per second.
+    - How many RCUs in 10KB:  10KB / 4KB = 2.5   =>  3
+    - Each item requires 3 RCUs; 80 items need:  3 * 80 = 240 RCUs.
+    - Strongly consistent reads =>  240 RCUs
+    - Eventually consistent reads => 120 RCUs
+
+- **Write Capacity Unit (WCU)** provides 1 write per second for items **< 1KB** in size.
+    - Adding, updating, or deleting an item in a table also costs a WCU and additional WCUs to write to any LSI and GSI.
+    - E.g. Your items are 1.5KB in size and you want to write 20 items per second.
+    - How many WCUs in 1.5KB:  1.5KB / 1KB = 1.5   =>  2
+    - Each item requires 2 RCUs; 20 items need:  2 * 20 = 40 WCUs
+
+- Scale without downtime but takes time.
+
+### Throughput - Throttling
+
+- Consistently reading or writing more than the provisioned RCU/WCU per partition.
+- Using one partition or key extensively.
+- Stale or unused data occupying partition and key space.
+
+### Throughput - Burst Capacity
+
+- Underutilized RCU/WCU are retained as burst capacity by DynamoDB if available.
+- Five minute of unused read and write capacity
+- Used for floods.
+- Not guaranteed.
+
+### Throughput - Reserved Capacity
+
+- Discounted capacity units can be purchased ahead of.
+- Reserved automatically get applied to your RCU/WCU usage.
+- Over time, this can significantly reduce your costs.
+
+## Monitoring using Amazon CloudWatch
+
+- ConsumedReadCapacityUnits - RCUs per time period used
+- ConsumedWriteCapacityUnits - WCUs per time period used
+- ReadThrottleEvents - Provisioned RCU threshold breached
+- WriteThrottleEvents - Provisioned WCU threshold breached
+- ThrottledRequests - ReadThrottleEvents + WriteThrottleEvents
+
+## Integration
+- DataPipeline
+- Amazon EMR
+- Amazon Redshift
+- S3
+- Kinesis Client Libraries
+
+## Use Cases
+- Logging high throughput data - e.g. coming off Kinesis Streams
+- Almost like a cache - but don’t use is as a cache
+- State table
+- Active logins
+
+**Bad Use Cases**
+- You application requires a SQL interface.
+- Queries that require joins.
+- Data size greater than 400KB per item/row.
+- Infrequent access
+- Low throughput data
+- Full table scans on huge tables
+
+## Best Practices
+- Keep item size small
+- Store metadata in Amazon DynamoDB and blobs in Amazon in S3
+- Use a table with a hash key for extremely high scale
+- Avoid hot keys and hot partitions
+- Use table per day, week, month etc. for storing time series data
+- Use conditional updates
+- - Run a cache in front of DynamoDB if needed
+- Test applications at scale
+- Do not depend on burst capacity
