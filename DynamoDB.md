@@ -2,10 +2,16 @@
 
 Table of Contents
 - [Limits](#limits)
-- [Partitions and Provisioning Reads and Writes](#partitions-and-provisioning-reads-and-writes)
+- [Throughput and Provisioning Reads and Writes](#throughput-and-provisioning-reads-and-writes)
+- [Partitions](#partitions)
 - [Indexing - Secondary, LSI, GSI](#indexing)
 - [Reading data - Primary Key Lookup, Query, Scan, Eventually Consistent vs. Strongly Consistent](#reading-data)
 - [Writing data](#writing-data)
+- [Monitoring with CloudWatch](#monitoring-using-amazon-cloudwatch)
+- [Integration](#integration)
+- [Use Cases](#use-cases)
+- [Best practices](#best-practices)
+- [Benefits](#benefits)
 
 
 ## Limits
@@ -24,14 +30,39 @@ Table of Contents
 - Max num of projected attributes per index: 20
 
 
-## Partitions and Provisioning Reads and Writes
+## Throughput and Provisioning Reads and Writes
+
+- **Read Capacity Unit (RCU)** provides 1 **strongly consistent read** (or **2 eventually consistent reads**) per second
+  for items **< 4KB** in size.
+    - E.g. Your items are 10KB in size and you want to read 80 strongly consistent items from a table per second.
+      <br/>How many RCUs in 10KB:  10KB / 4KB = 2.5   =>  3
+      <br/>Each item requires 3 RCUs; 80 items need:  3 * 80 = 240 RCUs.
+      <br/>Strongly consistent reads =>  240 RCUs
+      <br/>Eventually consistent reads => 120 RCUs
+- **Write Capacity Unit (WCU)** provides 1 write per second for items **< 1KB** in size.
+    - Adding, updating, or deleting an item in a table also costs a WCU and additional WCUs to write to any LSI and GSI.
+    - E.g. Your items are 1.5KB in size and you want to write 20 items per second.
+      <br/>How many WCUs in 1.5KB:  1.5KB / 1KB = 1.5   =>  2
+      <br/>Each item requires 2 RCUs; 20 items need:  2 * 20 = 40 WCUs
+- Scale without downtime but takes time.
+- Throughput - Throttling
+    - Consistently reading or writing more than the provisioned RCU/WCU per partition.
+    - Using one partition or key extensively.
+    - Stale or unused data occupying partition and key space.
+- Throughput - Burst Capacity
+    - Underutilized RCU/WCU are retained as burst capacity by DynamoDB if available.
+    - Five minute of unused read and write capacity
+    - Used for floods.
+    - Not guaranteed.
+- Throughput - Reserved Capacity
+    - Discounted capacity units can be purchased ahead of.
+    - Reserved automatically get applied to your RCU/WCU usage.
+    - Over time, this can significantly reduce your costs.
+
+## Partitions
 
 - DynamoDB read and write speeds are determined by the number of available partitions.
-- Partitions are automatically added or removed based on the provisioned throughput and storage requirements by DynamoDB.
-- Provisioning Reads and Writes
-    - Read Capacity Unit (RCU) provides 1 strongly consistent read (or 2 eventually consistent reads) per second for
-      items < 4KB in size.
-    - Write Capacity Unit (WCU) provides 1 write per second for items < 1KB in size.
+- Partitions are automatically added or removed based on the provisioned throughput and storage requirements by DynamoDB.    
 - A partition can support a maximum of 3000 RCUs OR 1000 WCUs.
     - E.g. If you provision 5500 RCUs and 1500 WCUs
     - (5500/3000) + (1500/1000) = 3.333 -> 4 partitions
@@ -133,44 +164,6 @@ strongly consistent reads during the operation.
     - Can contain attribute names, conditional operators, and built-in functions.
     - A failed conditional write returns **ConditionalCheckFailedException**.
 
-## Throughput
-
-### Provisioning Reads and Writes
-
-- **Read Capacity Unit (RCU)** provides 1 **strongly consistent read** (or **2 eventually consistent reads**) per second
-  for items **< 4KB** in size.
-    - E.g. Your items are 10KB in size and you want to read 80 strongly consistent items from a table per second.
-    - How many RCUs in 10KB:  10KB / 4KB = 2.5   =>  3
-    - Each item requires 3 RCUs; 80 items need:  3 * 80 = 240 RCUs.
-    - Strongly consistent reads =>  240 RCUs
-    - Eventually consistent reads => 120 RCUs
-
-- **Write Capacity Unit (WCU)** provides 1 write per second for items **< 1KB** in size.
-    - Adding, updating, or deleting an item in a table also costs a WCU and additional WCUs to write to any LSI and GSI.
-    - E.g. Your items are 1.5KB in size and you want to write 20 items per second.
-    - How many WCUs in 1.5KB:  1.5KB / 1KB = 1.5   =>  2
-    - Each item requires 2 RCUs; 20 items need:  2 * 20 = 40 WCUs
-
-- Scale without downtime but takes time.
-
-### Throughput - Throttling
-
-- Consistently reading or writing more than the provisioned RCU/WCU per partition.
-- Using one partition or key extensively.
-- Stale or unused data occupying partition and key space.
-
-### Throughput - Burst Capacity
-
-- Underutilized RCU/WCU are retained as burst capacity by DynamoDB if available.
-- Five minute of unused read and write capacity
-- Used for floods.
-- Not guaranteed.
-
-### Throughput - Reserved Capacity
-
-- Discounted capacity units can be purchased ahead of.
-- Reserved automatically get applied to your RCU/WCU usage.
-- Over time, this can significantly reduce your costs.
 
 ## Monitoring using Amazon CloudWatch
 
@@ -211,3 +204,28 @@ strongly consistent reads during the operation.
 - - Run a cache in front of DynamoDB if needed
 - Test applications at scale
 - Do not depend on burst capacity
+
+## Benefits
+
+- Support for JSON as values
+- Durable
+    - Replicated in 3 AZs by default.
+    - Cross region replication can be done using DynamoDB Streams and the Cross Region Replication Library (see 
+      [github](https://github.com/awslabs/dynamodb-cross-region-library)).
+    - Disaster recovery
+    - Faster reads
+    - Distributed load
+    - Live migrations
+- Granular access control using IAM
+- Can scale up and down depending on demand without downtime or performance degradation.
+- Automatic sharding across partitions.
+- Predictable performance used SSDs
+- NoSQL
+    - Fast retrieval
+    - Built for high rate Online Transaction Processing (OLTP)
+        - Short response time
+        - Small transactions
+        - Large user populations
+        - High concurrency
+        - Large data volumes
+        - High availability
