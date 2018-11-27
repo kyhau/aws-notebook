@@ -12,7 +12,8 @@ Table of Contents
 - [Use Cases](#use-cases)
 - [Best practices](#best-practices)
 - [Benefits](#benefits)
-
+- [Differences Between Downloadable DynamoDB and the DynamoDB Web Service](
+https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/DynamoDBLocal.UsageNotes.html#DynamoDBLocal.Differences)
 
 ## Limits
 
