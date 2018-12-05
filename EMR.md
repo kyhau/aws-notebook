@@ -1,2 +1,2 @@
-# Elastic Map Reduce (EMR)
+# Elastic MapReduce (EMR)
 
