@@ -1,11 +1,17 @@
-# Amazon Linux 2
+# Elastic Container Service (ECS)
 
-- [Migrating to Amazon Linux 2](https://cloudonaut.io/migrating-to-amazon-linux-2/)
+- [Subscribing to Amazon ECS-Optimized Amazon Linux AMI Update Notifications](
+  https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS-AMI-SubscribeTopic.html)
+
+- [Retrieving Amazon ECS-Optimized AMI Metadata](
+  https://docs.aws.amazon.com/AmazonECS/latest/developerguide/retrieve-ecs-optimized_AMI.html)
 
 
 ## Amazon Linux 2 for ECS
 
-- CloudFormation
+- [Migrating to Amazon Linux 2](https://cloudonaut.io/migrating-to-amazon-linux-2/)
+
+CloudFormation
 
 - Add `Parameters` for always using the latest AMI
 
