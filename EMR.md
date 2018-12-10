@@ -1,7 +1,9 @@
 # Elastic MapReduce (EMR)
 
+
 Table of Contents
-- [EMR bs. Redshift](#emr-vs-redshift)
+- [EMR vs. Redshift](#emr-vs-redshift)
+- [HDFS vs. EMRFS](#hdfs-vs-emrfs)
 
 
 ## EMR vs. Redshift
@@ -10,7 +12,8 @@ Redshift is far more cost effective than EMR for analytics that can be performed
 
 **Redshift**
 
-1. Redshift is ideal for large volumes of structured data that you want to persist and query using standard SQL and your existing BI tools.
+1. Redshift is ideal for large volumes of structured data that you want to persist and query using standard SQL and
+   your existing BI tools.
 2. Petabyte-scale
 3. Redshift is based of PostgreSQL (kind of like a database).
 4. Max of 128 nodes of the large sizes.
@@ -34,3 +37,24 @@ Redshift is far more cost effective than EMR for analytics that can be performed
       2. For data in transit between nodes in a cluster: 
          1. SSL (Secure Sockets Layer) for MapReduce
          2. SASL (Simple Authentication and Security Layer) for Spark shuffle encryption
+
+
+## HDFS vs. EMRFS
+
+**HDFS**
+
+1. HDFS distributes the data it stores across multiple instances in the cluster.
+2. HDFS storage is lost when the cluster is terminated.
+3. Most often used for intermediate results.
+4. The filesystems that can run HDFS: EBS, Local attached storage, S3 on EMRFS
+
+**EMRFS**
+
+1. Implementation of HDFS used fo reading/writing regular files from EMR directly to S3.
+2. For storing persistent data in S3 for use with Hadoop while also providing features like S3 server-side encryption,
+   read-after-write consistency, and list consistency.
+3. **Consistent View**
+   1. Allows EMR clusters to check for list and read-after-write consistency for S3 objects written by or synced with EMRFS.
+   2. Number of retries: 5 (default);  if an inconsistency is detected, EMRFS tries to call S3 this number of times.
+   3. Retry period (in seconds): 10 (default)
+
