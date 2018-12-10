@@ -3,7 +3,7 @@
 Subpages
 
 - [DynamoDB](DynamoDB.md)
-- [Elastic Map Reduce (EMR)](EMR.md)
+- [Elastic MapReduce (EMR)](EMR.md)
 - [Elasticsearch](Elasticsearch.md)
 - [Kinesis](Kinesis.md)
 - [Machine Learning](MachineLearning.md)
