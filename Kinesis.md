@@ -4,6 +4,9 @@
 Table of Contents
 - [Kinesis Data Streams vs. Kinesis Data Firehose](#kinesis-data-streams-vs-kinesis-data-firehose)
 - [KPL (Kinesis Producer Library) vs. AWS SDK](#kpl-kinesis-producer-library-vs-aws-sdk)
+- [Auto Scaling in KCL](#auto-scaling-in-kcl)
+- [Data encryption in Kinesis Data Stream](#data-encryption-in-kinesis-data-stream)
+- [Data encryption in Kinesis Data Firehose](#data-encryption-in-kinesis-data-firehose)
 - [Comparison of Streams](#comparison-of-streams)
 
 
@@ -47,6 +50,31 @@ Table of Contents
 4. KPL can incur an additional processing delay of up to RecordMaxBufferedTime within the library (user-configurable).
    Larger values of RecordMaxBufferedTime results in higher packing efficiencies and better performance.
    Applications that cannot tolerate this additional delay may need to use the AWS SDK directly.
+
+
+## Auto Scaling in KCL 
+
+1. Read state (shard iterator) is kept in a DynamoDB table per consumer (application) name.
+2. Resharding (splits and merges) automatically.
+3. Remember that the KCL uses a DynamoDB table to keep track of the data that has been read, you might need to increase
+   DynamoDB for high throughput.
+
+
+## Data encryption in Kinesis Data Stream
+
+They are already encrypted.
+
+Server-side encryption is a feature in Kinesis Data Streams that automatically encrypts data before it's at rest by
+using an AWS KMS customer master key (CMK) you specify. Data is encrypted before it's written to the Kinesis stream
+storage layer, and decrypted after it’s retrieved from storage. As a result, your data is encrypted at rest within the
+Kinesis Data Streams service.
+
+
+## Data encryption in Kinesis Data Firehose
+
+Amazon Kinesis Data Firehose allows you to encrypt your data after it’s delivered to your S3 bucket.
+While creating your delivery stream, you can choose to encrypt your data with an AWS Key Management Service (KMS) key
+that you own.
 
 
 ## Comparison of Streams
