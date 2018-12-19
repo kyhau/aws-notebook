@@ -2,11 +2,67 @@
 
 Table of Contents
 
+- [Encryption solution for data at rest and data in transit](#encryption-solution-for-data-at-rest-and-data-in-transit)
 - [KMS (Key Management Service)](#kms-key-management-service)
 - [KMS Key Policies for admins, same-account usage, cross-account usage, key deletion](#kms-key-policies)
 - [VPC Endpoints (Gateway Endpoints and Interface Endpoints)](#vpc-endpoints-gateway-endpoints-and-interface-endpoints)
 - [NAT Gateways vs. NAT Instances](#nat-gateways-vs-nat-instances)
 - [Egress-Only: NAT Instance/Gateway for IPv4 vs. Engress-Only Internet Gateway for IPv6](#egress-only-nat-instancegateway-for-ipv4-vs-engress-only-internet-gateway-for-ipv6)
+
+## Encryption solution for data at rest and data in transit
+
+### Data at Rest: KMS
+
+#### DynamoDB
+- For any encrypted table created in a region, DynamoDB uses KMS to create an AWS/DynamoDB **service default CMK** (in
+  each region).
+- When a table is created and set to be encrypted, this CMK is used to create a data key unique to that table, called
+  a **table key**. This key is managed by DynamoDB and stored with the table in an encrypted form.
+- Every item that DynamoDB encrypts is done with a data encrypted key. That key is encrypted with this table key and
+  stored with the data.
+- Table keys are cached for up to **12 hours in plaintext** by DynamoDB, but a request is sent to KMS after 5 minutes
+  of table key inactivity to check for permission changes.
+
+#### EBS
+- EBS Volume is encrypted using a DataKey generated from a CMK.
+- Encrypted data key is stored with the volume.
+- Used by the **Hypervisor** to decrypt upon attaching to the EC2 instance.
+- IO, Snapshots, and Persisted data is encrypted.
+
+#### RDS
+- RDS utilizes EBS for its encryption. RDS instances are managed versions of EC2 instances, configured to act as a
+  managed DB cluster. 
+- In a similar way to EC2, encrypted volumes attached to RDS are handled by the host, with persistent data, snapshots
+  and IO encrypted and decrypted using KMS.
+
+#### S3
+- The DataKey is generated from a CMK (**service default**, or a **custom CMK**).
+- Every object in a bucket is encrypted by S3 using a DataKey provided by KMS.
+- CipherText DataKey is stored with the object as metadata.
+- When decryption is needed, it is passed to KMS (`kms:Decrypt`), and used by S3 to decrypt the object.
+
+#### CloudTrail
+- CloudTrail logs are encrypted in SSE-S3 by default, can be changed to SSE-KMS.
+
+#### Kinesis Data Stream
+- Data are already encrypted.  Kinesis Data Streams automatically encrypts data before it is at rest by using an KMS
+  CMK you specify. 
+- Data is encrypted before it is written to the Kinesis stream storage layer, and decrypted after it is retrieved from
+  storage. As a result, your data is encrypted at rest within the Kinesis Data Streams service.
+
+#### Kinesis Data Firehose
+- Kinesis Data Firehose allows you to encrypt your data after it is delivered to your S3 bucket. 
+- While creating your delivery stream, you can choose to encrypt your data with an KMS key that you own.
+
+#### Athena
+- You can encrypt
+    - The results of all queries in S3, which Athena stores in a location known as the S3 staging directory. 
+    - The data in the AWS Glue Data Catalog. 
+- At rest:
+    - SSE-S3
+    - SSE-KMS 
+    - CSE-KMS 
+    - NOT SUPPORTED SSE-C (customer-provided keys)
 
 
 ## KMS (Key Management Service)
@@ -162,7 +218,7 @@ It means your network communications no longer have to flow over the public inte
   - Systems Manager
   - ELB API
   - Endpoint services hosted by other AWS accounts 
-- Case 0:   Not using Interface Gateway
+- Case 0:   Not using Interface Endpoint
   - Instance R (instance on the right) accesses the SNS service through Internet Gateway.
   - DNS: sns.us-east-1.amazonaws.com
   - IP:  52.*.*.* (public IP)
