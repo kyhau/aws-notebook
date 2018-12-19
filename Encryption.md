@@ -1,8 +1,4 @@
-# Some AWS Security Notes
-
-Table of Contents
-
-- [Encryption solution for data at rest and data in transit](#encryption-solution-for-data-at-rest-and-data-in-transit)
+# Encryption
 
 
 ## Athena

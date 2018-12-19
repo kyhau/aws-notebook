@@ -10,7 +10,7 @@ Subpages
   - EMR vs. Redshift
   - HDFS vs. EMRFS
 - [Elasticsearch](Elasticsearch.md
-- [Encryption](Encryption.md))
+- [Encryption](Encryption.md)
 - [Kinesis](Kinesis.md)
   - Kinesis Data Streams vs. Kinesis Data Firehose
   - KPL (Kinesis Producer Library) vs. AWS SDK
