@@ -9,7 +9,7 @@ Subpages
 - [Elastic MapReduce (EMR)](EMR.md)
   - EMR vs. Redshift
   - HDFS vs. EMRFS
-- [Elasticsearch](Elasticsearch.md
+- [Elasticsearch](Elasticsearch.md)
 - [Encryption](Encryption.md)
 - [Kinesis](Kinesis.md)
   - Kinesis Data Streams vs. Kinesis Data Firehose
