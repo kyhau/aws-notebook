@@ -2,12 +2,46 @@
 
 Subpages
 
-- [AWS Security](Security.md)
+- [Known Issues](KnownIssues.md)
+- [KMS](KMS.md)
 - [DynamoDB](DynamoDB.md)
 - [Elastic Container Services](ECS.md)
 - [Elastic MapReduce (EMR)](EMR.md)
+  - EMR vs. Redshift
+  - HDFS vs. EMRFS
 - [Elasticsearch](Elasticsearch.md)
+- [Encryption](Encryption.md)
 - [Kinesis](Kinesis.md)
+  - Kinesis Data Streams vs. Kinesis Data Firehose
+  - KPL (Kinesis Producer Library) vs. AWS SDK
+  - Auto Scaling in KCL
+  - Data encryption in Kinesis Data Stream
+  - Data encryption in Kinesis Data Firehose
+  - Comparison of Streams
 - [Machine Learning](MachineLearning.md)
+  - SageMaker
+  - AML (Amazon Machine Learning)
 - [S3](S3.md)
-
+- [Secure Network Infrastructure](SecureNetworkInfrastructure.md)
+  - NACL (Network Access Control List)
+  - Security Groups
+  - VPC Peering
+  - VPC Endpoints (Gateway Endpoints and Interface Endpoints)
+  - NAT Gateways vs. NAT Instances
+  - Engress-Only Internet Gateway for IPv6 and NAT Instance/Gateway for IPv4
+  - Bastion Hosts / Jump Boxes
+- [Logging and Monitoring](LoggingAndMonitoring.md)
+  - AWS Config
+  - Trusted Advisor
+  - CloudTrail
+  - CloudWatch
+  - CloudWatch Agent
+  - SSM (Systems Manager)
+  - Inspector
+  - Packet Capture Agent
+  - VPC Flow Logs
+  - DNS Logs
+  - S3 server access logging for bucket
+  - Macie
+  - GuardDuty
+  - CloudWatch Buses
