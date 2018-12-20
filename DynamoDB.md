@@ -27,8 +27,8 @@ https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/DynamoDBLoc
     - Per table: 10K RCUs and 10K WCUs (default)
     - Per account: 20K RCUs and 20K WCUs (default)
 - LSIs per table: 5
-- GSI per table: 5
-- Max num of projected attributes per index: 20
+- GSI per table: 20 (can request to increase)
+- Max num of projected attributes per index: 100, or ALL
 
 
 ## Throughput and Provisioning Reads and Writes
