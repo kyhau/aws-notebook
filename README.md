@@ -3,7 +3,7 @@
 Subpages
 - [Known Issues](KnownIssues.md)
 
-Analytics
+**Analytics**
 - Athena
 - Data Pipeline
 - [Elasticsearch Service](Elasticsearch.md)
@@ -20,14 +20,14 @@ Analytics
   - Comparison of Streams
 - QuickSight
 
-Application Integration
+**Application Integration**
 - Step Functions
 - Amazon MQ
 - SNS
 - SQS
 - SWF
 
-Compute
+**Compute**
 - Lambda
 - [ECS](ECS.md)
   - Auto Scaling policies
@@ -37,19 +37,19 @@ Compute
 - ECR
 - Elastic Beanstalk
 
-Database
+**Database**
 - RDS
 - [DynamoDB](DynamoDB.md)
 - ElastiCache
 - Redshift
 
-Machine Learning
+**Machine Learning**
 - [SageMaker](MachineLearning.md)
 - [Amazon Machine Learning (AML)](MachineLearning.md)
 - Polly
 - Rekognition
 
-Management & Governance
+**Management & Governance**
 - [CloudWatch](LoggingAndMonitoring.md)
 - Auto Scaling
 - CloudFormation
@@ -59,14 +59,14 @@ Management & Governance
 - [Trusted Advisor](LoggingAndMonitoring.md)
 - [CloudWatch Buses](LoggingAndMonitoring.md)
 
-Migration & Transfer
+**Migration & Transfer**
 - Database Migration Service
 - Snowball
 
-Mobile
+**Mobile**
 - Amplify
 
-Networking & Content Delivery
+**Networking & Content Delivery**
   - API Gateway
   - CloudFront
   - [VPC Peering](SecureNetworkInfrastructure.md)
@@ -79,7 +79,7 @@ Networking & Content Delivery
   - Direct Connect
   - Route 53
 
-Security, Identity, & Compliance
+**Security, Identity, & Compliance**
 - IAM
 - Cognito
 - [GuardDuty](LoggingAndMonitoring.md)
@@ -96,7 +96,7 @@ Security, Identity, & Compliance
 - [S3 server access logging for bucket](LoggingAndMonitoring.md)
 - [Encryption](Encryption.md)
 
-Storage
+**Storage**
 - [S3](S3.md)
 - EFS
 
