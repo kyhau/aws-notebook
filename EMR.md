@@ -1,9 +1,10 @@
 # Elastic MapReduce (EMR)
 
-
 Table of Contents
+
 - [EMR vs. Redshift](#emr-vs-redshift)
 - [HDFS vs. EMRFS](#hdfs-vs-emrfs)
+- [Essential Big Data Tools on EMR](BigDataTools.md)
 
 
 ## EMR vs. Redshift

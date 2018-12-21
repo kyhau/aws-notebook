@@ -1,14 +1,15 @@
 # AWS Notebook about Provisioning, Limitations, and Performance
 
-- [Known Issues](KnownIssues.md)
+**[Known Issues](KnownIssues.md)**
 
 **Analytics**
 - [Athena](Analytics.md)
 - Data Pipeline
 - [Elasticsearch Service](Analytics.md)
-- [EMR](EMR.md)
-  - EMR vs. Redshift
-  - HDFS vs. EMRFS
+- EMR
+  - [EMR vs. Redshift](EMR.md)
+  - [HDFS vs. EMRFS](EMR.md)
+  - [Essential Big Data Tools on EMR](BigDataTools.md)
 - [Glue](Analytics.md)
 - [Kinesis](Kinesis.md)
   - Kinesis Data Streams vs. Kinesis Data Firehose
