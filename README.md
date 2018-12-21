@@ -1,16 +1,15 @@
 # AWS Notebook about Provisioning, Limitations, and Performance
 
-Subpages
 - [Known Issues](KnownIssues.md)
 
 **Analytics**
-- Athena
+- [Athena](Analytics.md)
 - Data Pipeline
-- [Elasticsearch Service](Elasticsearch.md)
+- [Elasticsearch Service](Analytics.md)
 - [EMR](EMR.md)
   - EMR vs. Redshift
   - HDFS vs. EMRFS
-- Glue
+- [Glue](Analytics.md)
 - [Kinesis](Kinesis.md)
   - Kinesis Data Streams vs. Kinesis Data Firehose
   - KPL (Kinesis Producer Library) vs. AWS SDK
@@ -18,7 +17,7 @@ Subpages
   - Data encryption in Kinesis Data Stream
   - Data encryption in Kinesis Data Firehose
   - Comparison of Streams
-- QuickSight
+- [QuickSight](Analytics.md)
 
 **Application Integration**
 - Step Functions
