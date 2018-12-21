@@ -41,7 +41,6 @@ Database
 - RDS
 - [DynamoDB](DynamoDB.md)
 - ElastiCache
-- Neptune
 - Redshift
 
 Machine Learning
@@ -58,8 +57,7 @@ Management & Governance
 - [Config](LoggingAndMonitoring.md)
 - [Systems Manager (SSM)](LoggingAndMonitoring.md)
 - [Trusted Advisor](LoggingAndMonitoring.md)
-- CloudWatch Buses
-
+- [CloudWatch Buses](LoggingAndMonitoring.md)
 
 Migration & Transfer
 - Database Migration Service
@@ -84,18 +82,18 @@ Networking & Content Delivery
 Security, Identity, & Compliance
 - IAM
 - Cognito
-- GuardDuty
-- Inspector
-- Macie
+- [GuardDuty](LoggingAndMonitoring.md)
+- [Inspector](LoggingAndMonitoring.md)
+- [Macie](LoggingAndMonitoring.md)
 - Organisations
 - Single Sign-On (SSO)
 - [Key Management Service (KMS)](KMS.md)
 - CloudHSM
 - WAF & Shield
-- Packet Capture Agent
-- VPC Flow Logs
-- DNS Logs
-- S3 server access logging for bucket
+- [Packet Capture Agent](LoggingAndMonitoring.md)
+- [VPC Flow Logs](LoggingAndMonitoring.md)
+- [DNS Logs](LoggingAndMonitoring.md)
+- [S3 server access logging for bucket](LoggingAndMonitoring.md)
 - [Encryption](Encryption.md)
 
 Storage
