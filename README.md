@@ -68,7 +68,8 @@
 
 **Networking & Content Delivery**
   - API Gateway
-  - CloudFront
+  - [CloudFront](DesignEdgeSecurity.md)
+  - [Protecting Web Applications](DesignEdgeSecurity.md)
   - [VPC Peering](SecureNetworkInfrastructure.md)
   - [VPC Endpoints (Gateway Endpoints and Interface Endpoints)](SecureNetworkInfrastructure.md)
   - [NACL (Network Access Control List)](SecureNetworkInfrastructure.md)
@@ -89,7 +90,7 @@
 - Single Sign-On (SSO)
 - [Key Management Service (KMS)](KMS.md)
 - CloudHSM
-- WAF & Shield
+- [WAF & Shield](DesignEdgeSecurity.md)
 - [Packet Capture Agent](LoggingAndMonitoring.md)
 - [VPC Flow Logs](LoggingAndMonitoring.md)
 - [DNS Logs](LoggingAndMonitoring.md)
