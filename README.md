@@ -60,8 +60,8 @@ Subpages
 - [CloudWatch Buses](LoggingAndMonitoring.md)
 
 **Migration & Transfer**
-- Database Migration Service
-- Snowball
+- [Database Migration Service (DMS)](MigrationAndTransfer.md)
+- [Snowball and Snowmobile](MigrationAndTransfer.md)
 
 **Mobile**
 - Amplify
