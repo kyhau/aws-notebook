@@ -30,6 +30,10 @@ Application Integration
 Compute
 - Lambda
 - [ECS](ECS.md)
+  - Auto Scaling policies
+  - Migrating from Amazon Linux to Amazon Linux 2 for ECS
+  - Subscribing to Amazon ECS-Optimized Amazon Linux AMI Update Notifications
+  - Retrieving Amazon ECS-Optimized AMI Metadata
 - ECR
 - Elastic Beanstalk
 
