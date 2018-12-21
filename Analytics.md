@@ -2,7 +2,7 @@
 
 - [S3 -> Athena (+ Glue) -> QuickSight](#s3---athena--glue---quicksight)
 - [DynamoDB -> Glue -> Athena -> QuickSight](#dynamodb---glue---athena---quicksight)
-- Athena
+- [Athena](#athena)
 - Data Pipeline
 - [Elasticsearch Service](#elasticsearch-service)
 - [EMR](EMR.md)
@@ -40,6 +40,59 @@
 See [Simplify Amazon DynamoDB data extraction and analysis by using AWS Glue and Amazon Athena](
   https://aws.amazon.com/blogs/database/simplify-amazon-dynamodb-data-extraction-and-analysis-by-using-aws-glue-and-amazon-athena/).
 
+
+## Athena
+
+- Athena allows to use standard SQL to explore your AWS S3 data.
+- Athena can handle complex analysis, including large joins, window functions, and arrays.
+- Work with many data types: Apache Web Logs, JSON, CSV, TSV, etc
+- But recommended to store in columnar formats in S3:  Apache Parquet, ORC (better performance).
+- Can use EMR to convert data to columnar formats when outputting it.
+- Support Geospatial Query
+
+- Partitioning
+  - Athena allows you to partition your data on any column. 
+  - Partitions allow you to limit the amount of data each query scans, leading to cost savings and faster performance. 
+  - You can specify your partitioning scheme using the `PARTITIONED BY` clause in the `CREATE TABLE` statement. 
+
+- Athena uses **SerDes** to interpret the data read from S3.
+  - SerDe (Serializer/Deserializer), which are libraries that tell **Hive** how to interpret data formats.
+    Hive DLL statements require you to specify a SerDe, so that the system knows how to interpret the data that
+    you are pointing to. 
+
+- Access Control
+  - Athena uses IAM policies to restrict access to Athena operations.
+
+- Encryption
+  - You can encrypt
+    - The results of all queries in S3, which Athena stores in a location known as the S3 staging directory. 
+    - The data in the AWS Glue Data Catalog. 
+  - Data at rest
+    - SSE-S3   (Server-Side Encryption with Amazon S3-Managed Keys)
+    - SSE-KMS  (Server-Side Encryption with AWS KMS-Managed Keys)
+    - CSE-KMS  (Client-Side Encryption with AWS KMS-Managed Keys)
+    - NOT SUPPORTED SSE-C (Server-Side Encryption with Customer-Provided Keys)
+  - Data in transit
+    - TLS (transport layer security) encrypts objects in-transit between Athena resources and between Athena and S3. 
+    - Query results stream to JDBC clients as plain text and are encrypted using TLS.
+
+- Limits
+  - Default query timeout is 30 minutes.
+  - Limit for S3 buckets per account: 100
+  - Default number of partitions per table is 20,000.
+  - You can submit up to 20 queries of the same type (DDL or DML) at a time (default).
+    - DDL queries include CREATE TABLE, CREATE TABLE ADD PARTITION queries.
+    - DML queries include SELECT and CREATE TABLE AS (CTAS) queries.
+  - Default number of API calls per second:
+    - GetQueryExecution, GetQueryResults: 25
+    - Other API calls: 5
+
+- Common Integrations
+  - Athena is ideal for quick, ad-hoc querying and integrates with Amazon QuickSight for easy visualization.
+  - AWS Glue Data Catalog can store table metadata for Athena.
+  - AWS Glue can perform ETL on data that Athena wants to interact with.
+  - Many other services can output or transfer data into S3 and Athena can then query it.
+  - Querying Logs (CloudTrail, CloudFront, Load Balancer, VPC Flow, etc)
 
 
 ## Elasticsearch Service
