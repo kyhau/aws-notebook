@@ -43,7 +43,8 @@ Field-level encryption
   encryption; you must specify individual fields to encrypt.)
 
 Signed URLs and Cookies
-- Signed URLs allow an entity (generally an application) to create a URL which includes the necessary information to provide the holder of that URL with read/write access to an object, even if they have no permissions on that object.
+- Signed URLs allow an entity (generally an application) to create a URL which includes the necessary information to
+  provide the holder of that URL with read/write access to an object, even if they have no permissions on that object.
 - Cookies extend this, allowing access to an object type or area/folder and don’t need a specifically formatted URL.
 
 Features and Limits
@@ -70,7 +71,9 @@ Geo Restriction
 ## Protecting Web Applications
 
 ### AWS WAF (Web Application Firewall)
-- WAF allows for conditions or rules to be set on CloudFront web traffic or an Application Load Balancer.
+- WAF allows for conditions or rules to be set on 
+  - **CloudFront** web traffic, or 
+  - **Application Load Balancer** (ALB).
 - WAF can watch for cross-site scripting, IP addresses, the location of requests, query strings, and SQL injection.
 - When multiple conditions exist in a rule, the result must include all conditions:
   - Example Rule: Block requests from 2.2.0.0/16 that appears to have an SQL code.
