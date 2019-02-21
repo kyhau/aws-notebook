@@ -12,23 +12,24 @@ Table of Contents
 VPC Endpoints allow access to public AWS services, or service provided by 3rd parties, without requiring an Internet Gateway to be attached to the VPC, or any NAT instance/gateway.
 It means your network communications no longer have to flow over the public internet to reach the public interfaces of AWS services such as S3, API Gateways, etc.
 
-**Gateway Endpoints**
+### Gateway Endpoints
 
-- A gateway endpoint is a gateway that is target for a specified route in your route table, used for traffic destined to a supported AWS services.
+- Attach Endpoint policy; not SG
 - Region specific; need to be in the same region.
 - Support AWS Public Services
 - The following services are supported:
   - S3
   - DynamoDB
-- A **gateway endpoint** requires a route in the route tables for any subnets where the gateway will be used.  
-  The destination is a “prefix list” (always prefixed with “pl-”), which is virtual entry which represents a service
+- A **gateway endpoint** requires a route in the route tables for any subnets where the gateway will be used, for traffic destined
+  to a supported AWS services.
+- The destination is a “prefix list” (always prefixed with “pl-”), which is virtual entry which represents a service
   in a region.
 - E.g. Route: `Destination=pl-1a2b3c4d, Target=vpce-11bb22cc (VPCE-ID)` 
-- Specify Endpoint policies, will be applied to the endpoint to limit the functionality of the endpoint.
+- **Endpoint policies** will be applied to the endpoint to limit the functionality of the endpoint.
    ```
    “Resource”: [“arn:aws:s3:::sharedpics”, “arn:aws:s3:::sharedpics/*”]
    ```
-- A **resource policy** can be utilised to limit the resource to one or more VPC endpoints.  
+- **Resource policy** can be utilised to limit the resource to one or more VPC endpoints.  
 - You cannot use `aws:SourceIp` condition, use `aws:sourceVpce` instead.
    ```
    “Principal”: “*”,
@@ -40,13 +41,19 @@ It means your network communications no longer have to flow over the public inte
    }
    ```
 
-** Interface Endpoints (powered by AWS PrivateLink)**
+### Interface Endpoints (powered by AWS PrivateLink)
 
-- An interface endpoint is an ENI (Elastic Network Interface) with a private IP address that serves as an entry point for traffic destined to a supported service.
+- An **interface endpoint** is an ENI (Elastic Network Interface) with a private IP address that serves as an entry point for traffic
+  destined to a supported service.
+- Attach SG and allow referencing other SGs.
+- AZ specific; can create interface for each AZ.
+- Support TCP traffic only
+- Support IPv4 only
+- Can be accessed through Direct Connect connection.
+- Can be accessed through same-region VPC peering connection from C5, i3.metal, R5, R5D, Z1D instance types only.
+- Cannot be accessed through an inter-region (different regions) VPC peering connection, or an AWS VPN connection.
 - Inject interface into your VPC.
-- Allow attach SGs and reference other SGs. (Gateway Endpoints cannot). 
 - Do not support endpoint policies like that of Gateway Endpoints.
-- AZ-specific; can create interface for each AZ.
 - Support AWS Public Services and Third Party Services.
 - The following services are supported:
   - CloudWatch Logs
@@ -77,13 +84,14 @@ It means your network communications no longer have to flow over the public inte
   - Support TCP traffic only. 
   - Support IPv4 traffic only.
   - Interface endpoints can be accessed through Direct Connect connection.
-  - Interface endpoints can be accessed through intra-region (same region) VPC peering connection from C5, i3.metal, R5, R5D, Z1D instance types only.
+  - Interface endpoints can be accessed through intra-region (same region) VPC peering connection from C5, i3.metal, R5, R5D, Z1D
+    instance types only.
   - Interface endpoints cannot be accessed through an inter-region (different regions) VPC peering connection, or an AWS VPN connection.
 
 
 ## NAT Gateways vs. NAT Instances
 
-**NAT Gateways (Network Address Translation Gateways)**
+### NAT Gateways (Network Address Translation Gateways)
 - NAT Gateways are a new “managed” service to complement NAT Instances (older).
 - NAT Gateways provide internet access for AWS services (e.g. EC2, Lambda) within private subnets.
 - NAT Gateways are located in a single subnet and utilize Elastic IPs.
@@ -95,7 +103,7 @@ It means your network communications no longer have to flow over the public inte
 - Cannot do port forward
 - Create a NAT Gateway for more than one AZ.
 
-**NAT Instances (Network Address Translation Instances)**
+### NAT Instances (Network Address Translation Instances)
 - NAT Instance is a pre-configured EC2 instance performing the same function as NAT Gateway.
 - NAT Instances could be secured with NACL (on the private or NAT subnet) and security groups on the NAT instance and source service (e.g. EC2).
 
