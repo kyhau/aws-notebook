@@ -66,7 +66,7 @@ Table of Contents
 ## Packet Capture Agent
 - Use SSM Run command feature to install a packet capture agent on all EC2 instances, configure the software to store
   the capture logs in a central location.
-- Packet sniffing vs. VPC Flow Logs
+- **Packet sniffing vs. VPC Flow Logs**
    - Sniffed packets are captured in their entirety and (unlike VPC Flow Logs) can be inspected at a data level - 
      providing they are not encrypted.
    - VPC Flow Logs does not allow traffic capture, only metadata.
@@ -75,7 +75,7 @@ Table of Contents
 - VPC Flow Logs can help you see if there are rejects or responses to your network traffic. It will help to determine
   where the traffic is failing.
 - Can be assigned to a VPC, a subnet or an ENI.
-- VPC Flow Logs contain traffic metadata only - it won't show content.
+- _VPC Flow Logs contain traffic metadata only - it won't show content._
 
 ## DNS Logs
 - DNS Query Logs can be enabled on Route53 hosted zones and sent to CloudWatch.
