@@ -33,8 +33,8 @@ Table of Contents
 
 ## CloudTrail
 - CloudTrail logs all API activities.
-- Use CloudTrail Event History to find the suspicious activity in past 90 days.
-- Logs are encrypted in SSE-S3 by default, can be changed to SSE-KMS.
+- Use CloudTrail Event History to find the suspicious activity in past **90 days**.
+- Logs are encrypted in SSE-S3 by default, can be changed to SSE-KMS. 
 - *CloudTrail does not log configurations or application logs.*
 - *CloudTrail does not utilize log groups; CloudWatch does.*
 - *Use CloudTrail to record KMS API calls. KMS is not one of the services that can send logs to CloudWatch Logs.*
