@@ -35,7 +35,7 @@
   - Subscribing to Amazon ECS-Optimized Amazon Linux AMI Update Notifications
   - Retrieving Amazon ECS-Optimized AMI Metadata
 - ECR
-- Elastic Beanstalk
+- [Elastic Beanstalk](ElasticBeanstalk.md)
 
 **Database**
 - RDS
