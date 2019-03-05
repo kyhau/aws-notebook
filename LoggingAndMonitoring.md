@@ -35,8 +35,9 @@ Table of Contents
 - CloudTrail logs all API activities.
 - Use CloudTrail Event History to find the suspicious activity in past 90 days.
 - Logs are encrypted in SSE-S3 by default, can be changed to SSE-KMS.
-- _CloudTrail does not log configurations or application logs._
-- _Use CloudTrail to record KMS API calls. KMS is not one of the services that can send logs to CloudWatch Logs._
+- *CloudTrail does not log configurations or application logs.*
+- *CloudTrail does not utilize log groups; CloudWatch does.*
+- *Use CloudTrail to record KMS API calls. KMS is not one of the services that can send logs to CloudWatch Logs.*
 
 ## CloudWatch
 - CloudWatch monitors web application logs to for malicious activity.
@@ -75,7 +76,7 @@ Table of Contents
 - VPC Flow Logs can help you see if there are rejects or responses to your network traffic. It will help to determine
   where the traffic is failing.
 - Can be assigned to a VPC, a subnet or an ENI.
-- _VPC Flow Logs contain traffic metadata only - it won't show content._
+- *VPC Flow Logs contain traffic metadata only - it won't show content.*
 
 ## DNS Logs
 - DNS Query Logs can be enabled on Route53 hosted zones and sent to CloudWatch.
@@ -86,7 +87,7 @@ Table of Contents
 ## S3 Server access logging for bucket
 - You want to track requests for access to a particular S3 bucket.
 - The Log Delivery group must be granted write permission on the target bucket.
-- _Logs are delivered on a “best effort” basis (NOT near-real-time logging)._
+- *Logs are delivered on a "best effort" basis (NOT near-real-time logging).*
 
 ## Macie
 - Macie helps you protect your data in S3 by helping you classify what data you have, the value that data has to the
