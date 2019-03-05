@@ -57,6 +57,10 @@ Table of Contents
 - Use SSM Run Command to get information from the OS level of an instance.
 - Use SSM Patch Manager to generate the report of out of compliance instances/servers.
 - Use SSM Patch Manager to install the missing patches.
+- Security groups do NOT govern the communication between SSM and the instances.
+- If the SSM Run Command is not executing on some of the instances:
+  - Ensure the SSM agent is running on the target machine.
+  - Check the `/var/log/amazon/ssm/errors.log` file.
 
 ## Inspector (Inspector Agent)
 - Inspector identifies potential security issues and analyzes behaviour of your AWS resources.
