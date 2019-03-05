@@ -26,8 +26,8 @@ Table of Contents
 - Notification when a resource violates configuration rules.
 
 ## Trusted Advisor
-- Provide account level recommendations on improvements under Cost Optimization, Performance, Security and Fault
-  Tolerance areas.
+- Trusted Advisor provides account level recommendations on improvements under Cost Optimization, Performance,
+  Security and Fault Tolerance areas.
 - Trusted Advisor warns us of security groups with a source of 0.0.0.0/0. 
 - Trusted Advisor warns us if an RDS security group is overly permissive.
 
@@ -35,8 +35,8 @@ Table of Contents
 - CloudTrail logs all API activities.
 - Use CloudTrail Event History to find the suspicious activity in past 90 days.
 - Logs are encrypted in SSE-S3 by default, can be changed to SSE-KMS.
-- CloudTrail does not log configurations or application logs.
-- Use CloudTrail to record KMS API calls. KMS is not one of the services that can send logs to CloudWatch Logs.
+- _CloudTrail does not log configurations or application logs._
+- _Use CloudTrail to record KMS API calls. KMS is not one of the services that can send logs to CloudWatch Logs._
 
 ## CloudWatch
 - CloudWatch monitors web application logs to for malicious activity.
@@ -81,12 +81,12 @@ Table of Contents
 - DNS Query Logs can be enabled on Route53 hosted zones and sent to CloudWatch.
 - These logs can be used to determine when there is a DNS problem in an application.
 - These logs are only available for hosted zones where Route53 is the endpoint (no outside hosting).
-- The logs are not available for private hosted zones.
+- _The logs are not available for private hosted zones._
 
 ## S3 Server access logging for bucket
 - You want to track requests for access to a particular S3 bucket.
 - The Log Delivery group must be granted write permission on the target bucket.
-- Logs are delivered on a “best effort” basis (NOT near-real-time logging).
+- _Logs are delivered on a “best effort” basis (NOT near-real-time logging)._
 
 ## Macie
 - Macie helps you protect your data in S3 by helping you classify what data you have, the value that data has to the
