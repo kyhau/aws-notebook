@@ -36,11 +36,11 @@ Table of Contents
 
 ### Field-level encryption
 - Field-level encryption allows you to securely upload user-submitted sensitive information to your web servers. 
-  The sensitive information provided by your clients is encrypted at the edge closer to the user and remains encrypted
-  throughout your entire application stack, ensuring that only applications that need the data - and have the
+  The sensitive information provided by your clients is encrypted at **the edge closer to the user and remains encrypted**
+  **throughout your entire application stack**, ensuring that only applications that need the data - and have the
   credentials to decrypt it - are able to do so.
-- You can encrypt up to 10 data fields in a request. (You can't encrypt all of the data in a request with field-level
-  encryption; you must specify individual fields to encrypt.)
+- You can encrypt up to 10 data fields in a request. *You can't encrypt all of the data in a request with field-level*
+  *encryption; you must specify individual fields to encrypt.*
 
 ### Signed URLs and Cookies
 
