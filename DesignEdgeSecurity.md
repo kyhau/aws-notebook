@@ -27,6 +27,11 @@ Table of Contents
 - Dedicated IP SSL is supported in ALL browsers, but cost extra.
 - SNI has no extra cost, but browsers need to support it.
 
+### Encryption in transit and at rest
+1. Default Certificate on the S3 bucket
+2. ACM generated certificate on the CloudFront Distribution
+3. Field-level encryption
+
 ### Field-level encryption
 - Field-level encryption allows you to securely upload user-submitted sensitive information to your web servers. 
   The sensitive information provided by your clients is encrypted at **the edge closer to the user and remains encrypted**
@@ -93,7 +98,7 @@ CloudFront signed URLs and signed cookies allow you to control who can access yo
   - Example Rule: Block requests from 2.2.0.0/16 that appears to have an SQL code.
     Both conditions must match for a block.
 
-### Denial of service attacks
+### DoS (Denial of service) attacks
 - Flooding a system with traffic to overwhelm and prevent legitimate traffic access to resources.
 - Distributed DoS (DDoS) is that same attack from multiple sources or systems.
 - AWS provides resilience for network and transport layer attacks using AWS Shield. 
@@ -108,6 +113,6 @@ CloudFront signed URLs and signed cookies allow you to control who can access yo
   - CloudFront Distributions
   - Route53 hosted zones
   - resources with Elastic IPs
-- Contact 24x7 DDoS Response Team (DRT) for assistance during an attack.
 - Financial protection against DDoS attacks (cost protection against spiles in a bill from DDoS attack).
-- Expanded protection against many types of attacks.
+- Expands protection against many types of attacks.
+- Contact 24x7 DDoS Response Team (DRT) for assistance during an attack.
