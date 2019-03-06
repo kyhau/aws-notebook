@@ -27,13 +27,6 @@ Table of Contents
 - Dedicated IP SSL is supported in ALL browsers, but cost extra.
 - SNI has no extra cost, but browsers need to support it.
 
-### Restricting S3 to CloudFront
-- By default, when using CloudFront with S3, CloudFront is optional, and S3 can be accessed directly. This can be changed by creating
-  an OAI (Origin Access Identity).
-- OAI is a virtual identity. A distribution can be configured to use it, so when accessing S3, CloudFront assumes this identity.
-- How to configure CloudFront to use an OAI?
-  - Add the OAI to the bucket policy as the only READ entry.
-
 ### Field-level encryption
 - Field-level encryption allows you to securely upload user-submitted sensitive information to your web servers. 
   The sensitive information provided by your clients is encrypted at **the edge closer to the user and remains encrypted**
@@ -42,8 +35,14 @@ Table of Contents
 - You can encrypt up to 10 data fields in a request. *You can't encrypt all of the data in a request with field-level*
   *encryption; you must specify individual fields to encrypt.*
 
-### Signed URLs and Cookies
+### Restricting S3 to CloudFront
+- By default, when using CloudFront with S3, CloudFront is optional, and S3 can be accessed directly. This can be changed by creating
+  an OAI (Origin Access Identity).
+- OAI is a virtual identity. A distribution can be configured to use it, so when accessing S3, CloudFront assumes this identity.
+- How to configure CloudFront to use an OAI?
+  - Add the OAI to the bucket policy as the only READ entry.
 
+### Signed URLs and Cookies
 CloudFront signed URLs and signed cookies allow you to control who can access your content. 
 - Use signed URLs in the following cases:
   - You want to restrict access to individual files, for example, an installation download for your application.
@@ -64,7 +63,7 @@ CloudFront signed URLs and signed cookies allow you to control who can access yo
 - If you use both signed URLs and signed cookies to control access to the same files and a viewer uses a signed URL to request a file,
   CloudFront determines whether to return the file to the viewer based only on the signed URL.
 
-### Features and Limits
+#### Features and Limits
 - Signed URLs and cookies are linked to an existing identity (Role/User), and they have the permissions of that entity.
 - They can have their own validity period: default is 60 minutes.
 - They expire either at the end of the period, or until the entity on which they are based expires.
