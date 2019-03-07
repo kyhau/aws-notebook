@@ -37,6 +37,7 @@ Table of Contents
   The sensitive information provided by your clients is encrypted at **the edge closer to the user and remains encrypted**
   **throughout your entire application stack**, ensuring that only applications that need the data - and have the
   credentials to decrypt it - are able to do so.
+- E.g. Data is encrypted in transit and remains so when entered into the database.
 - You can encrypt up to 10 data fields in a request. *You can't encrypt all of the data in a request with field-level*
   *encryption; you must specify individual fields to encrypt.*
 
