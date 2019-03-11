@@ -26,17 +26,18 @@ Table of Contents
 - Notification when a resource violates configuration rules.
 
 ## Trusted Advisor
-- Provide account level recommendations on improvements under Cost Optimization, Performance, Security and Fault
-  Tolerance areas.
+- Trusted Advisor provides account level recommendations on improvements under Cost Optimization, Performance,
+  Security and Fault Tolerance areas.
 - Trusted Advisor warns us of security groups with a source of 0.0.0.0/0. 
 - Trusted Advisor warns us if an RDS security group is overly permissive.
 
 ## CloudTrail
 - CloudTrail logs all API activities.
-- Use CloudTrail Event History to find the suspicious activity in past 90 days.
-- Logs are encrypted in SSE-S3 by default, can be changed to SSE-KMS.
-- CloudTrail does not log configurations or application logs.
-- Use CloudTrail to record KMS API calls. KMS is not one of the services that can send logs to CloudWatch Logs.
+- Use CloudTrail Event History to find the suspicious activity in past **90 days**.
+- Logs are encrypted in SSE-S3 by default, can be changed to SSE-KMS. 
+- *CloudTrail does not log configurations or application logs.*
+- *CloudTrail does not utilize log groups; CloudWatch does.*
+- *Use CloudTrail to record KMS API calls. KMS is not one of the services that can send logs to CloudWatch Logs.*
 
 ## CloudWatch
 - CloudWatch monitors web application logs to for malicious activity.
@@ -56,6 +57,10 @@ Table of Contents
 - Use SSM Run Command to get information from the OS level of an instance.
 - Use SSM Patch Manager to generate the report of out of compliance instances/servers.
 - Use SSM Patch Manager to install the missing patches.
+- Security groups do NOT govern the communication between SSM and the instances.
+- If the SSM Run Command is not executing on some of the instances:
+  - Ensure the SSM agent is running on the target machine.
+  - Check the `/var/log/amazon/ssm/errors.log` file.
 
 ## Inspector (Inspector Agent)
 - Inspector identifies potential security issues and analyzes behaviour of your AWS resources.
@@ -66,7 +71,7 @@ Table of Contents
 ## Packet Capture Agent
 - Use SSM Run command feature to install a packet capture agent on all EC2 instances, configure the software to store
   the capture logs in a central location.
-- Packet sniffing vs. VPC Flow Logs
+- **Packet sniffing vs. VPC Flow Logs**
    - Sniffed packets are captured in their entirety and (unlike VPC Flow Logs) can be inspected at a data level - 
      providing they are not encrypted.
    - VPC Flow Logs does not allow traffic capture, only metadata.
@@ -75,18 +80,18 @@ Table of Contents
 - VPC Flow Logs can help you see if there are rejects or responses to your network traffic. It will help to determine
   where the traffic is failing.
 - Can be assigned to a VPC, a subnet or an ENI.
-- VPC Flow Logs contain traffic metadata only - it won't show content.
+- *VPC Flow Logs contain traffic metadata only - it won't show content.*
 
 ## DNS Logs
 - DNS Query Logs can be enabled on Route53 hosted zones and sent to CloudWatch.
 - These logs can be used to determine when there is a DNS problem in an application.
 - These logs are only available for hosted zones where Route53 is the endpoint (no outside hosting).
-- The logs are not available for private hosted zones.
+- _The logs are not available for private hosted zones._
 
 ## S3 Server access logging for bucket
 - You want to track requests for access to a particular S3 bucket.
 - The Log Delivery group must be granted write permission on the target bucket.
-- Logs are delivered on a “best effort” basis (NOT near-real-time logging).
+- *Logs are delivered on a "best effort" basis (NOT near-real-time logging).*
 
 ## Macie
 - Macie helps you protect your data in S3 by helping you classify what data you have, the value that data has to the

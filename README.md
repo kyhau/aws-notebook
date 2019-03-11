@@ -35,7 +35,7 @@
   - Subscribing to Amazon ECS-Optimized Amazon Linux AMI Update Notifications
   - Retrieving Amazon ECS-Optimized AMI Metadata
 - ECR
-- Elastic Beanstalk
+- [Elastic Beanstalk](ElasticBeanstalk.md)
 
 **Database**
 - RDS
@@ -67,18 +67,32 @@
 - Amplify
 
 **Networking & Content Delivery**
-  - API Gateway
-  - [CloudFront](DesignEdgeSecurity.md)
-  - [Protecting Web Applications](DesignEdgeSecurity.md)
-  - [VPC Peering](SecureNetworkInfrastructure.md)
-  - [VPC Endpoints (Gateway Endpoints and Interface Endpoints)](SecureNetworkInfrastructure.md)
-  - [NACL (Network Access Control List)](SecureNetworkInfrastructure.md)
-  - [Security Groups](SecureNetworkInfrastructure.md)
-  - [NAT Gateways vs. NAT Instances](SecureNetworkInfrastructure.md)
-  - [Engress-Only Internet Gateway for IPv6 and NAT Instance/Gateway for IPv4](SecureNetworkInfrastructure.md)
-  - [Bastion Hosts / Jump Boxes](SecureNetworkInfrastructure.md)
-  - Direct Connect
-  - Route 53
+- [Design edge security on AWS](DesignEdgeSecurity.md)
+  - CloudFront - Global Content Delivery Network (CDN)
+  - Forcing S3 Encryption
+  - S3 Cross-Region Replication (CRR) Security
+  - Protecting Web Applications
+- [Design and implement a secure network infrastructure](SecureNetworkInfrastructure.md)
+  - VPC Design and Security
+  - Security Groups
+  - VPC Peering
+  - NACL (Network Access Control List)
+  - VPC Endpoints (Gateway Endpoints and Interface Endpoints)
+  - Serverless Security
+  - NAT Gateways (Network Address Translation Gateways)
+    - NAT Gateways vs. NAT Instances
+  - Egress-Only Internet Gateways for IPv6
+    - Egress-Only:  NAT Instance/Gateway for IPv4  vs.  Egress-Only Internet Gateway for IPv6
+  - Bastion Hosts / Jump Boxes
+- [Design and implement host-based security](HostBasedSecurity.md)
+  - AWS Host / Hypervisor Security (disk/memory)
+  - Host Proxy Servers  (aka. Instance Proxy Servers)
+  - Host-based IDS/IPS (Intrusion Detection/Prevention System)
+  - Systems Manager (SSM)
+  - Packet Capture on EC2
+- API Gateway
+- Direct Connect
+- Route 53
 
 **Security, Identity, & Compliance**
 - IAM
