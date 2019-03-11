@@ -97,6 +97,13 @@
 - [S3 server access logging for bucket](LoggingAndMonitoring.md)
 - [Encryption](Encryption.md)
 
+- [Design and implement host-based security](HostBasedSecurity.md)
+  - AWS Host / Hypervisor Security (disk/memory)
+  - Host Proxy Servers  (aka. Instance Proxy Servers)
+  - Host-based IDS/IPS (Intrusion Detection/Prevention System)
+  - Systems Manager (SSM)
+  - Packet Capture on EC2
+
 **Storage**
 - [S3](S3.md)
 - EFS
