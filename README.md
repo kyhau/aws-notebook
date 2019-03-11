@@ -67,18 +67,24 @@
 - Amplify
 
 **Networking & Content Delivery**
-  - API Gateway
-  - [CloudFront](DesignEdgeSecurity.md)
-  - [Protecting Web Applications](DesignEdgeSecurity.md)
-  - [VPC Peering](SecureNetworkInfrastructure.md)
-  - [VPC Endpoints (Gateway Endpoints and Interface Endpoints)](SecureNetworkInfrastructure.md)
-  - [NACL (Network Access Control List)](SecureNetworkInfrastructure.md)
-  - [Security Groups](SecureNetworkInfrastructure.md)
-  - [NAT Gateways vs. NAT Instances](SecureNetworkInfrastructure.md)
-  - [Engress-Only Internet Gateway for IPv6 and NAT Instance/Gateway for IPv4](SecureNetworkInfrastructure.md)
-  - [Bastion Hosts / Jump Boxes](SecureNetworkInfrastructure.md)
-  - Direct Connect
-  - Route 53
+- API Gateway
+- [CloudFront](DesignEdgeSecurity.md)
+- [Protecting Web Applications](DesignEdgeSecurity.md)
+- [VPC Peering](SecureNetworkInfrastructure.md)
+- [VPC Endpoints (Gateway Endpoints and Interface Endpoints)](SecureNetworkInfrastructure.md)
+- [NACL (Network Access Control List)](SecureNetworkInfrastructure.md)
+- [Security Groups](SecureNetworkInfrastructure.md)
+- [NAT Gateways vs. NAT Instances](SecureNetworkInfrastructure.md)
+- [Engress-Only Internet Gateway for IPv6 and NAT Instance/Gateway for IPv4](SecureNetworkInfrastructure.md)
+- [Bastion Hosts / Jump Boxes](SecureNetworkInfrastructure.md)
+- Direct Connect
+- Route 53
+- [Design and implement host-based security](HostBasedSecurity.md)
+  - AWS Host / Hypervisor Security (disk/memory)
+  - Host Proxy Servers  (aka. Instance Proxy Servers)
+  - Host-based IDS/IPS (Intrusion Detection/Prevention System)
+  - Systems Manager (SSM)
+  - Packet Capture on EC2
 
 **Security, Identity, & Compliance**
 - IAM
@@ -96,13 +102,6 @@
 - [DNS Logs](LoggingAndMonitoring.md)
 - [S3 server access logging for bucket](LoggingAndMonitoring.md)
 - [Encryption](Encryption.md)
-
-- [Design and implement host-based security](HostBasedSecurity.md)
-  - AWS Host / Hypervisor Security (disk/memory)
-  - Host Proxy Servers  (aka. Instance Proxy Servers)
-  - Host-based IDS/IPS (Intrusion Detection/Prevention System)
-  - Systems Manager (SSM)
-  - Packet Capture on EC2
 
 **Storage**
 - [S3](S3.md)
