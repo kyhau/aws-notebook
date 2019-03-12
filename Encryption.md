@@ -1,5 +1,6 @@
-# Encryption
+# Data Protection
 
+See also [KMS](KMS.md).
 
 ## Athena
 - You can encrypt

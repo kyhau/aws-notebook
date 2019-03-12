@@ -1,4 +1,4 @@
-# Encryption and KMS (Key Management Service)
+# KMS (Key Management Service)
 
 Table of Contents
 

@@ -95,21 +95,24 @@
 - Route 53
 
 **Security, Identity, & Compliance**
-- [IAM](IdentityAndAccessManagement.md)
-- Cognito
+- [Identity and Access Management](IdentityAndAccessManagement.md)
+  - IAM
+  - Cognito
+  - STS, Web Identities, Identity Federation
+  - Organisations
+- [Data Protection](Encryption.md)
+  - [Encryption solutions for data at rest and data in transit](Encryption.md)
+  - [Key Management Service (KMS)](KMS.md)
+  - CloudHSM & On-Premises HSM
 - [GuardDuty](LoggingAndMonitoring.md)
 - [Inspector](LoggingAndMonitoring.md)
 - [Macie](LoggingAndMonitoring.md)
-- Organisations
 - Single Sign-On (SSO)
-- [Key Management Service (KMS)](KMS.md)
-- CloudHSM
 - [WAF & Shield](DesignEdgeSecurity.md)
 - [Packet Capture Agent](LoggingAndMonitoring.md)
 - [VPC Flow Logs](LoggingAndMonitoring.md)
 - [DNS Logs](LoggingAndMonitoring.md)
 - [S3 server access logging for bucket](LoggingAndMonitoring.md)
-- [Encryption](Encryption.md)
 
 **Storage**
 - [S3](S3.md)
