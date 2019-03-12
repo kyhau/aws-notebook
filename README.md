@@ -100,7 +100,7 @@
   - Cognito
   - STS, Web Identities, Identity Federation
   - Organisations
-- [Data Protection](Encryption.md)
+- Data Protection
   - [Encryption solutions for data at rest and data in transit](Encryption.md)
   - [Key Management Service (KMS)](KMS.md)
   - CloudHSM & On-Premises HSM
