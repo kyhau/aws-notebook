@@ -95,7 +95,7 @@
 - Route 53
 
 **Security, Identity, & Compliance**
-- IAM
+- [IAM](IdentityAndAccessManagement.md)
 - Cognito
 - [GuardDuty](LoggingAndMonitoring.md)
 - [Inspector](LoggingAndMonitoring.md)

@@ -1,4 +1,4 @@
-# Some AWS Security Notes
+# Encryption and KMS (Key Management Service)
 
 Table of Contents
 
@@ -25,7 +25,7 @@ Table of Contents
 - EBS Volume is encrypted using a DataKey generated from a CMK.
 - Encrypted data key is stored with the volume.
 - Used by the **Hypervisor** to decrypt upon attaching to the EC2 instance.
-- IO, Snapshots, and Persisted data is encrypted.
+- IO, Snapshots, and Persisted data are encrypted.
 
 #### RDS
 - RDS utilizes EBS for its encryption. RDS instances are managed versions of EC2 instances, configured to act as a
@@ -38,6 +38,12 @@ Table of Contents
 - Every object in a bucket is encrypted by S3 using a DataKey provided by KMS.
 - CipherText DataKey is stored with the object as metadata.
 - When decryption is needed, it is passed to KMS (`kms:Decrypt`), and used by S3 to decrypt the object.
+- Use Case:
+   - You work on a large scale online media website and provide access to videos which are hosted on S3 via pre-signed
+     URLs. The media is stored as objects in an S3 bucket in an encrypted state. Your large user base is generating
+     slightly over 10,000 media views per second and your application logs have started to show `ThrottlingException`
+     errors. 
+   - Potential solution: Lodge a support request to increase KMS limits.
 
 #### CloudTrail
 - CloudTrail logs are encrypted in SSE-S3 by default, can be changed to SSE-KMS.

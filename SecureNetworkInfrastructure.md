@@ -2,15 +2,27 @@
 
 Table of Contents
 
+- [Security Groups](#security-groups)
+- [NACL (Network Access Control List)](#nacl-network-access-control-list)
 - [VPC Endpoints (Gateway Endpoints and Interface Endpoints)](#vpc-endpoints-gateway-endpoints-and-interface-endpoints)
 - [NAT Gateways vs. NAT Instances](#nat-gateways-vs-nat-instances)
 - [Egress-Only: NAT Instance/Gateway for IPv4 vs. Engress-Only Internet Gateway for IPv6](#egress-only-nat-instancegateway-for-ipv4-vs-engress-only-internet-gateway-for-ipv6)
 
 
+## Security Groups
+
+1. Specify the accountID/sgID to reference a remote Security Group.
+
+
+## NACL (Network Access Control List)
+
+
 ## VPC Endpoints (Gateway Endpoints and Interface Endpoints)
 
-VPC Endpoints allow access to public AWS services, or service provided by 3rd parties, without requiring an Internet Gateway to be attached to the VPC, or any NAT instance/gateway.
-It means your network communications no longer have to flow over the public internet to reach the public interfaces of AWS services such as S3, API Gateways, etc.
+VPC Endpoints allow access to public AWS services, or service provided by 3rd parties, without requiring an Internet
+Gateway to be attached to the VPC, or any NAT instance/gateway.
+It means your network communications no longer have to flow over the public internet to reach the public interfaces of
+AWS services such as S3, API Gateways, etc.
 
 ### Gateway Endpoints
 
@@ -20,31 +32,31 @@ It means your network communications no longer have to flow over the public inte
 - The following services are supported:
   - S3
   - DynamoDB
-- A **gateway endpoint** requires a route in the route tables for any subnets where the gateway will be used, for traffic destined
-  to a supported AWS services.
-- The destination is a “prefix list” (always prefixed with “pl-”), which is virtual entry which represents a service
+- A **Gateway Endpoint** requires a route in the route tables for any subnets where the gateway will be used, for
+  traffic destined to a supported AWS services.
+- The destination is a "prefix list" (always prefixed with "pl-"), which is virtual entry which represents a service
   in a region.
 - E.g. Route: `Destination=pl-1a2b3c4d, Target=vpce-11bb22cc (VPCE-ID)` 
 - **Endpoint policies** will be applied to the endpoint to limit the functionality of the endpoint.
    ```
-   “Resource”: [“arn:aws:s3:::sharedpics”, “arn:aws:s3:::sharedpics/*”]
+   "Resource": ["arn:aws:s3:::sharedpics", "arn:aws:s3:::sharedpics/*"]
    ```
 - **Resource policy** can be utilised to limit the resource to one or more VPC endpoints.  
 - You cannot use `aws:SourceIp` condition, use `aws:sourceVpce` instead.
    ```
-   “Principal”: “*”,
-   “Action”: “s3:*”,
-   “Effect”: “Deny”,
-   “Resource”: [“arn:aws:s3:::sharedpics”, “arn:aws:s3:::sharedpics/*”],
-   “Condition”: {
-     “StringNotEquals”: { “aws:sourceVpce”: “vpce-1a2b3c4d” }
+   "Principal": "*",
+   "Action": "s3:*",
+   "Effect": "Deny",
+   "Resource": ["arn:aws:s3:::sharedpics", "arn:aws:s3:::sharedpics/*"],
+   "Condition": {
+     "StringNotEquals": { "aws:sourceVpce": "vpce-1a2b3c4d" }
    }
    ```
 
 ### Interface Endpoints (powered by AWS PrivateLink)
 
-- An **interface endpoint** is an ENI (Elastic Network Interface) with a private IP address that serves as an entry point for traffic
-  destined to a supported service.
+- An **Interface Endpoint** is an ENI (Elastic Network Interface) with a private IP address that serves as an entry
+  point for traffic destined to a supported service.
 - Attach SG and allow referencing other SGs.
 - AZ specific; can create interface for each AZ.
 - Support TCP traffic only
@@ -75,8 +87,9 @@ It means your network communications no longer have to flow over the public inte
   - IP:  10.*.*.* (private IP)
 - Case 2:  Using Interface Endpoint with Private DNA Name
   - If we want instance R to use Interface Endpoint but we cannot change the default DNS it is referenced.
-  - Enable Private DNA Name (when creating new Interface Endpoint)
-    - To use private DNS names, ensure that the attributes Enable DNS hostnames and Enable DNS Support are set to true for your VPC.
+  - **Enable Private DNA Name (when creating new Interface Endpoint)****
+    - To use private DNS names, ensure that the attributes Enable DNS hostnames and Enable DNS Support are set to true
+      for your VPC.
   - DNS: sns.us-east-1.amazonaws.com (still)
   - IP: 10.*.*.* (private IP).
 - Limitations
@@ -84,15 +97,16 @@ It means your network communications no longer have to flow over the public inte
   - Support TCP traffic only. 
   - Support IPv4 traffic only.
   - Interface endpoints can be accessed through Direct Connect connection.
-  - Interface endpoints can be accessed through intra-region (same region) VPC peering connection from C5, i3.metal, R5, R5D, Z1D
-    instance types only.
-  - Interface endpoints cannot be accessed through an inter-region (different regions) VPC peering connection, or an AWS VPN connection.
+  - Interface endpoints can be accessed through intra-region (same region) VPC peering connection from C5, i3.metal, R5,
+    R5D, Z1D instance types only.
+  - Interface endpoints cannot be accessed through an inter-region (different regions) VPC peering connection, or an
+    AWS VPN connection.
 
 
 ## NAT Gateways vs. NAT Instances
 
 ### NAT Gateways (Network Address Translation Gateways)
-- NAT Gateways are a new “managed” service to complement NAT Instances (older).
+- NAT Gateways are a new "managed" service to complement NAT Instances (older).
 - NAT Gateways provide internet access for AWS services (e.g. EC2, Lambda) within private subnets.
 - NAT Gateways are located in a single subnet and utilize Elastic IPs.
 - NAT Gateways cannot have security groups associated with them.
@@ -105,7 +119,8 @@ It means your network communications no longer have to flow over the public inte
 
 ### NAT Instances (Network Address Translation Instances)
 - NAT Instance is a pre-configured EC2 instance performing the same function as NAT Gateway.
-- NAT Instances could be secured with NACL (on the private or NAT subnet) and security groups on the NAT instance and source service (e.g. EC2).
+- NAT Instances could be secured with NACL (on the private or NAT subnet) and security groups on the NAT instance and
+  source service (e.g. EC2).
 
 
 ## Egress-Only: NAT Instance/Gateway for IPv4 vs. Engress-Only Internet Gateway for IPv6
