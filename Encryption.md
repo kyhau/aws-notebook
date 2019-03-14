@@ -19,49 +19,46 @@ See also [KMS](KMS.md).
 
 ## Athena
 - You can encrypt
-  - the results of all queries in S3, which Athena stores in a location known as the S3 staging directory. 
+  - the results of all queries in S3, which Athena stores in a location known as the S3 staging directory, and
   - the data in the AWS Glue Data Catalog. 
 - Data at rest
   - SSE-S3   (Server-Side Encryption with Amazon S3-Managed Keys)
   - SSE-KMS  (Server-Side Encryption with AWS KMS-Managed Keys)
   - CSE-KMS  (Client-Side Encryption with AWS KMS-Managed Keys)
-  - NOT SUPPORTED SSE-C (Server-Side Encryption with Customer-Provided Keys)
+  - NOT SUPPORTED: SSE-C (Server-Side Encryption with Customer-Provided Keys)
 - Data in transit
-  - TLS (transport layer security) encrypts objects in-transit between Athena resources and between Athena and S3. 
+  - TLS (transport layer security) encrypts objects in-transit between Athena resources, and between Athena and S3. 
   - Query results stream to JDBC clients as plain text and are encrypted using TLS.
 
 ## CloudFront
-
 - **Field-level encryption** allows you to securely upload user-submitted sensitive information to your web servers. 
-  The sensitive information provided by your clients is encrypted at the edge closer to the user and remains encrypted
-  throughout your entire application stack, ensuring that only applications that need the data - and have the
-  credentials to decrypt it - are able to do so. 
-  You can encrypt up to 10 data fields in a request. (You can't encrypt all of the data in a request with field-level
-  encryption; you must specify individual fields to encrypt.)
-
+  - The sensitive information provided by your clients is encrypted at the edge closer to the user and remains encrypted
+    throughout your entire application stack, ensuring that only applications that need the data - and have the
+    credentials to decrypt it - are able to do so. 
+  - You can encrypt up to 10 data fields in a request. (You can't encrypt all of the data in a request with field-level
+    encryption; you must specify individual fields to encrypt.)
 
 ## CloudTrail
-### Data at Rest: KMS
-- CloudTrail logs are encrypted in SSE-S3 by default, can be changed to SSE-KMS.
+- Data at rest
+  - CloudTrail logs are encrypted in SSE-S3 by default; can be changed to SSE-KMS.
 
 ## DynamoDB
-
-### Data at Rest: KMS
-- For any encrypted table created in a region, DynamoDB uses KMS to create an AWS/DynamoDB **service default CMK** (in
-  each region).
-- When a table is created and set to be encrypted, this CMK is used to create a data key unique to that table, called
-  a **table key**. This key is managed by DynamoDB and stored with the table in an encrypted form.
-- Every item that DynamoDB encrypts is done with a data encrypted key. That key is encrypted with this table key and
-  stored with the data.
-- Table keys are cached for up to **12 hours in plaintext** by DynamoDB, but a request is sent to KMS after 5 minutes
-  of table key inactivity to check for permission changes.
+- Data at rest (KMS)
+  - For any encrypted table created in a region, DynamoDB uses KMS to create an AWS/DynamoDB **service default CMK** (in
+    each region).
+  - When a table is created and set to be encrypted, this CMK is used to create a data key unique to that table, called
+    a **table key**. This key is managed by DynamoDB and stored with the table in an encrypted form.
+  - Every item that DynamoDB encrypts is done with a **data encrypted key**. That key is encrypted with this table key and
+    stored with the data.
+  - Table keys are cached for up to **12 hours in plaintext** by DynamoDB, but a request is sent to KMS after **5 minutes**
+    of table key inactivity to check for permission changes.
 
 ## EBS
-### Data at Rest: KMS
-- EBS Volume is encrypted using a DataKey generated from a CMK.
-- Encrypted data key is stored with the volume.
-- Used by the **Hypervisor** to decrypt upon attaching to the EC2 instance.
-- IO, Snapshots, and Persisted data is encrypted.
+- Data at rest (KMS)
+  - EBS Volume is encrypted using a **DataKey** generated from a **CMK**.
+  - **Encrypted data key** is stored with the volume.
+  - Used by the **Hypervisor** to decrypt upon attaching to the EC2 instance.
+  - IO, Snapshots and Persisted data are encrypted.
 
 ## EMR
 - Data at rest
@@ -80,7 +77,6 @@ See also [KMS](KMS.md).
   - Spark shuffle encryption or
   - LUKS encryption
 
-
 ## Kinesis Data Stream
 - Data are already encrypted.  Kinesis Data Streams automatically encrypts data before it is at rest by using an KMS
   CMK you specify. 
@@ -91,21 +87,18 @@ See also [KMS](KMS.md).
 - Kinesis Data Firehose allows you to encrypt your data after it is delivered to your S3 bucket. 
 - While creating your delivery stream, you can choose to encrypt your data with an KMS key that you own.
 
-
 ## RDS
-### Data at Rest: KMS
-- RDS utilizes EBS for its encryption. RDS instances are managed versions of EC2 instances, configured to act as a
-  managed DB cluster. 
-- In a similar way to EC2, encrypted volumes attached to RDS are handled by the host, with persistent data, snapshots
-  and IO encrypted and decrypted using KMS.
-
+- Data at rest (KMS)
+  - RDS utilizes EBS for its encryption. RDS instances are managed versions of EC2 instances, configured to act as a
+    managed DB cluster. 
+  - In a similar way to EC2, encrypted volumes attached to RDS are handled by the host, with persistent data, snapshots
+    and IO encrypted and decrypted using KMS.
 
 ## Redshift
 - Database Encryption
   - None
   - KMS
   - HSM (Hardware security model)
-
 
 ## S3
 - Data at rest
@@ -128,8 +121,8 @@ See also [KMS](KMS.md).
   - CipherText DataKey is stored with the object as metadata.
   - When decryption is needed, it is passed to KMS (`kms:Decrypt`), and used by S3 to decrypt the object.
 - Use Case:
-   - You work on a large scale online media website and provide access to videos which are hosted on S3 via pre-signed
-     URLs. The media is stored as objects in an S3 bucket in an encrypted state. Your large user base is generating
-     slightly over 10,000 media views per second and your application logs have started to show `ThrottlingException`
-     errors. 
-   - Potential solution: Lodge a support request to increase KMS limits.
+  - You work on a large scale online media website and provide access to videos which are hosted on S3 via pre-signed
+    URLs. The media is stored as objects in an S3 bucket in an encrypted state. Your large user base is generating
+    slightly over 10,000 media views per second and your application logs have started to show `ThrottlingException`
+    errors. 
+  - Potential solution: Lodge a support request to increase KMS limits.
