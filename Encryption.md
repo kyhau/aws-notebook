@@ -52,6 +52,12 @@ See also [KMS](KMS.md).
     stored with the data.
   - Table keys are cached for up to **12 hours in plaintext** by DynamoDB, but a request is sent to KMS after **5 minutes**
     of table key inactivity to check for permission changes.
+  - When creating a new table, you can choose one of the following customer master keys (CMK) to encrypt your table:
+    - **AWS owned CMK** – Default encryption type. The key is owned by DynamoDB (no additional charge).
+    - **AWS managed CMK** – The key is stored in your account and is managed by AWS KMS (AWS KMS charges apply).
+  - You can switch between the AWS owned CMK and AWS managed CMK at any given time. 
+    DynamoDB continues to deliver the same single-digit millisecond latency that you have come to expect, and all
+    DynamoDB queries work seamlessly on your encrypted data.
 
 ## EBS
 - Data at rest (KMS)
