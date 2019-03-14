@@ -22,13 +22,17 @@ See also [KMS](KMS.md).
   - the results of all queries in S3, which Athena stores in a location known as the S3 staging directory, and
   - the data in the AWS Glue Data Catalog. 
 - Data at rest
+  ```
   - SSE-S3   (Server-Side Encryption with Amazon S3-Managed Keys)
   - SSE-KMS  (Server-Side Encryption with AWS KMS-Managed Keys)
   - CSE-KMS  (Client-Side Encryption with AWS KMS-Managed Keys)
   - NOT SUPPORTED: SSE-C (Server-Side Encryption with Customer-Provided Keys)
+  ```
 - Data in transit
+  ```
   - TLS (transport layer security) encrypts objects in-transit between Athena resources, and between Athena and S3. 
   - Query results stream to JDBC clients as plain text and are encrypted using TLS.
+  ```
 
 ## CloudFront
 - **Field-level encryption** allows you to securely upload user-submitted sensitive information to your web servers. 
@@ -108,13 +112,17 @@ See also [KMS](KMS.md).
 
 ## S3
 - Data at rest
+  ```
   - SSE-S3  (Server-Side Encryption with Amazon S3-Managed Keys)
   - SSE-KMS (Server-Side Encryption with AWS KMS-Managed Keys)
   - SSE-C   (Server-Side Encryption with Customer-Provided Keys)
   - CSE-CMS (Client-Side Encryption with KMS-Managed Customer Master Key)
   - CSE-C   (Client-Side Encryption with Client-Side Master Key)
+  ```  
 - Data in transit
+  ```
   - SSL
+  ```
 - Objects are encrypted and the settings are defined at an **object level**.
 - You can now set **S3 Default Encryption** on a **bucket level**. If set, then any objects put into a bucket without
   encryption headers are encrypted using the bucket-level default settings.
