@@ -109,16 +109,16 @@ See also [KMS](KMS.md).
   - CSE-C   (Client-Side Encryption with Client-Side Master Key)
 - Data in transit
   - SSL
-- Objects are encrypted and the settings are defined at an object level.
-- You can now set S3 Default Encryption on a bucket level. If set, then any objects put into a bucket without
+- Objects are encrypted and the settings are defined at an **object level**.
+- You can now set **S3 Default Encryption** on a **bucket level**. If set, then any objects put into a bucket without
   encryption headers are encrypted using the bucket-level default settings.
-  - **Bucket policies** can be used to DENY attempts to put objects into a bucket with individual encryption methods.
+  - **Bucket policies** can be used to **DENY** attempts to put objects into a bucket with individual encryption methods.
 - Each object is encrypted with a unique key employing strong encryption. As an additional safeguard, it encrypts the
   key itself with a master key that it regularly rotates.
 - When using KMS
-  - The DataKey is generated from a CMK (**service default**, or a **custom CMK**).
-  - Every object in a bucket is encrypted by S3 using a DataKey provided by KMS.
-  - CipherText DataKey is stored with the object as metadata.
+  - The **DataKey** is generated from a **CMK** (**service default**, or a **custom CMK**).
+  - Every object in a bucket is encrypted by S3 using a **DataKey** provided by KMS.
+  - **CipherText DataKey** is stored with the object as metadata.
   - When decryption is needed, it is passed to KMS (`kms:Decrypt`), and used by S3 to decrypt the object.
 - Use Case:
   - You work on a large scale online media website and provide access to videos which are hosted on S3 via pre-signed
