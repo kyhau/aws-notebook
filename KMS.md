@@ -11,10 +11,17 @@ Topics
 - [Customer Master Keys (CMKs) and Data Keys](#customer-master-keys-cmks-and-data-keys)
 - [Types of CMK](#types-of-cmk)
 - [Encrypt data and decrypt data with a data key](#encrypt-data-and-decrypt-data-with-a-data-key)
+- [Encryption operations](#operations)
+- [Envelop Encryption](#envelope-encryption)
+- [Encryption context](#encryption-context)
+- [Key rotation](#key-rotation)
+- [AWS Encryption SDK](#aws-encryption-sdk)
+- [Managing access](#managing-access)
+- [Grants and Grant Tokens](#grants-and-grant-tokens)
 - [KMS Key Policies for admins, same-account usage, cross-account usage, key deletion](#kms-key-policies)
+- [KMS Limits and Throttling Exception](#kms-limits)
 
 ---
-
 
 ## Customer Master Keys (CMKs) and Data Keys
 
@@ -192,6 +199,11 @@ Topics
     KMS custom key store feature. 
 
 
+## AWS Encryption SDK
+- AWS KMS cannot encrypt data over **4KB** and cannot itself DO encryption using data keys.
+- The AWS Encryption SDK can handle the data item encryption and integrate with KMS for the CMK component.
+
+
 ## Managing access
 - KMS uses FIPS140-2 compliant hardware modules to manage access to key material.
 - An IAM user can be configured as a key administrator.
@@ -324,11 +336,18 @@ Topics
     ```
 
 
-### KMS Limits
+## KMS Limits
 - 1000 Customer managed CMKs per region.
 - 1100 Aliases per account.
 - 2500 Grants per CMK (e.g. max of 2500 EBS volumes using a CMK).
 - 5500 Shared API limit
 - **Breaching the shared, or per operation limits, result in KMS throttling the requests.**
 - Cross-account applies to the SOURCE account.
+
+### Throttling Exception
+- An application running in your AWS account is experiencing 'ThrottlingException' errors. 
+  What potential remedies can you suggest? (Choose 2)
+  - Investigate the AWS Encryption SDK.
+  - Lodge a support request to increase KMS limits.
+
 
