@@ -10,7 +10,7 @@ Topics
 
 - [Customer Master Keys (CMKs) and Data Keys](#customer-master-keys-cmks-and-data-keys)
 - [Types of CMK](#types-of-cmk)
-- [Create data key](#create-data-key)
+- [Encrypt data and decrypt data with a data key](#encrypt-data-and-decrypt-data-with-a-data-key)
 - [KMS Key Policies for admins, same-account usage, cross-account usage, key deletion](#kms-key-policies)
 
 ---
@@ -73,62 +73,74 @@ Topics
 - Do not count against AWS KMS limits for your account.
 
 
-## Create data key
-- `GenerateDataKey` creates a plaintext data key and an encrypted data key. 
-  - PlaintextDataKey: The plaintext version is used to encrypt, and then discarded. It’s never stored in plaintext.
-  - CipherDataKey: The encrypted version is stored along with the encrypted data; this is **envelope encryption**.
-- `GenerateDataKeyWithoutPlaintext` returns only an encrypted data key. 
-  - When you need to use the data key, ask AWS KMS to decrypt it.
-
-```                             
-CMK -> encryption algorithm --> Encrypted data key & Plaintext data key
-```
-
-
-## Encrypt data with a data key
-- KMS cannot use a data key to encrypt data, but you can use the data key outside of KMS.
-  - E.g. using OpenSSL or a cryptographic library like **AWS Encryption SDK**.
-
-1. After using the **plaintext data key** to encrypt data, remove it from memory as soon as possible.
-2. You can safely store the **encrypted data key** with the encrypted data so it is available to decrypt the data.
-
-```
-Plaintext data -> Plaintext data key + encryption algorithm -> Ciphertext
-```
-
-
-## Decrypt data with a data key
-- To decrypt your data, pass the encrypted data key to the Decrypt operation.
+## Encrypt data and decrypt data with a data key
+- Create data key
+  - `GenerateDataKey` creates a plaintext data key and an encrypted data key. 
+    - `PlaintextDataKey`: The plaintext version is used to encrypt, and then discarded. It’s never stored in plaintext.
+    - `CipherDataKey`: The encrypted version is stored along with the encrypted data; this is **envelope encryption**.
+  - `GenerateDataKeyWithoutPlaintext` returns only an encrypted data key. 
+    - When you need to use the data key, ask AWS KMS to decrypt it.
+  ```                             
+  CMK -> encryption algorithm --> Encrypted data key & Plaintext data key
+  ```
+- Encrypt data with a data key
+  - KMS cannot use a data key to encrypt data, but you can use the data key outside of KMS.
+    - E.g. using OpenSSL or a cryptographic library like **AWS Encryption SDK**.
+  - After using the **plaintext data key** to encrypt data, remove it from memory as soon as possible.
+  - You can safely store the **encrypted data key** with the encrypted data so it is available to decrypt the data.
+  ```
+  Plaintext data -> Plaintext data key + encryption algorithm -> Ciphertext
+  ```
+- Decrypt data with a data key
+  - To decrypt your data, pass the encrypted data key to the Decrypt operation.
   - AWS KMS uses your CMK to decrypt the data key and then it returns the plaintext data key. 
   - Use the plaintext data key to decrypt your data and then remove the plaintext data key from memory as soon as
     possible.
+  ```
+  Encrypted data key -> CMK + decryption algorithm -> Plaintext data key
+  ```
 
-```
-Encrypted data key -> CMK + decryption algorithm -> Plaintext data key
-```
+## Operations
+- `kms:GenerateDataKey`
+- `kms:Encrypt`
+- `kms:Decrypt`
+  - Decrypts ciphertext. Ciphertext is plaintext that has been previously encrypted by using any of the following
+    operations:
+    - `GenerateDataKey`
+    - `GenerateDataKeyWithoutPlaintext`
+    - `Encrypt`
+  - Whenever possible, use key policies to give users permission to call the Decrypt operation on the CMK, instead of
+    IAM policies. Otherwise, you might create an IAM user policy that gives the user Decrypt permission on all CMKs. 
+  - This user could decrypt ciphertext that was encrypted by CMKs in other accounts if the key policy for the
+    cross-account CMK permits it. If you must use an IAM policy for Decrypt permissions, limit the user to particular
+    CMKs or particular trusted accounts.
+  - The result of this operation varies with the key state of the CMK. 
+- `kms:ReEncrypt`
+  - `ReEncrypt` encrypts data on the server side with a new CMK without exposing the plaintext of the data on the
+    client side. The data is first decrypted and then reencrypted. 
+  - You can also use this operation to change the encryption context of a ciphertext.
+  - You can reencrypt data using CMKs in different AWS accounts.
+- `kms:DescribeKey`
+  - `DescribeKey` allows your app to retrieve information about the CMKs.
 
 
 ## Envelope Encryption
-- When you encrypt your data, your data is protected, but you have to protect your encryption key. 
-  One strategy is to encrypt it. **Envelope encryption** is the practice of encrypting plaintext data with a
-  data key, and then encrypting the data key under another key.
+- **Envelope encryption** is the practice of encrypting plaintext data with a data key, and then encrypting the
+  data key under another key.
 - You can even encrypt the **data encryption key** under another encryption key, and encrypt that encryption key
   under another encryption key. 
   - But, eventually, one key must remain in plaintext so you can decrypt the keys and your data. 
   - This top-level **plaintext key encryption key** is known as the **master key**.
-
-```
-Master key -> encryption algorithm -> Data key -> encryption algorithm -> Data
-(plaintext)
-```
-
+  ```
+  Master key -> encryption algorithm -> Data key -> encryption algorithm -> Data
+  (plaintext)
+  ```
 - AWS KMS helps you to protect your master keys by storing and managing them securely. 
 - Master keys stored in AWS KMS, known as **customer master keys (CMKs)**, never leave the AWS KMS FIPS validated
   hardware security modules unencrypted.
 - To use an AWS KMS CMK, you must call AWS KMS.
 
 **Envelope encryption offers several benefits:**
-
 1. Protecting data keys
    - When you encrypt a data key, you don't have to worry about storing the encrypted data key, because the data key
      is inherently protected by encryption. You can safely store the encrypted data key alongside the encrypted data.
@@ -220,7 +232,6 @@ Master key -> encryption algorithm -> Data key -> encryption algorithm -> Data
   - A Key Policy can be used to give the account full control of a key, allowing IAM identity policies to control
     access.
   - Removing the policy, nothing can use the key. AWS support is required.
-  
     ```
     {
       "Sid": "xxx",
@@ -262,7 +273,7 @@ Master key -> encryption algorithm -> Data key -> encryption algorithm -> Data
         "kms:ReEncrypt",
         "kms:GenerateDataKey*",
         "kms:DescribeKey"
-      ]
+      ],
     ```
   - Multi-account configuration for using CMK
     - CMKs can be configured to allow other accounts to use them.
@@ -273,7 +284,6 @@ Master key -> encryption algorithm -> Data key -> encryption algorithm -> Data
       "Resource": [
         "arn:...<AccountB_ID>:key/<keyID>"
       ],
-    }
     ```
     - AccountB:
       - CloudTrail: putObject to AccountA’s "logs" 
@@ -285,6 +295,34 @@ Master key -> encryption algorithm -> Data key -> encryption algorithm -> Data
         "kms:CancelKeyDeletion"
       ]
     ```
+  - Key policy for the AWS managed CMK for Amazon EBS. 
+    - The Principal element specifies all AWS identities with the `kms:CallerAccount` condition key to effectively
+      allow access to all identities in AWS account `111122223333`. 
+    - It contains an additional AWS KMS condition key (`kms:ViaService`) to further limit the permissions by only
+      allowing requests that come through Amazon EBS. 
+    ```
+    {
+      "Sid": "Allow access through EBS for all principals in the account that are authorized to use EBS",
+      "Effect": "Allow",
+      "Principal": {"AWS": "*"},
+      "Condition": {
+        "StringEquals": {
+          "kms:CallerAccount": "111122223333",
+          "kms:ViaService": "ec2.us-west-2.amazonaws.com"
+        }
+      },
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:CreateGrant",
+        "kms:DescribeKey"
+      ],
+      "Resource": "*"
+    }
+    ```
+
 
 ### KMS Limits
 - 1000 Customer managed CMKs per region.
