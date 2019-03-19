@@ -102,8 +102,8 @@
   - Organisations
 - Data Protection
   - [Encryption solutions for data at rest and data in transit](Encryption.md)
-  - [Key Management Service (KMS)](KMS.md)
-  - CloudHSM & On-Premises HSM
+  - Key management with [Key Management Service (KMS)](KMS.md)
+  - Key management with [CloudHSM & On-Premises HSM](CloudHSM.md)
 - [GuardDuty](LoggingAndMonitoring.md)
 - [Inspector](LoggingAndMonitoring.md)
 - [Macie](LoggingAndMonitoring.md)
