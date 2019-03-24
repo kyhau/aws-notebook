@@ -48,20 +48,51 @@ See also [KMS](KMS.md).
 
 ## DynamoDB
 - Data at rest (KMS)
-  - For any encrypted table created in a region, DynamoDB uses KMS to create an AWS/DynamoDB **service default CMK** (in
-    each region).
-  - When a table is created and set to be encrypted, this CMK is used to create a data key unique to that table, called
-    a **table key**. This key is managed by DynamoDB and stored with the table in an encrypted form.
-  - Every item that DynamoDB encrypts is done with a **data encrypted key**. That key is encrypted with this table key and
-    stored with the data.
-  - Table keys are cached for up to **12 hours in plaintext** by DynamoDB, but a request is sent to KMS after **5 minutes**
-    of table key inactivity to check for permission changes.
-  - When creating a new table, you can choose one of the following customer master keys (CMK) to encrypt your table:
-    - **AWS owned CMK** – Default encryption type. The key is owned by DynamoDB (no additional charge).
-    - **AWS managed CMK** – The key is stored in your account and is managed by AWS KMS (AWS KMS charges apply).
-  - You can switch between the AWS owned CMK and AWS managed CMK at any given time. 
-    DynamoDB continues to deliver the same single-digit millisecond latency that you have come to expect, and all
-    DynamoDB queries work seamlessly on your encrypted data.
+  - **How does it work**
+    ```
+      DynamoDB                             AWS KMS
+          |     (1) Generate data key         |
+          |---------------------------------> |  CMK
+          |                                   |
+      Table key <-----------------------------|
+          |
+          |  (2) encrypt
+          v
+    Data encryption key(s)
+          |
+          |  (3) encrypt
+          v
+        Table
+    ```
+    1. DynamoDB uses the CMK for the table to generate and encrypt a unique **data key** for the table, known as the
+       **table key**. 
+       - The **table key** persists for the lifetime of the encrypted table.
+       - The **table key** is used as a key encryption key.
+       - The **table key** is managed by DynamoDB and stored with the table in an encrypted form.
+    2. DynamoDB uses this **table key** to protect **data encryption keys** that are used to encrypt the table data.
+    3. DynamoDB generates a unique **data encryption key** for each underlying structure in a table, but multiple
+       table items might be protected by the same **data encryption key**.
+  - **Encryption types**
+    - All DynamoDB tables are encrypted. There is no option to enable or disable encryption for new or existing tables.
+    - When creating a new table, you can choose one of the following customer master keys (CMK) to encrypt your table:
+      - **AWS owned CMK** – Default encryption type. The key is owned by DynamoDB in each region (no additional charge).
+      - **AWS managed CMK** – The key is stored in your account and is managed by AWS KMS (AWS KMS charges apply).
+    - Encryption at rest does not support **customer managed CMKs**. 
+    - You can switch between the AWS owned CMK and AWS managed CMK at any given time. 
+      DynamoDB continues to deliver the same single-digit millisecond latency that you have come to expect, and all
+      DynamoDB queries work seamlessly on your encrypted data.
+  - **Protection includes**
+    - Primary key and local and global secondary indexes.
+    - DynamoDB streams, global tables, and backups whenever these objects are saved to durable media.
+  - **Table Key Caching**
+    - To avoid calling AWS KMS for every DynamoDB operation, DynamoDB caches the **plaintext table keys** for each
+      connection in memory.
+    - Table keys are cached for up to **12 hours in plaintext** by DynamoDB, but a request is sent to KMS after
+      **5 minutes** of table key inactivity to check for permission changes.
+    - If DynamoDB gets a request for the cached table key after **5 minutes of inactivity**, it sends a new request
+      to AWS KMS to decrypt the table key. This call will **capture any changes made** to the access policies of the
+      CMK in AWS KMS or AWS IAM since the last request to decrypt the table key.
+  - See also [AWS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html).
 
 ## EBS
 - Data at rest (KMS)

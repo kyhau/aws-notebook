@@ -3,8 +3,8 @@
 Table of Contents
 - [CloudFront](#cloudfront---global-content-delivery-network-cdn)
 - [Protecting Web Applications](#protecting-web-applications)
-- [AWS WAF](#aws-waf-web-application-firewall)
-- [AWS Shield](#aws-shield-standard)
+  - [AWS WAF](#aws-waf-web-application-firewall)
+  - [AWS Shield](#aws-shield-standard)
 
 ---
 
@@ -93,8 +93,17 @@ CloudFront signed URLs and signed cookies allow you to control who can access yo
 ## Protecting Web Applications
 
 ### AWS WAF (Web Application Firewall)
-- WAF allows for conditions or rules to be set on CloudFront web traffic or an Application Load Balancer.
-- WAF can watch for cross-site scripting, IP addresses, the location of requests, query strings, and SQL injection.
+- You can deploy AWS WAF on either
+  1. **CloudFront** as part of your CDN solution,
+  2. **Application Load Balancer (ALB)** that fronts your web servers or origin servers running on EC2, or
+  3. **API Gateway** for your APIs.
+- WAF allows for conditions or rules to be set.
+- WAF can 
+  1. watch for cross-site scripting, 
+  2. IP addresses,
+  3. the location of requests,
+  4. query strings, and 
+  5. SQL injection.
 - When multiple conditions exist in a rule, the result must include all conditions:
   - Example Rule: Block requests from 2.2.0.0/16 that appears to have an SQL code.
     Both conditions must match for a block.

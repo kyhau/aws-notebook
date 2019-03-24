@@ -67,11 +67,14 @@
 - Amplify
 
 **Networking & Content Delivery**
-- [Design edge security on AWS](DesignEdgeSecurity.md)
-  - CloudFront - Global Content Delivery Network (CDN)
+- Design edge security on AWS
+  - [CloudFront - Global Content Delivery Network (CDN)](DesignEdgeSecurity.md)
   - Forcing S3 Encryption
-  - S3 Cross-Region Replication (CRR) Security
+  - S3 Cross-Region Replication (CRR Security)
   - Protecting Web Applications
+    - [CloudFront & Shield](DesignEdgeSecurity.md)
+    - [AWS WAF](DesignEdgeSecurity.md)
+    - [AWS Shield](DesignEdgeSecurity.md)
 - [Design and implement a secure network infrastructure](SecureNetworkInfrastructure.md)
   - VPC Design and Security
   - Security Groups
@@ -108,7 +111,6 @@
 - [Inspector](LoggingAndMonitoring.md)
 - [Macie](LoggingAndMonitoring.md)
 - Single Sign-On (SSO)
-- [WAF & Shield](DesignEdgeSecurity.md)
 - [Packet Capture Agent](LoggingAndMonitoring.md)
 - [VPC Flow Logs](LoggingAndMonitoring.md)
 - [DNS Logs](LoggingAndMonitoring.md)
