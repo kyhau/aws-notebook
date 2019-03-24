@@ -34,48 +34,50 @@ Table of Contents
 
 ### Field-level encryption
 - Field-level encryption allows you to securely upload user-submitted sensitive information to your web servers. 
-  The sensitive information provided by your clients is encrypted at **the edge closer to the user and remains encrypted**
-  **throughout your entire application stack**, ensuring that only applications that need the data - and have the
-  credentials to decrypt it - are able to do so.
+  The sensitive information provided by your clients is encrypted at **the edge closer to the user and remains**
+  **encrypted throughout your entire application stack**, ensuring that only applications that need the data - 
+  and have the credentials to decrypt it - are able to do so.
 - E.g. Data is encrypted in transit and remains so when entered into the database.
-- You can encrypt up to 10 data fields in a request. *You can't encrypt all of the data in a request with field-level*
-  *encryption; you must specify individual fields to encrypt.*
+- You can encrypt up to **10 data fields** in a request. *You can't encrypt all of the data in a request with*
+ *field-level encryption; you must specify individual fields to encrypt.*
 
 ### Restricting S3 to CloudFront
-- By default, when using CloudFront with S3, CloudFront is optional, and S3 can be accessed directly. This can be changed by creating
-  an OAI (Origin Access Identity).
-- OAI is a virtual identity. A distribution can be configured to use it, so when accessing S3, CloudFront assumes this identity.
+- By default, when using CloudFront with S3, CloudFront is optional, and S3 can be accessed directly. 
+  This can be changed by creating an **OAI (Origin Access Identity)**.
+- OAI is a virtual identity. A distribution can be configured to use it, so when accessing S3, CloudFront assumes
+  this identity.
 - How to configure CloudFront to use an OAI?
-  - Add the OAI to the bucket policy as the only READ entry.
+  - Add the OAI to the **bucket policy** as the only **READ** entry.
 
 ### Signed URLs and Cookies
-CloudFront signed URLs and signed cookies allow you to control who can access your content. 
-- Use signed URLs in the following cases:
-  - You want to restrict access to individual files, for example, an installation download for your application.
-  - You want to use an RTMP (Real-Time Messaging Protocol) distribution. Signed cookies aren't supported for RTMP distributions.
-  - Your users are using a client (for example, a custom HTTP client) that doesn't support cookies.
-- Use signed cookies in the following cases:
-  - You want to provide access to multiple restricted files, for example, all of the files for a video in HLS format or all of the
-    files in the subscribers' area of website.
+CloudFront **signed URLs** and **signed cookies** allow you to control who can access your content. 
+- Use **signed URLs** in the following cases:
+  - You want to restrict access to individual files, e.g. an installation download for your application.
+  - You want to use an **RTMP (Real-Time Messaging Protocol) distribution**. Signed cookies aren't supported for
+    RTMP distributions.
+  - Your users are using a client (e.g. a custom HTTP client) that doesn't support cookies.
+- Use **signed cookies** in the following cases:
+  - You want to provide access to multiple restricted files, e.g. all of the files for a video in HLS format or
+    all of the files in the subscribers' area of website.
   - You don't want to change your current URLs.
-- If you are not currently using signed URLs and if your URLs contain any of the following query string parameters, you cannot use   
-  either signed URLs or signed cookies:
+- If you are not currently using signed URLs and if your URLs contain any of the following query string parameters,
+  you **cannot** use either signed URLs or signed cookies:
   - Expires
   - Policy
   - Signature
   - Key-Pair-Id
-- CloudFront assumes that URLs that contain any of those query string parameters are signed URLs and therefore won't look at
-  signed cookies.
-- If you use both signed URLs and signed cookies to control access to the same files and a viewer uses a signed URL to request a file,
-  CloudFront determines whether to return the file to the viewer based only on the signed URL.
+- CloudFront assumes that URLs that contain any of those query string parameters are signed URLs and therefore
+  won't look at signed cookies.
+- If you use both signed URLs and signed cookies to control access to the same files and a viewer uses a signed URL
+  to request a file, CloudFront determines whether to return the file to the viewer based only on the signed URL.
 
 #### Features and Limits
 - Signed URLs and cookies are linked to an existing identity (Role/User), and they have the permissions of that entity.
-- They can have their own validity period: default is 60 minutes.
+- They can have their own validity period: default is **60 minutes**.
 - They expire either at the end of the period, or until the entity on which they are based expires.
-- If you use a role, this is when the role’s temp credentials expire.
-- Anyone can create a signed URL, even if they do not have permissions on the object.
-- With CloudFront you defined the accounts which can sign; the key pair TrustedSigners is needed for CloudFront.
+- If you use a role, this is when the **role’s temp credentials expire**.
+- **Anyone can create a signed URL, even if they do not have permissions on the object**.
+- With CloudFront you defined the accounts which can sign; the key pair **TrustedSigners** is needed for CloudFront.
 - Signed Cookies do NOT work with RTMP (Real-Time Messaging Protocol) distributions.
 	
 ### Geo Restriction
