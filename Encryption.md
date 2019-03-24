@@ -1,11 +1,16 @@
 # Encryption solution for data at rest and data in transit
 
-Table of Contents
+Topics
+- [Data in Transit: ACM (AWS Certificate Manager)](#data-in-transit-acm-aws-certificate-manager)
+- [Data at Rest: SSE-C (Server Side Encryption - Customer Key)](#data-at-rest-sse-c-server-side-encryption---customer-key)
+- [Data at Rest: KMS](KMS.md)
+
+More details on individual services
 - [Athena](#athena)
 - [CloudFront](#cloudfront)
 - [CloudTrail](#cloudtrail)
 - [DynamoDB](#dynamodb)
-- [EBS](#ebs)
+- [EBS and EC2 Auto Scaling](#ebs-and-ec2-auto-scaling)
 - [EMR](#emr)
 - [Kinesis Data Stream](#kinesis-data-stream)
 - [Kinesis Data Firehose](#kinesis-data-firehose)
@@ -13,9 +18,52 @@ Table of Contents
 - [Redshift](#redshift)
 - [S3](#s3)
 
-See also [KMS](KMS.md).
-
 ---
+
+## Data in Transit: ACM (AWS Certificate Manager)
+- ACM is a managed service providing **X509 v3 SSL/TLS certificates**.
+- The certificates are **asymmetric**.  One half is private and stored on resources (servers, load balancers, etc), 
+  and the other half is public.
+- ACM generates certificates that are valid for **13 months**.
+- ACM is **regional** - certificates can be applied to services in that region.
+- **KMS is used - certificates are never stored unencrypted**.
+- ACM has native integration with 
+  1. **Elastic Load Balancer (ELB)**
+  2. **CloudFront**
+  3. **API Gateway**
+  4. **AWS ElasticBeanstalk**  
+- ACM integrates with **Route53** to perform DNS checks as part of certificate issuing process.
+- **Certificates automatically renewed** when **actively** used within supported services.
+- No cost associated with Certificates - only the resources that are used with.
+
+If you have a CloudFront, and a Application Load Balancer (at Sydney), how many ACM certificates do you need?
+Where are the certificates located?
+- Like most AWS resources, certificates in ACM are regional resources.
+  - To use a certificate with Elastic Load Balancing ELB for the same fully qualified domain name (FQDN) or
+    set of FQDNs in more than one AWS region, you must request or import a certificate for each region. 
+  - For certificates provided by ACM, this means you must revalidate each domain name in the certificate
+    for each region. 
+  - You cannot copy a certificate between regions.
+- To use an ACM Certificate with Amazon CloudFront, you must request or import the certificate in the
+ **US East (N. Virginia) region**.  ACM Certificates in this region that are associated with a CloudFront
+ distribution are distributed to all the geographic locations configured for that distribution.
+
+
+## Data at Rest: SSE-C (Server Side Encryption - Customer Key)
+- **SSE-C** is a feature of **S3 SSE** where S3 still handles the cryptographic operations, but does so with keys
+  that you as the customer manage and supply with every object operation.
+- **x-amz-server-side-encryption-customer-algorithm = AES256** informs S3 that a **customer managed key** will be
+  supplied as part of the **putObject** request.
+- **x-amz-server-side-encryption-customer-key** allows the key to be provided. 
+  - The key is used for encryption, and then discarded. 
+  - The customer is 100% responsible for key management and rotation.
+  - Versions can have alternative keys.
+- **x-amz-server-side-encryption-customer-key-MD5** allows S3 to validate the key (for damage in transit).
+
+
+## Data at Rest: KMS 
+See [KMS](KMS.md).
+
 
 ## Athena
 - You can encrypt
@@ -94,12 +142,20 @@ See also [KMS](KMS.md).
       CMK in AWS KMS or AWS IAM since the last request to decrypt the table key.
   - See also [AWS Developer Guide](https://docs.aws.amazon.com/kms/latest/developerguide/services-dynamodb.html).
 
-## EBS
+## EBS and EC2 Auto Scaling
 - Data at rest (KMS)
   - EBS Volume is encrypted using a **DataKey** generated from a **CMK**.
   - **Encrypted data key** is stored with the volume.
   - Used by the **Hypervisor** to decrypt upon attaching to the EC2 instance.
   - IO, Snapshots and Persisted data are encrypted.
+  - Required CMK Key Policy for use with encrypted volumes
+    - By default, Amazon EC2 Auto Scaling has access to the **AWS managed CMK** that is used for EBS encryption.
+      - This CMK is unique to your account and the AWS region in which it is used. 
+      - The **AWS managed CMK** is used for encryption unless you specify a **customer managed CMK**.
+    - [Example: CMK Key Policy Sections Allowing Access to the CMK](
+        https://docs.aws.amazon.com/autoscaling/ec2/userguide/key-policy-requirements-EBS-encryption.html)
+    - [Example: CMK Key Policy Sections Allowing Cross-Account Access to the CMK](
+        https://docs.aws.amazon.com/autoscaling/ec2/userguide/key-policy-requirements-EBS-encryption.html)
 
 ## EMR
 - Data at rest

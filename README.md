@@ -105,6 +105,9 @@
   - Organisations
 - Data Protection
   - [Encryption solutions for data at rest and data in transit](Encryption.md)
+    - Data in Transit: ACM (AWS Certificate Manager)
+    - Data at Rest: SSE-C (Server Side Encryption - Customer Key)
+    - Data at Rest: KMS
   - Key management with [Key Management Service (KMS)](KMS.md)
   - Key management with [CloudHSM & On-Premises HSM](CloudHSM.md)
 - [GuardDuty](LoggingAndMonitoring.md)

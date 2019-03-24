@@ -5,9 +5,10 @@
 - KMS can create and manage CMKs (Customer Master Keys). 
 - KMS can generate Data Keys but does not manage them.
 - KMS integrates fully with IAM and CloudTrail for permissions management and auditing functions.
+- AWS KMS cannot encrypt data over 4KB and cannot itself DO encryption using DEKs.
+- The encryption SDK can handle the data item encryption and integrate with KMS for the CMK component.
 
 Topics
-
 - [Customer Master Keys (CMKs) and Data Keys](#customer-master-keys-cmks-and-data-keys)
 - [Types of CMK](#types-of-cmk)
 - [Encrypt data and decrypt data with a data key](#encrypt-data-and-decrypt-data-with-a-data-key)
