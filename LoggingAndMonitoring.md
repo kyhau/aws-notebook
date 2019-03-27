@@ -19,11 +19,16 @@ Table of Contents
 
 
 ## AWS Config
-- Use AWS Config to record and monitor the configurations of AWS resources.
-- Use AWS Config to get a list of all of the resources the company uses in AWS.
-- Use AWS Config to compare the user's IAM permissions before and after the incident.
-- Use AWS Config Rules to check whether logging is enabled for buckets.
-- Notification when a resource violates configuration rules.
+- Record and monitor the configurations of AWS resources.
+  - Retrieve current configurations of resources in your account.
+  - Retrieve historical configurations.
+  - View relationships between resources (e.g. members of a security group).
+- Evaluate resource configurations for desired settings.
+  - Compare the user's IAM permissions before and after the incident.
+  - Check whether logging is enabled for buckets.
+- Get notification for creation, deletions, and modifications.
+- Get notification when a resource violates configuration rules.
+- Security analysis e.g. auditing historical records of IAM policies, security group configurations.
 
 ## Trusted Advisor
 - Trusted Advisor provides account level recommendations on improvements under Cost Optimization, Performance,
@@ -32,12 +37,17 @@ Table of Contents
 - Trusted Advisor warns us if an RDS security group is overly permissive.
 
 ## CloudTrail
-- CloudTrail logs all API activities.
-- Use CloudTrail Event History to find the suspicious activity in past **90 days**.
-- Logs are encrypted in SSE-S3 by default, can be changed to SSE-KMS. 
-- *CloudTrail does not log configurations or application logs.*
-- *CloudTrail does not utilize log groups; CloudWatch does.*
-- *Use CloudTrail to record KMS API calls. KMS is not one of the services that can send logs to CloudWatch Logs.*
+- CloudTrail logs all API activities (including Console, CLI, API/SDK calls).
+- CloudTrail is enabled when your account is created.
+- Logs are encrypted in **SSE-S3 by default**, can be changed to SSE-KMS.
+- Entries can be viewed using the **Event History** in **past 90 days**.
+- Trail logs can be sent to S3 bucket of choice and even prefixed (folders).
+- Single-region or multi-region trails can be configured.
+- Trails can make multi-account logging possible.
+- Management events: user login events, configuring security, setting up logging.
+  - *CloudTrail does not log configurations or application logs.*
+  - *CloudTrail does not utilize log groups; CloudWatch does.*
+  - *Use CloudTrail to record KMS API calls. KMS is not one of the services that can send logs to CloudWatch Logs.*
 
 ## CloudWatch
 - CloudWatch monitors web application logs to for malicious activity.

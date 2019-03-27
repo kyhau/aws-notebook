@@ -100,8 +100,12 @@
 - [Identity and Access Management](IdentityAndAccessManagement.md)
   - IAM
   - Cognito
-  - STS, Web Identities, Identity Federation
+  - STS
+  - Identity Federation (Web Identity, SAML 2.0, Custom ID Broker)
+  - Single Sign-On (SSO)
   - Organisations
+  - Cross-account access to S3 bucket and objects
+  - Cross-account access to Lambda
 - Data Protection
   - [Encryption solutions for data at rest and data in transit](Encryption.md)
     - Data in Transit: ACM (AWS Certificate Manager)
@@ -112,7 +116,6 @@
 - [GuardDuty](LoggingAndMonitoring.md)
 - [Inspector](LoggingAndMonitoring.md)
 - [Macie](LoggingAndMonitoring.md)
-- Single Sign-On (SSO)
 - [Packet Capture Agent](LoggingAndMonitoring.md)
 - [VPC Flow Logs](LoggingAndMonitoring.md)
 - [DNS Logs](LoggingAndMonitoring.md)
