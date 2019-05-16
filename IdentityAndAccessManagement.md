@@ -6,7 +6,7 @@ Topics
 - [Cross-account access to S3 bucket and objects](#cross-account-access-to-s3-bucket-and-objects)
 - [Cross-account access to Lambda](#cross-account-access-to-lambda)
 - [Cognito](#cognito)
-- [STS](#sts
+- [STS](#sts)
 - [Identity Federation](#identity-federation))
 
 ---
