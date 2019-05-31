@@ -4,6 +4,7 @@ Table of Contents
 - [Target Tracking Scaling option with predefined metrics](#target-tracking-scaling-option-with-predefined-metrics)
 - [Target Tracking Scaling option with custom metrics `CPUUtilization` and `MemoryUtilization` (Maximum)](#target-tracking-scaling-option-with-custom-metrics-cpuutilization-and-memoryutilization-maximum)
 - [Step Scaling option with Custom metic `CPUUtilization` and `MemoryUtilization` (Maximum)](#step-scaling-option-with-custom-metic-cpuutilization-and-memoryutilization-maximum)
+- [Amazon ECS-optimized AMI](#amazon-ecs-optimized-ami)
 - [Migrating from Amazon Linux to Amazon Linux 2 for ECS](#migrating-from-amazon-linux-to-amazon-linux-2-for-ecs)
 - [Subscribing to Amazon ECS-Optimized Amazon Linux AMI Update Notifications](
     https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS-AMI-SubscribeTopic.html)
@@ -199,6 +200,20 @@ Table of Contents
       }
     },
     ```
+
+## Amazon ECS-optimized AMI
+
+- **Amazon Linux 2 AMI** 
+  - By default, the Amazon ECS-optimized Amazon Linux 2 AMI ships with a single 30-GiB root volume. You can modify
+    the 30-GiB root volume size at launch time to increase the available storage on your container instance.
+    This storage is used for the operating system and for Docker images and metadata.
+  - The default filesystem for the Amazon ECS-optimized Amazon Linux 2 AMI is ext4, and Docker uses the overlay2
+    storage driver.
+
+- **Amazon Linux (1) AMI** 
+  - Amazon ECS-optimized Amazon Linux AMIs from version 2015.09.d and later launch with an 8-GiB volume for the
+    operating system that is attached at /dev/xvda and mounted as the root of the file system.
+  - There is an additional 22-GiB volume that is attached at /dev/xvdcz that Docker uses for image and metadata storage. 
 
 
 ## Migrating from Amazon Linux to Amazon Linux 2 for ECS

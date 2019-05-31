@@ -101,6 +101,7 @@ Topics
   - Organisations and Service Control Policies
   - Cross-account access to S3 bucket and objects
   - Cross-account access to Lambda
+  - Cognito
   - Identity Federation (Web Identity, SAML 2.0, Custom ID Broker)
   - Systems Manager Parameters Store
 - **Data Protection**
