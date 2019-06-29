@@ -5,9 +5,9 @@ Topics
 - [Policy Evaluation](#policy-evaluation)
 - [Cross-account access to S3 bucket and objects](#cross-account-access-to-s3-bucket-and-objects)
 - [Cross-account access to Lambda](#cross-account-access-to-lambda)
+- [Identity Federation](#identity-federation)
 - [Cognito](#cognito)
 - [STS](#sts)
-- [Identity Federation](#identity-federation))
 
 ---
 
@@ -128,22 +128,6 @@ You can also grant cross-account permissions using the Lambda function policy.
               --action lambda_InvokeFunction
       ```
 
----
-
-## Cognito
-- Cognito is involved in identity federation and can create pooled identities based on isolated web identities.
-
-**Cognito with API Gateway**
-![alt text](media/cognito_apig.png "Cognito with API Gateway")
-
----
-
-## STS
-- STS (Security Token Service) provides short-term AWS credentials to access AWS resources as part of ID Federation.
-- STS does NOT provide long-term credentials, which are generally contained on IAM users, which are NOT involved in ID
-  federation.
-
---- 
 
 ## Identity Federation
 
@@ -174,10 +158,26 @@ You can also grant cross-account permissions using the Lambda function policy.
    3. Custom ID Broker Federation
       - Used when SAML 2.0 compatibility isn't available.
 
-# Identity Federation
+---
 
-## Web Identity Federation
+## Cognito
+- Cognito is involved in identity federation and can create pooled identities based on isolated web identities.
 
+**Cognito with API Gateway**
+
+![alt text](media/cognito_apig.png "Cognito with API Gateway")
+
+    IdP        (token) -> Cognito IP (AWS credentials) -> APIG (IAM or Cognito UP Authorizer)
+    Cognito UP (token) -> Cognito IP (AWS credentials) -> APIG (IAM or Cognito UP Authorizer)
+    Cognito UP (JWT)  ----------------------------------> APIG (IAM or Cognito UP Authorizer)
+
+
+---
+
+## STS
+- STS (Security Token Service) provides short-term AWS credentials to access AWS resources as part of ID Federation.
+- STS does NOT provide long-term credentials, which are generally contained on IAM users, which are NOT involved in ID
+  federation.
 
 ---
 
