@@ -122,4 +122,9 @@ Topics
   - Subscribing to Amazon ECS-Optimized Amazon Linux AMI Update Notifications
   - Retrieving Amazon ECS-Optimized AMI Metadata
 - **[Elastic Beanstalk](ElasticBeanstalk.md)**
+- **[ELB](ELB.md)**
+  - Application Load Balancer
+  - Network Load Balancer
+  - Classic Load Balancer
+- **[EKS vs. ECS](EKS_v_ECS.md)**
 - **[S3](S3.md)**
