@@ -138,8 +138,8 @@ You can also grant cross-account permissions using the Lambda function policy.
 - Utilising federation means you can reuse accounts and not maintain login and authentication infrastructure.
 - AWS supports federation with IdPs which are **OpenID Connect (OIDC)** or **SAML 2.0 compatible**.
 - Identity federation is generally grouped into 3 types:
-   1. Web Identity Federation 
-      - Login occurs to remove IDP; 
+   1. Web Identity Federation (OpenID Connect)
+      - Login occurs to remote IdP; 
       - Token is generated and provided to AWS and swapped for temporary credentials which are used to access
         AWS resources.
       - SAML is NOT involved in Web Identity Federation
