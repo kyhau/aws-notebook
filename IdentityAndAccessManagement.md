@@ -133,6 +133,9 @@ You can also grant cross-account permissions using the Lambda function policy.
 ## Cognito
 - Cognito is involved in identity federation and can create pooled identities based on isolated web identities.
 
+**Cognito with API Gateway**
+![alt text](media/cognito_apig.png "Cognito with API Gateway")
+
 ---
 
 ## STS
@@ -143,6 +146,8 @@ You can also grant cross-account permissions using the Lambda function policy.
 --- 
 
 ## Identity Federation
+
+![alt text](media/cognito_basic1.png "IdPs and Cognito Federated Identities")
 
 - Identity Federation is where an AWS account is configured to allow external identities from an external 
   **identity provider (IdP)**.

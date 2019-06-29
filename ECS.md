@@ -1,6 +1,7 @@
 # Elastic Container Service (ECS)
 
 Table of Contents
+- [Example of ECS with Application Load Balancer](#example-of-ecs-with-application-load-balancer)
 - [Target Tracking Scaling option with predefined metrics](#target-tracking-scaling-option-with-predefined-metrics)
 - [Target Tracking Scaling option with custom metrics `CPUUtilization` and `MemoryUtilization` (Maximum)](#target-tracking-scaling-option-with-custom-metrics-cpuutilization-and-memoryutilization-maximum)
 - [Step Scaling option with Custom metic `CPUUtilization` and `MemoryUtilization` (Maximum)](#step-scaling-option-with-custom-metic-cpuutilization-and-memoryutilization-maximum)
@@ -10,6 +11,12 @@ Table of Contents
     https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS-AMI-SubscribeTopic.html)
 - [Retrieving Amazon ECS-Optimized AMI Metadata](
     https://docs.aws.amazon.com/AmazonECS/latest/developerguide/retrieve-ecs-optimized_AMI.html)
+
+---
+
+## Example of ECS with Application Load Balancer
+
+![alt text](media/ecs_1.png "ECS example")
 
 
 ## Auto Scaling on EC2 Cluster
