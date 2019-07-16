@@ -4,6 +4,7 @@ Topics
 - [AWS Certified Big Data - Specialty](#aws-certified-big-data---specialty)
 - [AWS Certified Security - Specialty](#aws-certified-security---specialty)
 - [AWS Certified Solutions Architect - Professional](#aws-certified-solutions-architect---professional)
+- [Multi-region active-active architecture] (TODO)
 - [Disable TLS 1.0 and use TLS 1.1 or higher](ConfigureTLS.md)
 - [Known Issues](KnownIssues.md)
 
@@ -33,7 +34,7 @@ Topics
     - [Essential Big Data Tools on EMR](BigDataTools.md)
   - [Amazon Machine Learning (AML)](MachineLearning.md)
   - [SageMaker](MachineLearning.md)
-  - Lambda
+  - [Lambda](Lambda.md)
   - Data Pipeline
   - [Glue](Analytics.md)
   - [Big Data Tools](BigDataTools.md)
@@ -116,15 +117,21 @@ Topics
 ## AWS Certified Solutions Architect - Professional
 
 - **[DynamoDB](DynamoDB.md)**
-- **[ECS](ECS.md)**
+- **[ECS (Elastic Container Service)](ECS.md)**
   - Auto Scaling policies
   - Migrating from Amazon Linux to Amazon Linux 2 for ECS
   - Subscribing to Amazon ECS-Optimized Amazon Linux AMI Update Notifications
   - Retrieving Amazon ECS-Optimized AMI Metadata
+- **[ECS vs. EKS (Elastic Kubernetes Service)](EKS_v_ECS.md)**
 - **[Elastic Beanstalk](ElasticBeanstalk.md)**
 - **[ELB](ELB.md)**
   - Application Load Balancer
   - Network Load Balancer
   - Classic Load Balancer
-- **[EKS vs. ECS](EKS_v_ECS.md)**
+- **[Lambda](Lambda.md)**
 - **[S3](S3.md)**
+
+---
+## Multi-region active-active architecture
+
+- TODO
