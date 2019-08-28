@@ -15,7 +15,11 @@ https://medium.com/@sajidniazi/building-multi-region-active-active-architecture-
 
 1. [Best Practices for Developing on AWS Lambda](
 https://aws.amazon.com/blogs/architecture/best-practices-for-developing-on-aws-lambda/
-) by George Mao, on 2019-07-09
+) - George Mao, on 2019-07-09
+
+1. [Standardizing infrastructure delivery in distributed environments using AWS Service Catalog](
+https://aws.amazon.com/blogs/mt/standardizing-infrastructure-delivery-in-distributed-environments-using-aws-service-catalog/
+) - Kristopher Lippe, 2019-05-17
 
 1. [AWS Architecture Blog](
 https://aws.amazon.com/blogs/architecture/
