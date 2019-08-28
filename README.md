@@ -4,7 +4,7 @@ Topics
 - [AWS Certified Big Data - Specialty](#aws-certified-big-data---specialty)
 - [AWS Certified Security - Specialty](#aws-certified-security---specialty)
 - [AWS Certified Solutions Architect - Professional](#aws-certified-solutions-architect---professional)
-- [Multi-region active-active architecture] (TODO)
+- [Architecture resources](Architecture.md)
 - [Disable TLS 1.0 and use TLS 1.1 or higher](ConfigureTLS.md)
 - [Known Issues](KnownIssues.md)
 
