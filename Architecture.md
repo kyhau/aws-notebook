@@ -13,6 +13,10 @@ https://read.acloud.guru/why-and-how-do-we-build-a-multi-region-active-active-ar
 https://medium.com/@sajidniazi/building-multi-region-active-active-architecture-in-aws-using-containerised-microservices-7b1d40a7063f
 ) - Sajid Niazi, 2019-06-07
 
+1. [Building a Multi-region Serverless Application with Amazon API Gateway and AWS Lambda](
+https://aws.amazon.com/blogs/compute/building-a-multi-region-serverless-application-with-amazon-api-gateway-and-aws-lambda/
+) - Stefano Buliani | 2017-11-13
+
 1. [Best Practices for Developing on AWS Lambda](
 https://aws.amazon.com/blogs/architecture/best-practices-for-developing-on-aws-lambda/
 ) - George Mao, on 2019-07-09

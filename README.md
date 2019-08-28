@@ -64,6 +64,7 @@ Topics
   - Trusted Advisor
   - Packet Capture Agent
   - VPC Flow Logs
+  - VPC Traffic Mirroring
   - DNS Logs
   - CloudWatch Buses
   - GuardDuty

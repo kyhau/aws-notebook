@@ -11,6 +11,7 @@ Table of Contents
 - [Inspector](#inspector-inspector-agent)
 - [Packet Capture Agent](#packet-capture-agent)
 - [VPC Flow Logs](#vpc-flow-logs)
+- [VPC Traffic Mirroring](#vpc-traffic-mirroring)
 - [DNS Logs](#dns-logs)
 - [S3 server access logging for bucket](#s3-server-access-logging-for-bucket)
 - [Macie](#macie)
@@ -91,6 +92,10 @@ Table of Contents
   where the traffic is failing.
 - Can be assigned to a VPC, a subnet or an ENI.
 - *VPC Flow Logs contain traffic metadata only - it won't show content.*
+
+## VPC Traffic Mirroring
+- See [New – VPC Traffic Mirroring – Capture & Inspect Network Traffic](
+https://aws.amazon.com/blogs/aws/new-vpc-traffic-mirroring/)
 
 ## DNS Logs
 - DNS Query Logs can be enabled on Route53 hosted zones and sent to CloudWatch.
