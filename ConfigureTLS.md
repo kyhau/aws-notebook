@@ -13,9 +13,12 @@ https://aws.amazon.com/about-aws/whats-new/2017/09/amazon-cloudfront-now-lets-yo
 [Q: Can I configure my REST APIs in API Gateway to use TLS 1.1 or higher?](
 https://aws.amazon.com/api-gateway/faqs/)
 
-Not managed in API Gateway.
+Not managed in API Gateway. You can set up a CloudFront distribution with custom SSL certificate in your account and use it with Regional APIs in API Gateway. You can then configure the Security Policy for the CloudFront distribution with TLS 1.1 or higher based on your security and compliance requirements.
 
-You can set up a CloudFront distribution with custom SSL certificate in your account and use it with Regional APIs in API Gateway. You can then configure the Security Policy for the CloudFront distribution with TLS 1.1 or higher based on your security and compliance requirements.
+**Updated:**
+
+See [Choose a Minimum TLS Version for a Custom Domain in API Gateway](
+https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-custom-domain-tls-version.html).
 
 ## Load Balancer
 
