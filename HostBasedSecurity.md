@@ -78,5 +78,7 @@ Prevent data leakage between clients within their shared environment.
 
 ## Systems Manager (SSM)
 
+See also [Connecting to EC2](ConnectingToEC2.md).
+
 ## Packet Capture on EC2
 

@@ -89,6 +89,9 @@ Topics
     - Egress-Only Internet Gateways for IPv6
       - Egress-Only:  NAT Instance/Gateway for IPv4  vs.  Egress-Only Internet Gateway for IPv6
     - Bastion Hosts / Jump Boxes
+    - [Connecting to EC2](ConnectingToEC2.md)
+      - EC2 Instance Connect
+      - Session Manager (in Systems Manager SSM)
   - [Design and implement host-based security](HostBasedSecurity.md)
     - AWS Host / Hypervisor Security (disk/memory)
     - Host Proxy Servers  (aka. Instance Proxy Servers)
@@ -105,7 +108,7 @@ Topics
   - Cross-account access to Lambda
   - Cognito
   - Identity Federation (Web Identity, SAML 2.0, Custom ID Broker)
-  - Systems Manager Parameters Store
+  - Systems Manager (SSSM) Parameters Store
 - **Data Protection**
   - Key management with [Key Management Service (KMS)](KMS.md)
   - Key management with [CloudHSM & On-Premises HSM](CloudHSM.md)
