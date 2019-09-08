@@ -14,3 +14,5 @@ Notes:
 
 3. Redis persistence and AOF - 
 ([Ref-3](https://stackoverflow.com/questions/16384436/redis-memory-and-cpu-spikes))
+
+4. [Redis latency problems troubleshooting](https://redis.io/topics/latency)
