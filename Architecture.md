@@ -20,13 +20,17 @@ https://aws.amazon.com/blogs/compute/building-a-multi-region-serverless-applicat
 1. [Security Pillar of AWS Well-Architected Framework](
 https://d1.awsstatic.com/whitepapers/architecture/AWS-Security-Pillar.pdf) - AWS, 2018-07
 
-1. [Best Practices for Developing on AWS Lambda](
-https://aws.amazon.com/blogs/architecture/best-practices-for-developing-on-aws-lambda/
-) - George Mao, 2019-07-09
-
 1. [Standardizing infrastructure delivery in distributed environments using AWS Service Catalog](
 https://aws.amazon.com/blogs/mt/standardizing-infrastructure-delivery-in-distributed-environments-using-aws-service-catalog/
 ) - Kristopher Lippe, 2019-05-17
+
+1. [Top Resources for API Architects and Developers](
+https://aws.amazon.com/blogs/architecture/top-resources-for-api-architects-and-developers/
+) - George Mao, 2019-09-10
+
+1. [Best Practices for Developing on AWS Lambda](
+https://aws.amazon.com/blogs/architecture/best-practices-for-developing-on-aws-lambda/
+) - George Mao, 2019-07-09
 
 1. [AWS Architecture Blog](
 https://aws.amazon.com/blogs/architecture/
