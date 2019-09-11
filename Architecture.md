@@ -27,3 +27,9 @@ https://aws.amazon.com/blogs/architecture/best-practices-for-developing-on-aws-l
 1. [AWS Architecture Blog](
 https://aws.amazon.com/blogs/architecture/
 )
+
+**Security**
+
+1. [AWS Security with Cloud Custodian](
+http://aws-de-media.s3.amazonaws.com/images/TransformationDay/TDay_Slides/Capital_One_AWS.pdf
+) - Kapil Thangavelu, 2017
