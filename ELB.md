@@ -31,6 +31,8 @@ https://aws.amazon.com/elasticloadbalancing/features/#Details_for_Elastic_Load_B
 - Operating at the **connection level (Layer 4)**, it routes traffic to targets within Amazon VPC and is capable of
   handling millions of requests per second while maintaining ultra-low latencies. 
 - It is also optimized to handle sudden and volatile traffic patterns.
+- You can now host multiple secure applications, each with its own TLS certificate, on a single load balancer listener. This allows SaaS applications and hosting services to run behind the same load balancer, improving your service security posture, and simplifying management and operations. 
+([whats-new/2019/09](https://aws.amazon.com/about-aws/whats-new/2019/09/elastic-load-balancing-network-load-balancers-now-supports-multiple-tls-certificates-using-server-name-indication/))
 
 ## Classic Load Balancer (CLB)
 
