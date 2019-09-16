@@ -121,6 +121,7 @@ Topics
 ## AWS Certified Solutions Architect - Professional
 
 - **[DynamoDB](DynamoDB.md)**
+- **[EC2](EC2.md)**
 - **[ECS (Elastic Container Service)](ECS.md)**
   - Auto Scaling policies
   - Migrating from Amazon Linux to Amazon Linux 2 for ECS
