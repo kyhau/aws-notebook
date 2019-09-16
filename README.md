@@ -4,6 +4,7 @@ Topics
 - [AWS Certified Big Data - Specialty](#aws-certified-big-data---specialty)
 - [AWS Certified Security - Specialty](#aws-certified-security---specialty)
 - [AWS Certified Solutions Architect - Professional](#aws-certified-solutions-architect---professional)
+- AWS Certified Advanced Networking - Specialty (In progress)
 - [Architecture resources](Architecture.md)
 - [Disable TLS 1.0 and use TLS 1.1 or higher](ConfigureTLS.md)
 - [Known Issues](KnownIssues.md)
@@ -143,3 +144,39 @@ Topics
 ## Multi-region active-active architecture
 
 - TODO
+
+---
+## Machine Learning
+
+- DeepLens
+- DeepRacer
+- TensorFlow on AWS
+- Comprehend
+- Elastic Inference
+- Forecast
+- Lex
+- Personalize
+- Polly
+- Rekognition
+- [SageMaker]((MachineLearning.md))
+- Textract
+- Transcribe
+- Translate
+
+---
+## AR & VR
+
+- Amazon Sumerian
+
+---
+## Blockchain
+
+- Amazon Managed Blockchain
+- Amazon QLDB
+
+---
+## GameTech
+
+- GameLift Realtime Servers - you can create multiplayer game servers that can be customized with just a few lines
+  of JavaScript and then scale to millions of players for a fraction of a penny per player per month.
+- Lumberyard - a game engine with no royalties or seat fees, frictionless integration with Twitch and AWS.
