@@ -5,8 +5,8 @@ Topics
 - [AWS Certified Security - Specialty](#aws-certified-security---specialty)
 - [AWS Certified Solutions Architect - Professional](#aws-certified-solutions-architect---professional)
 - AWS Certified Advanced Networking - Specialty (In progress)
-- [Architecture resources](Architecture.md)
-- [Disable TLS 1.0 and use TLS 1.1 or higher](ConfigureTLS.md)
+- [Architecture resources and notes](Architecture.md)
+- [Security resources and notes](Security.md)
 - [Known Issues](KnownIssues.md)
 
 ---
