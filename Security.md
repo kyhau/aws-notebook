@@ -1,5 +1,7 @@
 # Other Security related resources and notes
 
+1. https://github.com/toniblyx/my-arsenal-of-aws-security-tools
+
 1. [AWS Security with Cloud Custodian](
 http://aws-de-media.s3.amazonaws.com/images/TransformationDay/TDay_Slides/Capital_One_AWS.pdf
 ) - Kapil Thangavelu, 2017
