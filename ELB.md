@@ -14,6 +14,12 @@ It offers **3** types of load balancers that all feature the high availability, 
 See also [Load Balancer Comparisons](
 https://aws.amazon.com/elasticloadbalancing/features/#Details_for_Elastic_Load_Balancing_Products).
 
+More about NLB:
+- [NLB vs. CLB Timeout](#nlb-vs-clb-timeout)
+- [Connections time out for requests from a target to its load balancer](#nlb---connections-time-out-for-requests-from-a-target-targettypeinstance-to-its-load-balancer)
+- [NLB Access Log Limitation](#nlb-access-log-limitation)
+
+
 ---
 
 ## Application Load Balancer (ALB)
@@ -31,7 +37,9 @@ https://aws.amazon.com/elasticloadbalancing/features/#Details_for_Elastic_Load_B
 - Operating at the **connection level (Layer 4)**, it routes traffic to targets within Amazon VPC and is capable of
   handling millions of requests per second while maintaining ultra-low latencies. 
 - It is also optimized to handle sudden and volatile traffic patterns.
-- You can now host multiple secure applications, each with its own TLS certificate, on a single load balancer listener. This allows SaaS applications and hosting services to run behind the same load balancer, improving your service security posture, and simplifying management and operations. 
+- You can now host multiple secure applications, each with its own TLS certificate, on a single load balancer listener. 
+  This allows SaaS applications and hosting services to run behind the same load balancer, improving your service
+  security posture, and simplifying management and operations. 
 ([whats-new/2019/09](https://aws.amazon.com/about-aws/whats-new/2019/09/elastic-load-balancing-network-load-balancers-now-supports-multiple-tls-certificates-using-server-name-indication/))
 
 ## Classic Load Balancer (CLB)
@@ -62,6 +70,17 @@ on the socket after idle timeout, it receives an RST packet.
   An application that is not aware of this timeout would attempt to send data to the same socket. At that point,
   the NLB would notify the application that the connection has been terminated by sending it an RST packet.
 
+# NLB - Connections time out for requests from a target (TargetType=Instance) to its load balancer
+
+[Source](
+https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-troubleshooting.html#loopback-timeout):
+
+- Check whether you have an internal load balancer with targets registered by instance ID. Internal load balancers
+  do not support hairpinning or loopback. When you register targets by **instance ID**, the source IP addresses of
+  clients are preserved. 
+- If an instance is a client of an internal load balancer that it is registered with by **instance ID**, the
+  connection succeeds only if the request is routed to a different instance. Otherwise, the source and destination IP
+  addresses are the same and the connection times out. 
 
 # NLB Access Log Limitation
 
