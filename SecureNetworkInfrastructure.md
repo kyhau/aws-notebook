@@ -1,21 +1,12 @@
 # Secure Network Infrastructure
 
-Table of Contents
-
-- [Security Groups](#security-groups)
-- [NACL (Network Access Control List)](#nacl-network-access-control-list)
+- [One to Many: Evolving VPC Design](https://aws.amazon.com/blogs/architecture/one-to-many-evolving-vpc-design/)
 - [VPC Endpoints (Gateway Endpoints and Interface Endpoints)](#vpc-endpoints-gateway-endpoints-and-interface-endpoints)
 - [NAT Gateways vs. NAT Instances](#nat-gateways-vs-nat-instances)
 - [Egress-Only: NAT Instance/Gateway for IPv4 vs. Engress-Only Internet Gateway for IPv6](#egress-only-nat-instancegateway-for-ipv4-vs-engress-only-internet-gateway-for-ipv6)
 
 
-## Security Groups
-
-1. Specify the accountID/sgID to reference a remote Security Group.
-
-
-## NACL (Network Access Control List)
-
+---
 
 ## VPC Endpoints (Gateway Endpoints and Interface Endpoints)
 
@@ -102,6 +93,7 @@ AWS services such as S3, API Gateways, etc.
   - Interface endpoints cannot be accessed through an inter-region (different regions) VPC peering connection, or an
     AWS VPN connection.
 
+---
 
 ## NAT Gateways vs. NAT Instances
 
@@ -122,6 +114,7 @@ AWS services such as S3, API Gateways, etc.
 - NAT Instances could be secured with NACL (on the private or NAT subnet) and security groups on the NAT instance and
   source service (e.g. EC2).
 
+---
 
 ## Egress-Only: NAT Instance/Gateway for IPv4 vs. Engress-Only Internet Gateway for IPv6
 
