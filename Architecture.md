@@ -31,4 +31,6 @@ https://aws.amazon.com/blogs/compute/building-a-multi-region-serverless-applicat
 1. [AWS Architecture Blog](
 https://aws.amazon.com/blogs/architecture/
 )
+1. [Data, Analytics, and Machine Learning Resource Hub](
+https://resources.awscloud.com/aws-data-analytics-machinelearning)
 
