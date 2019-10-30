@@ -14,6 +14,10 @@ https://d1.awsstatic.com/whitepapers/architecture/AWS-Security-Pillar.pdf
 https://www.devopsgroup.com/blog/hacking-aws-blog/
 ) - by Chris McQuaid, May 7, 2019 
 
+1. [aws-security-benchmark](https://github.com/awslabs/aws-security-benchmark)
+
+1. [cloud-custodian](https://github.com/cloud-custodian/cloud-custodian)
+
 1. [CloudGoat](
 https://github.com/RhinoSecurityLabs/cloudgoat
 ) - Rhino Security Labs' "Vulnerable by Design" AWS deployment tool.
