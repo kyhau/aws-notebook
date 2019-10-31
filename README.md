@@ -117,6 +117,7 @@ Topics
     - Data in Transit: ACM (AWS Certificate Manager)
     - Data at Rest: SSE-C (Server Side Encryption - Customer Key)
     - Data at Rest: KMS
+  - [Secrets Manager](SecretsManager.md)
 
 ---
 ## AWS Certified Solutions Architect - Professional

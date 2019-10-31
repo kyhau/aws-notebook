@@ -23,6 +23,26 @@ Topics
 - [KMS Limits and Throttling Exception](#kms-limits)
 
 ---
+## Highlights
+
+- Use CloudTrail to record KMS API calls. KMS is not one of the services that can send logs to CloudWatch Logs.
+- If you use the SSE-KMS option for your default encryption configuration, you are subject to the RPS (requests per
+  second) limits of AWS KMS. If need, lodge a support request to increase KMS limits.
+- CMKs never leave KMS and never leave a region.
+- CMKs can encrypt or decrypt data up to 4 KB in size.
+- If the size of the individual encryption per data item is > 4 KB, use the [AWS Encryption SDK](
+  https://docs.aws.amazon.com/encryption-sdk/latest/developer-guide/introduction.html), which can handle the data item
+  encryption and integrate with KMS for the CMK component.
+- Unlike most AWS services, the root user has no access to CMKs without specifically being allowed.
+  In cases where nobody has access to CMKs, only AWS can restore access.
+- KMS cannot itself DO encryption using DEKs.
+- (**DynamoDB**) By default, all DynamoDB tables are encrypted under an AWS owned CMK in the DynamoDB service account. 
+   - You can select an option to encrypt the tables under an AWS managed CMK for DynamoDB in your account.
+   - Encryption at rest does NOT support Customer managed CMKs.
+- Automatic key rotation is not supported for imported keys or keys generated in an AWS CloudHSM cluster using the KMS
+  custom key store feature. 
+
+---
 
 ## Customer Master Keys (CMKs) and Data Keys
 
