@@ -1,5 +1,8 @@
 # Lambda
 
+- [Improved VPC networking for AWS Lambda functions](
+  https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/)
+  (2019-09-03)
 - [Best Practices for Developing on AWS Lambda](#best-practices-for-developing-on-aws-lambda)
 
 ---
