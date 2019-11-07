@@ -1,8 +1,11 @@
 # Elastic Load Balancing (ELB)
 
-- Elastic Load Balancing automatically distributes incoming application traffic across multiple targets, 
-  such as EC2 instances, containers, IP addresses, and Lambda functions. 
-- It can handle the varying load of your application traffic in a single AZ or across multiple AZs. 
+- ELB needs a subnet size of `/27`, and has at least 8 free IP addresses. 
+  ([Source](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-backend-instances.html)) 
+- Connection draining time for an ELB (1sec - 60min), default = 5min
+- WAF can be used on ALB (not other type of load balancers).
+- Sticky sessions are available for CLB and ALB.
+- ALB, CLB allow target groups.
 
 It offers **3** types of load balancers that all feature the high availability, automatic scaling, and robust
   security necessary to make your applications **fault tolerant**.
