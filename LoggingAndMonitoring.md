@@ -1,12 +1,14 @@
 # Logging and Monitoring
 
-Table of Contents
+Topics
 
 - [AWS Config](#aws-config)
 - [Trusted Advisor](#trusted-advisor)
 - [CloudTrail](#cloudtrail)
 - [CloudWatch](#cloudwatch)
 - [CloudWatch Agent](#cloudwatch-agent)
+- [CloudWatch Buses](#cloudwatch-buses)
+- [CloudWatch Insights](#cloudwatch-insights)
 - [SSM (Systems Manager)](#ssm-systems-manager)
 - [Inspector](#inspector-inspector-agent)
 - [Packet Capture Agent](#packet-capture-agent)
@@ -16,9 +18,9 @@ Table of Contents
 - [S3 server access logging for bucket](#s3-server-access-logging-for-bucket)
 - [Macie](#macie)
 - [GuardDuty](#guardduty)
-- [CloudWatch Buses](#cloudwatch-buses)
+- [RDS Performance Insights](#rds-performance-insights)
 
-
+---
 ## AWS Config
 - Record and monitor the configurations of AWS resources.
   - Retrieve current configurations of resources in your account.
@@ -54,12 +56,25 @@ Table of Contents
 - CloudWatch monitors web application logs to for malicious activity.
 - Retention settings: 1 day to never expire
 - Sources: CloudTrail, VPC Flow Logs, CloudWatch Agent, DNS Logs (from Route53)
+- [Cross-Account Cross-Region CloudWatch Console](
+  https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/Cross-Account-Cross-Region.html)
 
 ## CloudWatch Agent
 - CloudWatch/any AWS service cannot monitor your EC2 filesystems without an agent installed.
 - CloudWatch Agent collects additional metrics and logs from EC2 (and on-premise). 
 - E.g. memory, disk-use percentages, and swap file usage.
 - It can also collect logs from the application.
+
+## CloudWatch Buses
+- CloudWatch Bus allows different AWS accounts to share CloudWatch Events.
+- CloudWatch Bus can collect events from all your accounts together in one account.
+
+## CloudWatch Insights
+- [Anomaly Detection](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch_Anomaly_Detection.html)
+- [Application Insights for .NET and SQL Server](
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/appinsights-what-is.html)
+- [Container Insights for ECS and EKS](
+  https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/deploy-container-insights.html)
 
 ## SSM (Systems Manager)
 - SSM periodically scans EC2 instances, or on-premise servers/VMs, retrieving details of installed applications, AWS
@@ -121,6 +136,5 @@ https://aws.amazon.com/blogs/aws/new-vpc-traffic-mirroring/)
   CloudTrail Events, VPC Flow Logs, and DNS Logs.
 - GuardDuty is a threat detection service and will not report on the configuration of security groups.
 
-## CloudWatch Buses
-- CloudWatch Bus allows different AWS accounts to share CloudWatch Events.
-- CloudWatch Bus can collect events from all your accounts together in one account.
+## RDS Performance Insights
+- [RDS Performance Insights](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.html)

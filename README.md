@@ -58,6 +58,10 @@ Topics
 - **[Logging and Monitoring](LoggingAndMonitoring.md)**
   - CloudTrail
   - CloudWatch
+  - CloudWatch Agent
+  - CloudWatch Buses
+  - CloudWatch Buses
+  - CloudWatch Insights (Anomaly Detection, Application Insights for .NET and SQL Server, Container Insights for ECS and EKS)
   - Config
   - S3 server access logging for bucket
   - Inspector
@@ -67,7 +71,6 @@ Topics
   - VPC Flow Logs
   - VPC Traffic Mirroring
   - DNS Logs
-  - CloudWatch Buses
   - GuardDuty
   - Macie
 - **Infrastructure Security**
@@ -138,6 +141,7 @@ Topics
   - Application Load Balancer
   - Network Load Balancer
   - Classic Load Balancer
+- EventBridge
 - **[Lambda](Lambda.md)**
 - **[S3](S3.md)**
 
