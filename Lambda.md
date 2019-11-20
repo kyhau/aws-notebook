@@ -3,6 +3,7 @@
 - [Improved VPC networking for AWS Lambda functions](
   https://aws.amazon.com/blogs/compute/announcing-improved-vpc-networking-for-aws-lambda-functions/)
   (2019-09-03)
+- [AWS Lambda supports SQS FIFO (First-In-First-Out) as an Event Source](#aws-lambda-supports-sqs-fifo-as-an-event-source)
 - [Best Practices for Developing on AWS Lambda](#best-practices-for-developing-on-aws-lambda)
 
 ---
@@ -25,3 +26,11 @@
 4. Monitor Your Concurrency (and Set Alarms)
 
 5. Over-Provision Memory (in some use cases) but Not Function Timeout
+
+---
+## AWS Lambda supports SQS FIFO as an Event Source
+
+- See https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html
+- Make sure that you configure the dead-letter queue on the source queue, not on the Lambda function. 
+  The dead-letter queue that you configure on a function is used for the function's asynchronous invocation queue,
+  not for event source queues. 
