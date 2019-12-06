@@ -1,5 +1,11 @@
 # Architecture and Design Patterns
 
+1. [Amazon Builders' Library](https://aws.amazon.com/builders-library)
+1. [AWS Architecture Blog](https://aws.amazon.com/blogs/architecture/)
+1. [Data, Analytics, and Machine Learning Resource Hub](
+   https://resources.awscloud.com/aws-data-analytics-machinelearning)
+
+---
 1. [One to Many: Evolving VPC Design](
 https://aws.amazon.com/blogs/architecture/one-to-many-evolving-vpc-design/
 ) - Androski Spicer, 2019-10-09
@@ -28,9 +34,4 @@ https://read.acloud.guru/why-and-how-do-we-build-a-multi-region-active-active-ar
 1. [Building a Multi-region Serverless Application with Amazon API Gateway and AWS Lambda](
 https://aws.amazon.com/blogs/compute/building-a-multi-region-serverless-application-with-amazon-api-gateway-and-aws-lambda/
 ) - Stefano Buliani, 2017-11-13
-1. [AWS Architecture Blog](
-https://aws.amazon.com/blogs/architecture/
-)
-1. [Data, Analytics, and Machine Learning Resource Hub](
-https://resources.awscloud.com/aws-data-analytics-machinelearning)
 
