@@ -6,6 +6,9 @@
    https://resources.awscloud.com/aws-data-analytics-machinelearning)
 
 ---
+1. [Using API Gateway as a Single Entry Point for Web Applications and API Microservices](
+https://aws.amazon.com/blogs/architecture/using-api-gateway-as-a-single-entry-point-for-web-applications-and-api-microservices/
+) - Anandprasanna Gaitonde and Mohit Malik on 2019-10-22 
 1. [One to Many: Evolving VPC Design](
 https://aws.amazon.com/blogs/architecture/one-to-many-evolving-vpc-design/
 ) - Androski Spicer, 2019-10-09
