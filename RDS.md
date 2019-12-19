@@ -1,6 +1,7 @@
 # RDS
 
-- RDS now allows you to easily stop and start database instances.
+- RDS now allows you to easily stop and start database instances. (See [Source](
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StopInstance.html))
     - While a database instance is stopped, RDS does not delete any of your automatic backups or transaction logs.
       This means you can do a point-in-time restore to any point within your specified automated backup retention
       window, even after an instance is started. 
