@@ -27,7 +27,7 @@ Topics
 - **Storage**
   - [S3](S3.md)
   - [DynamoDB](DynamoDB.md)
-  - RDS
+  - [RDS](RDS.md)
 - **Processing**
   - EMR
     - [EMR vs. Redshift](EMR.md)
