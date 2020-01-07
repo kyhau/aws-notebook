@@ -50,7 +50,11 @@ More about NLB:
 - It provides basic load balancing across multiple EC2 instances and operates at both the **request level (Layer 7) and
   connection level (Layer 4)**.
 - It is intended for applications that were built within the EC2-Classic network.
-
+- See [Listener Configurations for Classic Load Balancers](
+  https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/using-elb-listenerconfig-quickref.html) for:
+   - HTTP/HTTPS Load Balancer
+   - TCP/SSL Load Balancer
+   - SSL Offload
 
 # NLB vs. CLB Timeout
 
