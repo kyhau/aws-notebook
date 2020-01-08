@@ -18,6 +18,9 @@ https://aws.amazon.com/blogs/architecture/top-resources-for-api-architects-and-d
 1. [Best Practices for Developing on AWS Lambda](
 https://aws.amazon.com/blogs/architecture/best-practices-for-developing-on-aws-lambda/
 ) - George Mao, 2019-07-09
+1/ [What should we know about AWS Networking](
+https://salerno-rafael.blogspot.com/2019/06/what-should-we-know-about-aws-networking.html
+) - Rafael Salerno, 2019-06-13
 1. [Building Multi-Region Active-Active Architecture in AWS using containerised microservices](
 https://medium.com/@sajidniazi/building-multi-region-active-active-architecture-in-aws-using-containerised-microservices-7b1d40a7063f
 ) - Sajid Niazi, 2019-06-07
