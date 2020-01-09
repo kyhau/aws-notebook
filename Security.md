@@ -11,6 +11,7 @@
 
 | Document | Description |
 | :--- | :--- |
+| [AWS Best Practices for DDoS Resiliency](https://d0.awsstatic.com/whitepapers/Security/DDoS_White_Paper.pdf) | by AWS, July 2019 |
 | [AWS Security Incident Response Guide](https://d1.awsstatic.com/whitepapers/aws_security_incident_response.pdf) | by AWS, June 2019 |
 | [Hacking AWS Blog](https://www.devopsgroup.com/blog/hacking-aws-blog/) | by Chris McQuaid, 7 May, 2019 |
 | [Security Pillar - AWS Well-Architected Framework](https://d1.awsstatic.com/whitepapers/architecture/AWS-Security-Pillar.pdf) | by AWS, July 2018 |
