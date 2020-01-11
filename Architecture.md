@@ -41,3 +41,9 @@ https://read.acloud.guru/why-and-how-do-we-build-a-multi-region-active-active-ar
 https://aws.amazon.com/blogs/compute/building-a-multi-region-serverless-application-with-amazon-api-gateway-and-aws-lambda/
 ) - Stefano Buliani, 2017-11-13
 
+---
+(Non AWS specific)
+
+1. [Open Web Application Security Project  (OWASP) API Security Top 10](
+https://apisecurity.io/encyclopedia/content/owasp/owasp-api-security-top-10.htm
+) - APIsecurity.io, 2019-12-31
