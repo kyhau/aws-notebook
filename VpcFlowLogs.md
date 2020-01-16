@@ -45,10 +45,10 @@ https://acloud.guru/forums/aws-certified-advanced-networking-specialty/discussio
 ))
 
 ```
-2 123456789010 eni-1235b8ca 10.123.234.78 172.11.22.33 0 0 1 8 672 1432917027 1432917142 ACCEPT OK
-2 123456789010 eni-1235b8ca 172.11.22.33 10.123.234.78 0 0 1 4 336 1432917027 1432917082 ACCEPT OK
-2 123456789010 eni-1235b8ca 172.11.22.33 10.123.234.78 0 0 1 4 336 1432917094 1432917142 REJECT OK
+2 9xxx eni-xxx 123.45.67.89 172.31.44.17 0 0 1 2 120 1554186843 1554186883 ACCEPT OK
+2 9xxx eni-xxx 172.31.44.17 123.45.67.89 0 0 1 1 60 1554186843 1554186883 ACCEPT OK
+2 9xxx eni-xxx 172.31.44.17 123.45.67.89 0 0 1 1 60 1554186843 1554186883 REJECT OK
 ```
-The first two pings were bundled into one record (672 bytes). That is because of the Flow Log capture window. The
+The first two pings were bundled into one record (120 bytes). That is because of the Flow Log capture window. The
 responses have the same display time on CloudWatch, but the ACCEPT corresponds to my first Ping, and the REJECT
 corresponds to my second ping after I modified the NACL.
