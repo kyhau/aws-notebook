@@ -68,7 +68,7 @@ Topics
   - Systems Manager (SSM)
   - Trusted Advisor
   - Packet Capture Agent
-  - VPC Flow Logs
+  - [VPC Flow Logs](VpcFlowLogs.md)
   - VPC Traffic Mirroring
   - DNS Logs
   - GuardDuty
