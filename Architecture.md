@@ -40,6 +40,16 @@ https://read.acloud.guru/why-and-how-do-we-build-a-multi-region-active-active-ar
 1. [Building a Multi-region Serverless Application with Amazon API Gateway and AWS Lambda](
 https://aws.amazon.com/blogs/compute/building-a-multi-region-serverless-application-with-amazon-api-gateway-and-aws-lambda/
 ) - Stefano Buliani, 2017-11-13
+1. [CloudFront Origin Protection with AWS WAF & Shield](
+https://www.metaltoad.com/blog/how-to-protect-origin-with-aws-waf-shield
+) - Dylan Tack, 2017-10-12
+    > Amazon has been steadily improving their CloudFront CDN offering with WAF capabilities. 
+      This is a great feature, however it's ineffective if origin servers can be attacked directly, bypassing
+      CloudFront. With a little extra work, access to the origin can be restricted.
+      The solution is to add a secret header value at the edge, and configure the load balancer to block requests that
+      are missing this secret. This is necessary because CloudFront distributions are not associated with security
+      groups, nor are fixed IPs available (unlike higher-priced competitors like Kona Site Shield).
+
 
 ---
 (Non AWS specific)
