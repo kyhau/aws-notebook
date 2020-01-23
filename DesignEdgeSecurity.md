@@ -49,6 +49,17 @@ Table of Contents
 - How to configure CloudFront to use an OAI?
   - Add the OAI to the **bucket policy** as the only **READ** entry.
 
+### Restricting origin with a secret header
+Reference: [CloudFront Origin Protection with AWS WAF & Shield](
+https://www.metaltoad.com/blog/how-to-protect-origin-with-aws-waf-shield)
+
+Amazon has been steadily improving their CloudFront CDN offering with WAF capabilities. 
+This is a great feature, however it's ineffective if origin servers can be attacked directly, bypassing
+CloudFront. With a little extra work, access to the origin can be restricted.
+The solution is to add a secret header value at the edge, and configure the load balancer to block requests that
+are missing this secret. This is necessary because CloudFront distributions are not associated with security
+groups, nor are fixed IPs available (unlike higher-priced competitors like Kona Site Shield).
+
 ### Signed URLs and Cookies
 CloudFront **signed URLs** and **signed cookies** allow you to control who can access your content. 
 - Use **signed URLs** in the following cases:
