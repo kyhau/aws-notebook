@@ -1,13 +1,37 @@
 # AWS Notebook
 
 Topics
+- [AWS Certified Advanced Networking - Specialty](#aws-certified-advanced-networking---specialty)
 - [AWS Certified Big Data - Specialty](#aws-certified-big-data---specialty)
 - [AWS Certified Security - Specialty](#aws-certified-security---specialty)
 - [AWS Certified Solutions Architect - Professional](#aws-certified-solutions-architect---professional)
-- AWS Certified Advanced Networking - Specialty (In progress)
 - [Architecture resources and notes](Architecture.md)
 - [Security resources and notes](Security.md)
 - [Known Issues](KnownIssues.md)
+
+---
+## AWS Certified Advanced Networking - Specialty
+- [Highlights](Networking.md)
+- Direct Connect
+- Direct Connect Gateway
+- Virtual (Private) Gateway
+- Transit Gateway
+- Transit VPC
+- VPN CloudHub
+- AWS Managed VPN, Site-to-site/IPsec VPN, 
+- VPC Endpoints
+- VPC Sharing
+- Routing policies and BGP
+- Transitive routing
+- Route 53 and DNS
+- Route 53 Resolver
+- DHCP
+- Resolving DNS queries between VPCs and your network
+- AD
+- ELB
+- CloudHSM
+- CloudFront and Lambda@Edge
+- Workspaces and AppStream
 
 ---
 ## AWS Certified Big Data - Specialty
