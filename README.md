@@ -1,16 +1,16 @@
 # AWS Notebook
 
 Topics
-- [AWS Certified Advanced Networking - Specialty](#aws-certified-advanced-networking---specialty)
-- [AWS Certified Big Data - Specialty](#aws-certified-big-data---specialty)
-- [AWS Certified Security - Specialty](#aws-certified-security---specialty)
-- [AWS Certified Solutions Architect - Professional](#aws-certified-solutions-architect---professional)
+- [Advanced Networking](#advanced-networking)
+- [Big Data](#big-data)
+- [Security](#security)
+- [Solutions Architect](#solutions-architect)
 - [Architecture resources and notes](Architecture.md)
 - [Security resources and notes](Security.md)
 - [Known Issues](KnownIssues.md)
 
 ---
-## AWS Certified Advanced Networking - Specialty
+## Advanced Networking
 - [Highlights](Networking.md)
 - Direct Connect
 - Direct Connect Gateway
@@ -34,7 +34,7 @@ Topics
 - Workspaces and AppStream
 
 ---
-## AWS Certified Big Data - Specialty
+## Big Data
 
 - **Collection**
   - IoT
@@ -76,7 +76,7 @@ Topics
   - Auditing with CloudTrail
 
 ---
-## AWS Certified Security - Specialty
+## Security
 
 - **Incident Response and Automated Alerting**
 - **[Logging and Monitoring](LoggingAndMonitoring.md)**
@@ -147,7 +147,7 @@ Topics
   - [Secrets Manager](SecretsManager.md)
 
 ---
-## AWS Certified Solutions Architect - Professional
+## Solutions Architect
 
 - **[DynamoDB](DynamoDB.md)**
 - **[EC2](EC2.md)**
