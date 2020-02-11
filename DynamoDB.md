@@ -20,12 +20,8 @@ https://docs.amazonaws.cn/en_us/amazondynamodb/latest/developerguide/DynamoDBLoc
 - Max item size: 400KB
 - Nested attributes up to 32 levels deep
 - Max num of tables: 256 (default)
-- US East:
-    - Per table: 40K RCUs and 40K WCUs (default)
-    - Per account: 80K RCUs and 80K WCUs (default)
-- Other regions:
-    - Per table: 10K RCUs and 10K WCUs (default)
-    - Per account: 20K RCUs and 20K WCUs (default)
+- Per table: 40K RCUs and 40K WCUs (default)
+- Per account: 80K RCUs and 80K WCUs (default)
 - LSIs per table: 5
 - GSI per table: 20 (can request to increase)
 - Max num of projected attributes per index: 100, or ALL
