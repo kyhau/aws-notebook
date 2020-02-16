@@ -10,6 +10,29 @@
 - [Best Practices for Developing on AWS Lambda](#best-practices-for-developing-on-aws-lambda)
 
 ---
+## Lambda in VPC
+
+([Ref](https://docs.aws.amazon.com/lambda/latest/dg/functions-states.html))
+
+- When you connect your function to a VPC, Lambda provisions an ENI for each subnet. 
+- The function is initially in the `Pending` state. 
+- When the function is ready to be invoked, the state changes from `Pending` to `Active`. 
+  This process can leave your function in a `Pending` state for **a minute or so**. 
+- While the state is `Pending`, invocations and other API actions that operate on the function return an error. 
+  If you build automation around creating and updating functions, wait for the function to become active before 
+  performing additional actions that operate on the function. 
+- Lambda also reclaims network interfaces that are not in use, placing your function in an `Inactive` state. 
+- When the function is `Inactive`, an invocation causes it to enter the `Pending` state while network access is restored.
+  The invocation that triggers restoration, and further invocations while the operation is pending, fail with 
+  `ResourceNotReadyException`.
+- If Lambda encounters an error when restoring a function's network interface, the function goes back to the `Inactive`
+  state. The next invocation can trigger another attempt. 
+- For some configuration errors, Lambda waits at least **5 minutes** before attempting to create another network
+  interface. These errors have the following `LastUpdateStatusReasonCode` values:
+    - `InsufficientRolePermission` – Role doesn't exist or is missing permissions.
+    - `SubnetOutOfIPAddresses` – All IP addresses in a subnet are in use.
+
+
 ## Best Practices for Developing on AWS Lambda
 
 [Ref-1 AWS Architecture Blog](https://aws.amazon.com/blogs/architecture/best-practices-for-developing-on-aws-lambda/)
