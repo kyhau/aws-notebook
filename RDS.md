@@ -1,5 +1,7 @@
 # RDS
 
+- [RDS best practices](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_BestPractices.html)
+
 - RDS - https://aws.amazon.com/rds/faqs/
     - up to 5 Read Replicas
     - supports cross-region read replicas 
