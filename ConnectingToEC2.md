@@ -16,7 +16,12 @@ https://medium.com/@ystataws/different-between-ec2-instance-connect-and-session-
     3. IPv4: *Depends***
     4. Browser: Yes
     5. CloudTrail: Yes
-
+    6. Beware of active session.  A session remains active even you revoke an IAM role.
+    7. Need to tighten the CloudWatch Log of session manager - a user can `cat` a sensitive file and all
+       content goes to the session log.
+    8. Make sure correct permission in place to control who can see the log, no one can change the logs,
+       and who can change the log group and roles.
+   
 **Notes**
 - IPv4
     - If your EC2 is in public subnet with IPv4, then it can talk to SSM through internet. 
