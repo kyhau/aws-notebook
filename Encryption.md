@@ -19,6 +19,44 @@ More details on individual services
 - [S3](#s3)
 
 ---
+## Encryption at-rest 
+
+Storage
+- EBS: If enabled, applies to EBS and snapshots
+- S3: Optional
+  - SSE-S3  (Server-Side Encryption with Amazon S3-Managed Keys)
+  - SSE-KMS (Server-Side Encryption with AWS KMS-Managed Keys)
+  - SSE-C   (Server-Side Encryption with Customer-Provided Keys)
+  - CSE-CMS (Client-Side Encryption with KMS-Managed Customer Master Key)
+  - CSE-C   (Client-Side Encryption with Client-Side Master Key)
+- EFS: optional
+- FSx, AWS Backups, Storage Gateway in S3 - are encrypted by default.
+
+Databases
+- RDS:  If enabled, applies to underlying storage for DB clusters, automated backups, Read Replicas, and snapshots. 
+- Aurora:  If enabled, applies to underlying storage for DB clusters, automated backups, Read Replicas, and snapshots. 
+- EC2-based databases (EBS): If enabled, applies to EBS and snapshots
+- Redshift:  None, KMS, HSM. If enabled, applies to cluster’s storage volume, data, indexes, logs, automated backups, and snapshots
+- DocumentDB: If enabled, applies to cluster’s storage volume, data, indexes, logs, automated backups, and snapshots
+- ElastiCache (Redis/Memcached):  If enabled, applies to disk during sync, backup and swap operations, backups stored in S3
+- DynamoDB: Enabled by default. AWS owned CMK or AWS managed CMK.
+
+Storage of other Services
+- Athena
+   - Optional. 
+   - If enabled, applies to the results of all queries in S3, which Athena stores in a location known as the S3 staging directory, and
+     the data in the AWS Glue Data Catalog.
+- CloudTrail - CloudTrail logs are encrypted in SSE-S3 by default; can be changed to SSE-KMS.
+- EMR
+    - For EMRFS on S3
+        - Server-side: SSE-S3, SSE-KMS, or
+        - Client-side: CSE-KMS, CSE-Custom
+    - For cluster nodes (EC2 instance volumes; except boot volumes)
+        - HDFS LUKS (Linux Unified Key System)
+- Kinesis Data Stream: Data are already encrypted. Kinesis Data Streams automatically encrypts data before it is at rest by using an KMS CMK you specify.
+- Kinesis Data Firehose: Kinesis Data Firehose allows you to encrypt your data after it is delivered to your S3 bucket.
+
+---
 
 ## Data in Transit: ACM (AWS Certificate Manager)
 - ACM is a managed service providing **X509 v3 SSL/TLS certificates**.
