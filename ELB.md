@@ -21,7 +21,7 @@ More about NLB:
 - [NLB vs. CLB Timeout](#nlb-vs-clb-timeout)
 - [Connections time out for requests from a target to its load balancer](#nlb---connections-time-out-for-requests-from-a-target-targettypeinstance-to-its-load-balancer)
 - [NLB Access Log Limitation](#nlb-access-log-limitation)
-
+- [NLB - A target behind a NLB cannot connect to the same Network Load Balancer](#nlb---a-target-behind-a-nlb-cannot-connect-to-the-same-network-load-balancer)
 
 ---
 
@@ -109,3 +109,8 @@ References:
 - [3] Monitor Your Network Load Balancers - https://docs.aws.amazon.com/elasticloadbalancing/latest/network/load-balancer-monitoring.html 
 - [4] https://console.aws.amazon.com/ec2/ 
 - [5] TLS Listeners for Your Network Load Balancer - https://docs.aws.amazon.com/elasticloadbalancing/latest/network/create-tls-listener.html 
+
+# NLB - A target behind a NLB cannot connect to the same Network Load Balancer
+
+[Why can't a target behind my Network Load Balancer connect to its own Network Load Balancer?](
+https://aws.amazon.com/premiumsupport/knowledge-center/target-connection-fails-load-balancer/)

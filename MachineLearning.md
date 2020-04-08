@@ -1,7 +1,7 @@
 # Machine Learning
 
 Table of Contents
-[Amazon Machine Learning (AML) vs. Amazon SageMaker](#amazon-machine-learning-aml-vs-amazon-sagemaker)
+- [Amazon Machine Learning (AML) vs. Amazon SageMaker](#amazon-machine-learning-aml-vs-amazon-sagemaker)
 
 ## Amazon Machine Learning (AML) vs. Amazon SageMaker
 
