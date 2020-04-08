@@ -5,9 +5,9 @@
 - IPv6: VPC fixed size of **/56**
 - IPv6: Subnet fixed size of **/64**
 - Ephemeral range: **1024 - 65535**
-- 5 addresses reserved per subnet: +0 network, +1 VPC router, +2 DNS, +3 future, .255 broadcast
-- ELBs need a /27 at a minimum (not /28) and have at least 8 free IP addresses. (Source)
-- CIDR block from private (non-publicly routable) IP address can be assigned.
+- **5** addresses reserved per subnet: `+0 network, +1 VPC router, +2 DNS, +3 future, .255 broadcast`
+- ELBs need a **/27** at a minimum (not /28) and have at least 8 free IP addresses. ([Source](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-backend-instances.html))
+- CIDR block from private (non-publicly routable) IP addresses can be assigned.
    ```
    - 10.0.0.0/8         10.0.0.0 – 10.255.255.255
    - 172.16.0.0/12      172.16.0.0 – 172.31.255.255
@@ -38,27 +38,27 @@
   ```
 - `curl http://169.254.169.254/latest/meta-data/public-ipv4`
 - Broadcasting is not allowed by AWS.
-- Max 5 VPCs (and 5 IGWs) per Region by default (can have 100+ of VPCs per Region).
+- Max. **5 VPCs** (and **5 IGWs**) per Region by default (can have 100+ of VPCs per Region).
 - NACL needs an outbound rule allowing return traffic on ports (e.g. 32768 - 65535).
 - In case of a DDoS, the fastest way to stop incoming requests is to delete the default NACL in a VPC.
 - SGs are associated with ENIs.
 - You can move an ENI between subnets, but not AZs.
 - Cannot detach primary (eth0) ENI interface.
-- SRC and DST check is an ENI setting. Disable this check for NAT instance or proxy server on EC2.
+- **SRC and DST check** is an **ENI** setting. Disable this check for NAT instance or proxy server on EC2.
 - NAT Gateway: need EIP, AZ specific, **45 Gbps**, cannot ssh, cannot port forward
 - NAT Gateway: `ErrorPortAllocation > 0`  too many concurrent (55,000) connections, split the resources between multiple subnets and create multiple NAT gateways per AZ.
 - VPC peering relationship does not extend to VPN, DX, IGW, VPC endpoint.
-- If require more than 125 peering connections per VPC, consider using Direct Connect.
-- VPC sharing uses RAM to share subnets across accounts within the same AWS organization.
+- If require more than **125 peering connections per VPC**, consider using Direct Connect.
+- **VPC sharing** uses **RAM** to share subnets across accounts within the same AWS organization.
 - You can use Lambda@Edge functionality of CloudFront to inject the security headers: e.g. X-XSS-Protection
 - CloudFront: Global Edge Location -> Region Edge Cache Location -> Origin server
-- For PCI DSS: configure the CloudFront Cache Behavior to redirect HTTP requests to HTTPS and to forward request to the origin via the Amazon private network. (Cannot rely on Match Viewer).
-- WAF can be attached to your CloudFront, ALB, API Gateway to dynamically detect and prevent attacks.
+- **For PCI DSS: configure the CloudFront Cache Behavior to redirect HTTP requests to HTTPS and to forward request to the origin via the Amazon private network. (Cannot rely on Match Viewer).**
+- **WAF** can be attached to your **CloudFront, ALB, API Gateway** to dynamically detect and prevent attacks.
    - CloudFront + WAF
      - It's ineffective if origin servers can be attacked directly, bypassing CloudFront.
      - Solution: Configure CloudFront to use a custom header and configure an AWS WAF rule on the origins ALB to accept only traffic that contains that header.
      - Because CloudFront distributions are not associated with SG, nor are fixed IPs available.
-- Both VPC Flow Logs and GuardDuty (that uses VPC Flow Logs) can detect port scanning.
+- Both VPC Flow Logs and GuardDuty (that uses VPC Flow Logs) can **detect port scanning**.
 - `<version> <account-id> <interface-id> <srcaddr> <dstaddr> <srcport> <dstport> <protocol> <packets> <bytes> <start> <end> <action> <log-status>`
 - `2 123456789010 eni-xxxx 203.0.113.12 172.31.16.139 0 0 1 4 336 1432917027 1432917142 ACCEPT OK`
 - VPC Flow Log - protocols: 1/ICMP, 6/TCP, 17/UDP, 27/RDP
@@ -97,8 +97,8 @@ Transit VPC
    - `IGW (EC2-based VPN, transit VPC) ← vpn → detached VGW ← private VIF → CGW`
    - `IGW (EC2-based VPN, transit VPC) ← vpn → CGW`
 - **Detached VGWs** can advertise BGP prefixes learned from multiple endpoints, unlike a VGW attached a VPC that only advertises CIDRs.
-- Transit VPC supports multiple accounts and regions. DX Gateway supports multi account since 2019-03, but it is limited to 10 VGWs, 3 Transit gateways, 30 (private/transit) VIFs.
-- VPN appliances should be deployed into separate AZs and enable dynamic routing for maximum availability.
+- **Transit VPC supports multiple accounts and regions.** DX Gateway supports multi account since 2019-03, but it is limited to 10 VGWs, 3 Transit gateways, 30 (private/transit) VIFs.
+- **VPN appliances should be deployed into separate AZs and enable dynamic routing for maximum availability.**
 
 VPN CloudHub
 - `VGW (VPC) ← site-to-site vpns (diff ASN) → CGWs (offices)`
@@ -108,25 +108,25 @@ AWS Client VPN
 - `AWS Client VPN Endpoint (Subnet) ← vpn → Client device` (vpn client e.g. openvpn client)
 
 #### BGP
-- Max 100 BGP advertised routes per route table. If > 100, use default route, or summarize routes.
+- **Max 100 BGP advertised routes** per route table. If > 100, **use default route**, or **summarize routes**.
 - BGP session is going from established to idle state (means routes > 100)
-- Private VIFs: up to 100 prefixes advertised over BGP
-- Public VIFs: up to  1000 prefixes advertised over BGP 
-- BGP: TCP/179; make sure not being blocked by firewall or ACL rules
+- **Private VIFs**: up to **100 prefixes** advertised over BGP
+- **Public VIFs**: up to **1000** prefixes advertised over BGP 
+- **BGP: TCP/179**; make sure not being blocked by firewall or ACL rules
 
 #### VPN
-- AWS Site-to-Site VPN can attach to VGW or Transit Gateway.
-- VPN connection: UDP/500 (IKE), UDP/4500 (NAT-Traversal), and IP protocol 50 (ESP)
-- Each connection provides two redundant IPsec tunnels
-- Each VGW gives 2 public IP addresses as endpoints in 2 AZs.
-- How to avoid asymmetric routing?
+- AWS Site-to-Site VPN can attach to **VGW** or **Transit Gateway**.
+- VPN connection: **UDP/500 (IKE), UDP/4500 (NAT-Traversal), and IP protocol 50 (ESP)**.
+- Each connection provides **two redundant IPsec tunnels**.
+- Each VGW gives **2 public IP addresses as endpoints** in **2 AZs**.
+- How to avoid [asymmetric routing](https://edge-cloud.github.io/2019/08/16/aws-dxgw-with-ipsec-vpn-backup/#desired-architecture)?
    - Prepend an AS_PATH (shortest preferred)
    - Set the multi-exit discriminator (MED) metric attribute (lowest better)
-- A VPN connection may lose if being idle for 10s x 3. Use a keep-alive tool to send continuous traffic.
-- IPsec VPN (VGW) throughput up to 1.25 Gbps.
-- EC2-based VPN throughput can reach 2.0 - 2.5 Gbps.
-- 10 IPsec connections per VGW/VPC
-- 50 CGW per AWS account per AWS Region (i.e. cannot connect to more than 50 sites)
+- A VPN connection may lose if being idle for **10s x 3**. Use a keep-alive tool to send continuous traffic.
+- IPsec VPN (VGW) throughput up to **1.25 Gbps**.
+- EC2-based VPN throughput can reach **2.0 - 2.5 Gbps**.
+- **10 IPsec connections per VGW/VPC**.
+- **50 CGW per AWS account per AWS Region** (i.e. cannot connect to more than 50 sites)
 - Not recommended using AWS Managed VPN as a backup for DX connections with speeds > 1 Gbps.
 - Site-to-Site VPN cannot access NLB, EFS, VPC endpoints, PrivateLink endpoints, VPC DNS IP, AWS public IP range.
 - VGW doesn’t initiate IPsec negotiation. CGW must initiate the tunnels.
@@ -134,38 +134,38 @@ AWS Client VPN
 
 #### DX
 - Single-mode optical fiber, 802.1 Q, BGP, BGP MD5, manually set port speed and full-duplex mode (disable auto-negotiation for port)
-- Each Dedicated Connection: up to 50 public/private VIFs, 1 transit VIF.
-- Each Host Connection: 1 public/private/transit VIF.
-- Each LAG: Max of four connections, same bandwidth, terminate at same DX endpoint. Max 50 VIFs. 1 Gbps or 10 Gbps.
+- Each **Dedicated Connection**: up to **50 public/private VIFs, 1 transit VIF**.
+- Each **Host Connection**: **1 public/private/transit VIF**.
+- Each **LAG**: Max of **four connections, same bandwidth, terminate at same DX endpoint. Max 50 VIFs. 1 Gbps or 10 Gbps**.
 - All connections in a LAG run in an Active/Active configuration.
-- Each DX gateway: 10 VGWs, 3 Transit gateways, 30 (private/transit) VIFs
+- Each DX gateway: **10 VGWs, 3 Transit gateways, 30 (private/transit) VIFs**
 - A VGW is associated with one VPC.
 - A VGW can be associated to one DX gateway.
 - You can provision a single connection to any DX location in the US and use it to access public AWS services in all US Regions and AWS GovCloud (US).
 - Jumbo Frames for DX
-   - MTU of a private VIF can be either 1500 or 9001 bytes (jumbo frames).
-   - MTU of a transit VIF can be either 1500 or 8500 bytes (jumbo frames).
-- CloudWatch metrics for DX (10-Gbps): ConnectionLightLevelTx, ConnectionLightLevelRx
+   - MTU of a **private VIF** can be either **1500 or 9001 bytes (jumbo frames)**.
+   - MTU of a **transit VIF** can be either **1500 or 8500 bytes (jumbo frames)**.
+- CloudWatch metrics for DX (**10-Gbps**): **ConnectionLightLevelTx, ConnectionLightLevelRx**
 - Public VIF:  any AWS public services globally, all IPs within, even public IPs of EC2
 - A private VIF can attach to one VGW or DX gateway.
 - A private VIF can connect to multiple VPCs, as a DX gateway can be associated to up to 10 VGWs.
 - 10 VPCs per private VIF.
-- For a private VIF, AWS only advertises the entire VPC CIDR over the BGP neighbor.
+- For a private VIF, AWS only advertises the **entire VPC CIDR** over the BGP neighbor.
 - Setup VIF: gateway type (VGW ID), VLAN ID, BGP ASN, MD5 key, prefixes to advertise (public VIF), jumbo frame setting (private VIF)
    - If you are using a public ASN you must own it.
    - If you are using a private ASN, it must be in the 64512 - 65535 range.
-- All the intermediate devices are configured for VLAN tagging with appropriate VLAN ID, and VLAN-tagged traffic is preserved in the DX endpoint. Some network providers might also use Q-in-Q tagging/tunneling, which can alter your tagged VLAN.
+- All the intermediate devices are configured for VLAN tagging with appropriate VLAN ID, and VLAN-tagged traffic is preserved in the DX endpoint. Some network providers might also use **Q-in-Q tagging/tunneling**, which can alter your tagged VLAN.
 
 #### Routing and redundant connections
 - Advertise more specific routes
-- Highest LOCAL_PREF in (sending traffic to Amazon)
-- Shortest AS_PATH out (sending traffic from Amazon)
-- AS_PATH prepending does NOT work if you use a private ASN for a public VIF.
-- DX advertises prefixes with a minimum path length of 3.
-- DX advertises all public prefixes with the well-known NO_EXPORT BGP community.
-- The NO_EXPORT BGP community tag is supported for public VIFs, private VIFs, transit VIFs.
-- LOCAL_PREF BGP community tags are evaluated before any AS_PATH attribute.
-- If not specified, the default LOCAL_PREF is based on the distance to the DX location.
+- **Highest LOCAL_PREF in** (sending traffic to Amazon)
+- **Shortest AS_PATH out** (sending traffic from Amazon)
+- AS_PATH prepending does NOT work if you use a **private ASN for a public VIF**.
+- DX advertises prefixes with a **minimum path length of 3**.
+- DX advertises all public prefixes with the well-known **NO_EXPORT BGP community**.
+- The **NO_EXPORT BGP** community tag is supported for public VIFs, private VIFs, transit VIFs.
+- **LOCAL_PREF** BGP community tags are evaluated before any **AS_PATH** attribute.
+- If not specified, the default **LOCAL_PREF** is based on the distance to the DX location.
 - How to set up Active/Passive DX connection?
    - Two routers to two DX connections to avoid a single point of device failure.
    - A private VIF on each of the DX routers that terminate to the same VPC.
@@ -175,17 +175,17 @@ AWS Client VPN
    - Advertise the same prefix for DX and the VPN.
 - Enable BFD when configuring multiple DX connections, or a single DX + VPN backup.
 - Asynchronous BFD is automatically enabled for DX VIFs, but does not take effect until configure it on router.
-- BFD liveness detection 300ms. Otherwise default BGPs waits for keep-alive failures of 90s x 3.
+- BFD liveness detection **300ms**. Otherwise default BGPs waits for keep-alive failures of **90s x 3**.
 
 #### Transit Gateway
-- Transit Gateway attachment types: VPC or VPN
+- Transit Gateway attachment types: **VPC** or **VPN**
 - When you create a VPN attachment, it will create a site-to-site VPN for you.
-- You can use ECMP routing to get higher VPN bandwidth by aggregating multiple VPN connections.
-- Each Transit Gateway: 5000 attachments, 50 peering attachments, 20 transit gateway route tables, 10000 static routes, 20 DX gateways, 2 subnets for a VPC
+- You can use **ECMP routing** to get higher VPN bandwidth by aggregating multiple VPN connections.
+- Each Transit Gateway: **5000 attachments, 50 peering attachments, 20 transit gateway route tables, 10000 static routes, 20 DX gateways, 2 subnets for a VPC**
 - Each attachment can associate to 1 route table. 
-- 50 Gbps per VPC, DX gateway, peered transit gateway, 
-- 1.25 Gbps per VPN
-- Support multicast between VPCs.
+- **50 Gbps** per VPC, DX gateway, peered transit gateway, 
+- **1.25 Gbps** per VPN
+- Support **multicast** between VPCs.
 - Routes propagated to/from on-prem networks: BGP (dynamic)
 - When you attach a VPC to a Transit Gateway or resize an attached VPC, the VPC CIDR will propagate into the Transit Gateway route table using internal APIs (not BGP).
 - Routes in the Transit Gateway route table will not be propagated to the VPC’s route table. VPC owner need to create static route to send traffic to the Transit Gateway.
