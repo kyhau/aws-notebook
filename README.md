@@ -11,7 +11,7 @@ Topics
 
 ---
 ## Advanced Networking
-- [Highlights](Networking.md)
+- [Key notes](Networking.md)
 - Direct Connect
 - Direct Connect Gateway
 - Virtual (Private) Gateway
