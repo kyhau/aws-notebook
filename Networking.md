@@ -1,4 +1,26 @@
-# Networking - notes
+# Networking - key notes
+
+- [Uncategorised](#Uncategorised)
+- [Networking scenarios](#networking-scenarios)
+- [BGP](#bgp)
+- [VPN](#vpn)
+- [DX](#dx)
+- [Routing and redundant connections](#routing-and-redundant-connections)
+- [Transit Gateway](#transit-gateway)
+- [VPC Endpoints](#vpc-endpoints)
+- [Enhanced Networking (network speeds)](#enhanced-networking-network-speeds)
+- [Placement groups](#placement-groups)
+- [DNS, R53](#dns-r53)
+- [AD](#ad)
+- [ELB](#elb)
+- [CloudHSM](#cloudhsm)
+- [CloudFront, WAF](#cloudfront-waf)
+- [Workspaces](#workspaces)
+- [AppStream 2.0](#appstream-20)
+
+---
+
+### Uncategorised
 
 1. IPv4: largest, **/16**  (Host bit mask `11111111 11111111 hhhhhhhh hhhhhhhh` → 2^16 = 65536 IPs)
 1. IPV4: smallest, **/28**  (Host bit mask `11111111 11111111 11111111 1111hhhh` → 2^(32-28) = 2^4 = 16 IPs)
@@ -55,7 +77,7 @@
 1. `2 123456789010 eni-xxxx 203.0.113.12 172.31.16.139 0 0 1 4 336 1432917027 1432917142 ACCEPT OK`
 1. VPC Flow Log - protocols: 1/ICMP, 6/TCP, 17/UDP, 27/RDP
 
-#### Networking scenarios summary
+### Networking scenarios
 1. Internet
    ```
    IGW (public IPs):   main route table:             0.0.0.0/0, igw-id
@@ -96,14 +118,14 @@
 7. AWS Client VPN
    1. **`AWS Client VPN Endpoint (Subnet) ← vpn → Client device`** (vpn client e.g. openvpn client)
 
-#### BGP
+### BGP
 1. **Max 100 BGP advertised routes** per route table. If > 100, **use default route**, or **summarize routes**.
 1. BGP session is going from established to idle state (means routes > 100)
 1. **Private VIFs**: up to **100 prefixes** advertised over BGP
 1. **Public VIFs**: up to **1000** prefixes advertised over BGP 
 1. **BGP: TCP/179**; make sure not being blocked by firewall or ACL rules
 
-#### VPN
+### VPN
 1. AWS Site-to-Site VPN can attach to **VGW** or **Transit Gateway**.
 1. VPN connection: **UDP/500 (IKE), UDP/4500 (NAT-Traversal), and IP protocol 50 (ESP)**.
 1. Each connection provides **two redundant IPsec tunnels**.
@@ -121,7 +143,7 @@
 1. VGW doesn’t initiate IPsec negotiation. CGW must initiate the tunnels.
 1. Not support: IPv6 traffic, Path MTU Discovery, AES 128-bit encryption, multicast.
 
-#### DX
+### DX
 1. Single-mode optical fiber, 802.1 Q, BGP, BGP MD5, manually set port speed and full-duplex mode (disable auto-negotiation for port)
 1. Each **Dedicated Connection**: up to **50 public/private VIFs, 1 transit VIF**.
 1. Each **Host Connection**: **1 public/private/transit VIF**.
@@ -145,7 +167,7 @@
    - If you are using a private ASN, it must be in the 64512 - 65535 range.
 1. All the intermediate devices are configured for VLAN tagging with appropriate VLAN ID, and VLAN-tagged traffic is preserved in the DX endpoint. Some network providers might also use **Q-in-Q tagging/tunneling**, which can alter your tagged VLAN.
 
-#### Routing and redundant connections
+### Routing and redundant connections
 1. Advertise more specific routes
 1. **Highest LOCAL_PREF in** (sending traffic to Amazon)
 1. **Shortest AS_PATH out** (sending traffic from Amazon)
@@ -166,7 +188,7 @@
 1. Asynchronous BFD is automatically enabled for DX VIFs, but does not take effect until configure it on router.
 1. BFD liveness detection **300ms**. Otherwise default BGPs waits for keep-alive failures of **90s x 3**.
 
-#### Transit Gateway
+### Transit Gateway
 1. Transit Gateway supports Inter-region peering. ([Source](https://aws.amazon.com/about-aws/whats-new/2020/04/aws-transit-gateway-now-supports-inter-region-peering-in-11-additional-regions/))
 1. Transit Gateway attachment types: **VPC** or **VPN**
 1. When you create a VPN attachment, it will create a site-to-site VPN for you.
@@ -182,7 +204,7 @@
 1. Routes in the Transit Gateway route table will not be propagated to the VPC’s route table. 
   VPC owner need to create static route to send traffic to the Transit Gateway.
 
-#### VPC Endpoints
+### VPC Endpoints
 1. **DNS resolution** is required within the VPC.
 1. Gateway VPC endpoint
    - **Region specific** (need to be in the same region); support IPv4 only.
@@ -205,7 +227,7 @@
 1. If a Lambda function needs to access both VPC resources and the public internet, the VPC needs to have a 
   **NAT gateway** in a **public subnet**.
 
-#### Enhanced Networking (network speeds)
+### Enhanced Networking (network speeds)
 1. Higher packet-per-second (PPS) performance, lower inter-instance latencies, very low network jitter:
    - Select an instance with support for single root I/O virtualization.
    - Ensure that proper OS drivers are installed.
@@ -229,12 +251,12 @@
   the IP header
 1. **`tracepath`** is used to check MTU between 2 hosts; **Path MTU Discovery**; need UDP
 
-#### Placement groups
+### Placement groups
 1. **Cluster placement group**: for high performance, low latency, cannot span multi AZs.
 1. **Spread placement group**: high availability, reduce correlated failures
 1. **Partition placement group**: large distributed and replicated workloads e.g. Hadoop, Cassandra, Kafka
 
-#### DNS, R53
+### DNS, R53
 1. DNS server: **TCP/UDP/53**
 1. A-record (name to ip), CNAME-record (domain name aliases), ALIAS-record (auto resolved aliases)
 1. R53 automatically creates a NS (name server) record and a SOA (start of authority) record.
@@ -269,13 +291,13 @@
   have been sent to R53, or the on-prem DNS server.
 1. Use **Squid proxy** (NAT instance/EC2) to restrict HTTP/HTTPs outbound traffic to a given set of Internet domains.
 
-#### AD 
+### AD 
 1. **AD: port 389**
 1. **Hosted AD**: replicate data from on-prem to AWS; authenticate locally without using transit bandwidth.
 1. **AD Connector**: acts as a proxy to existing AD; not perform auth; may cause too much auth traffic.
 1. **Simple AD**: provides IP addresses for submitting DNS queries from on-prem network to private hosted zone. 
 
-#### ELB
+### ELB
 1. ALB (L7): HTTP, HTTPS; Content-based/Host-based/Path-based routing; Sticky Session, SNI, Auth
    - Listener -> Rules -> Target Groups (EC2/ECS/IP) and Health Check
    - Auto scaling does NOT apply to **IP as Target** (e.g. on-prem).
@@ -301,11 +323,11 @@
    - TCP_Client_Reset_Count, TCP_ELB_ResetCount, TCP_TargetResetCount
    - HealthyHostCount, UnhealthyHostCount
 
-#### CloudHSM 
+### CloudHSM 
 1. When you create a CloudHSM cluster with more than one HSM, you automatically get load balancing.
 1. CloudHSM instances **SSL/TLS offload** with ELB: **NLB, listener 443, target 443**.
 
-#### CloudFront and WAF
+### CloudFront, WAF
 1. You can use Lambda@Edge functionality of CloudFront to inject the security headers: e.g. X-XSS-Protection
 1. CloudFront: Global Edge Location -> Region Edge Cache Location -> Origin server
 1. **For PCI DSS: configure the CloudFront Cache Behavior to redirect HTTP requests to HTTPS and to forward request to the origin via the Amazon private network. (Cannot rely on Match Viewer).**
@@ -315,7 +337,7 @@
      - Solution: Configure CloudFront to use a custom header and configure an AWS WAF rule on the origins ALB to accept only traffic that contains that header.
      - Because CloudFront distributions are not associated with SG, nor are fixed IPs available.
 
-#### WorkSpaces
+### WorkSpaces
 1. **443/TCP (client/reg/auth), 4172/TCP/UDP (streaming), 80/TCP/UDP (init conn), 53 /UDP (DNS)**
 1. If your WorkSpaces users are unable to authenticate, check if **port 389** is open to your AD server.
 1. **minimum 1200 MTU**.
@@ -328,7 +350,7 @@
 1. **VPC SG** enables to limit access to resources in the network or the Internet from the WorkSpaces.
 1. **IP Access Control Group** allows trusted IP addresses to access the WorkSpaces (as a virtual firewall).
 
-#### AppStream 2.0
+### AppStream 2.0
 1. AppStream: **443 (TCP)** and **1400-1499 (TCP)**
 1. AppStream 2.0 requires Internet connectivity to authenticate users and deliver the web assets. 
 1. How do I use my DX, AWS VPN, or other VPN tunnel to stream my applications?
