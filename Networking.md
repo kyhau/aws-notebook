@@ -64,37 +64,37 @@
    Egress-Only IGW:    private subnet route table:   ::/0,      e-igw-id
    ```
 2. VPN
-   1. VPN: `IGW (EC2-based VPN, EIP) ← vpn → IGW (EC2-based VPN, EIP)`
-   2. VPN: `VGW (VPC) ← vpn → IGW (EC2-based VPN, VPC)`
+   1. VPN: **`IGW (EC2-based VPN, EIP) ← vpn → IGW (EC2-based VPN, EIP)`**
+   2. VPN: **`VGW (VPC) ← vpn → IGW (EC2-based VPN, VPC)`**
 3. VGW
-   1. VPN: `VGW (VPC-1) ← site-to-site vpn → CGW ← site-to-site vpn →  VGW (VPC-2)`
+   1. VPN: **`VGW (VPC-1) ← site-to-site vpn → CGW ← site-to-site vpn →  VGW (VPC-2)`**
       - supports transitive routing between VPCs
-   2. DX: `VGW (VPC) ← private VIF → CGW`
+   2. DX: **`VGW (VPC) ← private VIF → CGW`**
       - supports transitive routing between VPCs
-   3. DX: `VGW (VPC) ← vgw association → DX Gateway ← private VIF → CGW`
+   3. DX: **`VGW (VPC) ← vgw association → DX Gateway ← private VIF → CGW`**
       - Private VIF and DX gateway must be in the same AWS account to use DX gateway functionality.
       - VGW(s) can be in different AWS accounts then the account owning the DX gateway.
 4. Transit Gateway
-   1. VPN: `VPC ← vpc attachment → Transit Gateway ← site-to-site vpn, vpn attachment → CGW`
-   2. DX: `VPC ← vpc attachment → Transit Gateway ← transit VIF → CGW`
-   3. DX: `VPC ← vpc attachment → Transit Gateway ← tg association → DX Gateway ← transit VIF → CGW`
+   1. VPN: **`VPC ← vpc attachment → Transit Gateway ← site-to-site vpn, vpn attachment → CGW`**
+   2. DX: **`VPC ← vpc attachment → Transit Gateway ← transit VIF → CGW`**
+   3. DX: **`VPC ← vpc attachment → Transit Gateway ← tg association → DX Gateway ← transit VIF → CGW`**
       - Transit VIF and DX gateway must be in the same AWS account to use DX gateway functionality.
       - Transit Gateway(s) can be in different AWS accounts then the account owning the DX gateway.
 5. Transit VPC
    1. Transit VPC (a) - Transit VPC to Spoke VPCs
-      - `IGW (EC2-based VPN, transit VPC) ← vpn → VGW (spoke VPC)`
-      - `IGW (EC2-based VPN, transit VPC) ← vpn → (EC2-based VPN, spoke VPC)`
+      - **`IGW (EC2-based VPN, transit VPC) ← vpn → VGW (spoke VPC)`**
+      - **`IGW (EC2-based VPN, transit VPC) ← vpn → (EC2-based VPN, spoke VPC)`**
    1. Transit VPC (b) - Transit VPC to Network
-      - `IGW (EC2-based VPN, transit VPC) ← vpn → detached VGW ← private VIF → CGW`
-      - `IGW (EC2-based VPN, transit VPC) ← vpn → CGW`
+      - **`IGW (EC2-based VPN, transit VPC) ← vpn → detached VGW ← private VIF → CGW`**
+      - **`IGW (EC2-based VPN, transit VPC) ← vpn → CGW`**
    1. **Detached VGWs** can advertise BGP prefixes learned from multiple endpoints, unlike a VGW attached a VPC that only advertises CIDRs.
    1. **Transit VPC supports multiple accounts and regions.** DX Gateway supports multi account since 2019-03, but it is limited to 10 VGWs, 3 Transit gateways, 30 (private/transit) VIFs.
    1. **VPN appliances should be deployed into separate AZs and enable dynamic routing for maximum availability.**
 6. VPN CloudHub
-   1. `VGW (VPC) ← site-to-site vpns (diff ASN) → CGWs (offices)`
+   1. **`VGW (VPC) ← site-to-site vpns (diff ASN) → CGWs (offices)`**
    2. Cannot use a DX gateway with CloudHub. Can attach a DX VIF directly to a VGW to support CloudHub.
 7. AWS Client VPN
-   1. `AWS Client VPN Endpoint (Subnet) ← vpn → Client device` (vpn client e.g. openvpn client)
+   1. **`AWS Client VPN Endpoint (Subnet) ← vpn → Client device`** (vpn client e.g. openvpn client)
 
 #### BGP
 1. **Max 100 BGP advertised routes** per route table. If > 100, **use default route**, or **summarize routes**.
