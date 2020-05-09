@@ -13,6 +13,7 @@
 - [Placement groups](#placement-groups)
 - [DNS, R53](#dns-r53)
 - [AD](#ad)
+- [Resolving DNS Queries Between VPCs and Your Network](#resolving-dns-queries-between-vpcs-and-your-network)
 - [ELB](#elb)
 - [CloudHSM](#cloudhsm)
 - [CloudFront, WAF](#cloudfront-waf)
@@ -295,6 +296,12 @@
    have been sent to R53, or the on-prem DNS server.
 1. Use **Squid proxy** (NAT instance/EC2) to restrict HTTP/HTTPs outbound traffic to a given set of Internet domains.
 
+### AD 
+1. **AD: port 389**
+1. **Hosted AD**: replicate data from on-prem to AWS; authenticate locally without using transit bandwidth.
+1. **AD Connector**: acts as a proxy to existing AD; not perform auth; may cause too much auth traffic.
+1. **Simple AD**: provides IP addresses for submitting DNS queries from on-prem network to private hosted zone. 
+
 ### Resolving DNS Queries Between VPCs and Your Network
 1. DNS resolution within VPC
    1. When you create a VPC, you automatically get DNS resolution within the VPC from R53 Resolver. 
@@ -324,12 +331,6 @@
    ([Source](https://aws.amazon.com/blogs/networking-and-content-delivery/centralized-dns-management-of-hybrid-cloud-with-amazon-route-53-and-aws-transit-gateway/))
 10. How to add DNS filtering to your NAT instance with Squid
    ([Source](https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/))
-
-### AD 
-1. **AD: port 389**
-1. **Hosted AD**: replicate data from on-prem to AWS; authenticate locally without using transit bandwidth.
-1. **AD Connector**: acts as a proxy to existing AD; not perform auth; may cause too much auth traffic.
-1. **Simple AD**: provides IP addresses for submitting DNS queries from on-prem network to private hosted zone. 
 
 ### ELB
 1. ALB (L7): HTTP, HTTPS; Content-based/Host-based/Path-based routing; Sticky Session, SNI, Auth
