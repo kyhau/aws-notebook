@@ -84,10 +84,10 @@
 ### Networking scenarios
 1. Internet
    ```
-   IGW (public IPs):   main route table:             0.0.0.0/0, igw-id
-   NAT gateway + IGW:  private subnet route table:   0.0.0.0/0, nat-gw-id 
-                       public subnet route table:    0.0.0.0/0, igw-id 
-   Egress-Only IGW:    private subnet route table:   ::/0,      e-igw-id
+   1. IGW (public IPs):   main route table:             0.0.0.0/0, igw-id
+   2. NAT gateway + IGW:  private subnet route table:   0.0.0.0/0, nat-gw-id 
+                          public subnet route table:    0.0.0.0/0, igw-id 
+   3. Egress-Only IGW:    private subnet route table:   ::/0,      e-igw-id
    ```
 2. VPN
    1. VPN: **`IGW (EC2-based VPN, EIP) ← vpn → IGW (EC2-based VPN, EIP)`**
@@ -291,9 +291,39 @@
      launch in the VPC use these options. No need to restart/relaunch the instances.
    - Options: domain-name-servers, domain-name, ntp-servers, netbios-name-servers, netbios-node-type
 1. Prior to the introduction of **R53 DNS Endpoints**, the **DHCP options set** in the VPC would have to be updated with
-  the **DNS forwarder** as a **custom DNS server**. This was because the forwarder had to decide if the request should
-  have been sent to R53, or the on-prem DNS server.
+   the **DNS forwarder** as a **custom DNS server**. This was because the forwarder had to decide if the request should
+   have been sent to R53, or the on-prem DNS server.
 1. Use **Squid proxy** (NAT instance/EC2) to restrict HTTP/HTTPs outbound traffic to a given set of Internet domains.
+
+### Resolving DNS Queries Between VPCs and Your Network
+1. DNS resolution within VPC
+   1. When you create a VPC, you automatically get DNS resolution within the VPC from R53 Resolver. 
+   2. By default, Resolver answers DNS queries for VPC domain names such as domain names for EC2 instances or ELB load balancers. 
+   3. Resolver performs recursive lookups against public name servers for all other domain names. 
+   ([Source](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html))
+2. On-prem to VPC DNS resolution using EC2 instance-based DNS forwarder
+   1. **`Remote machine → DNS server (on-prem, example.com) → DNS Forwarder (AWS) → R53`**
+3. On-prem to VPC DNS resolution using Route 53 Resolver Endpoint
+   1. **`Remote machine → DNS server (on-prem) → Inbound Endpoint (VPC) → R53 Resolver (AWS)`**
+4. VPC to on-prem DNS resolution using Route 53 Resolver Endpoint
+   1. **`Resolver (AWS) → Outbound Endpoint (forward query with Conditional Forward rule) → DNS server (on-prem)`**
+   2. A server in a VPC needs to access an on-prem client. R53 uses a Conditional Forward Rule to query the on-prem DNS server.
+5. On-prem to VPC DNS resolution using Simple AD and Route 53
+   1. Simple AD provides redundant and managed DNS services across AZs. 
+   2. These DNS services automatically forward requests for non-authoritative domains to the VPC-provided DNS. 
+      Therefore, they can be used to resolve DNS records stored in a R53 private hosted zone. 
+      ([Source](https://aws.amazon.com/blogs/security/how-to-set-up-dns-resolution-between-on-premises-networks-and-aws-using-aws-directory-service-and-amazon-route-53/)) 
+6. VPC to on-prem DNS resolution using Simple AD and Route 53
+   ([Source](https://aws.amazon.com/blogs/security/how-to-set-up-dns-resolution-between-on-premises-networks-and-aws-using-aws-directory-service-and-amazon-route-53/))
+7. On-prem to VPC DNS resolution using AWS Managed Microsoft AD
+   ([Source](https://aws.amazon.com/blogs/security/how-to-set-up-dns-resolution-between-on-premises-networks-and-aws-using-aws-directory-service-and-microsoft-active-directory/))
+8. VPC to on-prem DNS resolution using AWS Managed Microsoft AD
+   ([Source](https://aws.amazon.com/blogs/security/how-to-set-up-dns-resolution-between-on-premises-networks-and-aws-using-aws-directory-service-and-microsoft-active-directory/))
+   1. Use DHCP options set of VPC to point to Microsoft AD.
+9. Centralised DNS management of hybrid cloud with R53 and Transit Gateway
+   ([Source](https://aws.amazon.com/blogs/networking-and-content-delivery/centralized-dns-management-of-hybrid-cloud-with-amazon-route-53-and-aws-transit-gateway/))
+10. How to add DNS filtering to your NAT instance with Squid
+   ([Source](https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/))
 
 ### AD 
 1. **AD: port 389**
