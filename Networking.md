@@ -1,6 +1,7 @@
 # Networking - key notes
 
-- [Uncategorised](#Uncategorised)
+- [Uncategorised - IP, CIDR, ENI, NAT Gateway, VPC sharing](#uncategorised---ip-cidr-eni-nat-gateway-vpc-sharing)
+- [VPC Flow Logs](#vpc-flog-logs)
 - [Networking scenarios](#networking-scenarios)
 - [BGP](#bgp)
 - [VPN](#vpn)
@@ -20,7 +21,7 @@
 
 ---
 
-### Uncategorised
+### Uncategorised - IP, CIDR, ENI, NAT Gateway, VPC sharing
 
 1. IPv4: largest, **/16**  (Host bit mask `11111111 11111111 hhhhhhhh hhhhhhhh` → 2^16 = 65536 IPs)
 1. IPV4: smallest, **/28**  (Host bit mask `11111111 11111111 11111111 1111hhhh` → 2^(32-28) = 2^4 = 16 IPs)
@@ -72,10 +73,13 @@
 1. VPC peering relationship does not extend to VPN, DX, IGW, VPC endpoint.
 1. If require more than **125 peering connections per VPC**, consider using Direct Connect.
 1. **VPC sharing** uses **RAM** to share subnets across accounts within the same AWS organization.
+
+### VPC Flog Logs
 1. Both VPC Flow Logs and GuardDuty (that uses VPC Flow Logs) can **detect port scanning**.
-1. `<version> <account-id> <interface-id> <srcaddr> <dstaddr> <srcport> <dstport> <protocol> <packets> <bytes> <start> <end> <action> <log-status>`
-1. `2 123456789010 eni-xxxx 203.0.113.12 172.31.16.139 0 0 1 4 336 1432917027 1432917142 ACCEPT OK`
-1. VPC Flow Log - protocols: 1/ICMP, 6/TCP, 17/UDP, 27/RDP
+2. `<version> <account-id> <interface-id> <srcaddr> <dstaddr> <srcport> <dstport> <protocol> <packets> <bytes> <start> <end> <action> <log-status>` <br>
+   `2 123456789010 eni-xxxx 203.0.113.12 172.31.16.139 0 0 1 4 336 1432917027 1432917142 ACCEPT OK`
+3. VPC Flow Log - protocols: 1/ICMP, 6/TCP, 17/UDP, 27/RDP
+4. [VPC Flow Log examples](VpcFlowLogs.md)
 
 ### Networking scenarios
 1. Internet
