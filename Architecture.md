@@ -6,6 +6,7 @@
    https://resources.awscloud.com/aws-data-analytics-machinelearning)
 
 ---
+1. The Scatter-gather pattern - [Application integration patterns for microservices: Running distributed RFQs (Requests-for-quotation)](https://aws.amazon.com/blogs/compute/application-integration-patterns-running-distributed-rfqs/) - James Beswick, 2020-11-11 
 1. [Serverless Microservice Patterns for AWS](https://www.jeremydaly.com/serverless-microservice-patterns-for-aws/) - Jeremy Daly, 2020-07-23
 1. [Using API Gateway as a Single Entry Point for Web Applications and API Microservices](https://aws.amazon.com/blogs/architecture/using-api-gateway-as-a-single-entry-point-for-web-applications-and-api-microservices/) - Anandprasanna Gaitonde and Mohit Malik on 2019-10-22
 1. [One to Many: Evolving VPC Design](https://aws.amazon.com/blogs/architecture/one-to-many-evolving-vpc-design/) - Androski Spicer, 2019-10-09
