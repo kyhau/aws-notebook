@@ -6,117 +6,82 @@ Topics
 - [Database](#database)
 - [Security](#security)
 - [Solutions Architect](#solutions-architect)
-- [Architecture resources and notes](Architecture.md)
-- [Security resources and notes](Security.md)
-- [Known Issues](KnownIssues.md)
+- [More](#more)
 
 ---
 ## Advanced Networking
-- [Key notes](Networking.md)
-
+- [One page key notes](Networking.md) for certification (2020)
 
 ## Big Data
 
+Key notes for certification (2018)
 - **Collection**
-  - IoT
-  - Greengrass
-  - [Kinesis](Kinesis.md)
-  - [Snowball and Snowmobile](MigrationAndTransfer.md)
-  - [Database Migration Service (DMS)](MigrationAndTransfer.md)
+    - [Kinesis](Kinesis.md)
+    - [Snowball and Snowmobile](MigrationAndTransfer.md)
+    - [Database Migration Service (DMS)](MigrationAndTransfer.md)
 - **Storage**
-  - [S3](S3.md)
-  - [DynamoDB](DynamoDB.md)
-  - [RDS](RDS.md)
+    - [S3](S3.md)
+    - [DynamoDB](Database.md)
+    - [RDS](Database.md)
 - **Processing**
-  - [EMR](EMR.md)
-  - [EMR vs. Redshift](EMR.md)
-  - [HDFS vs. EMRFS](EMR.md)
-  - [Essential Big Data Tools on EMR](BigDataTools.md)
-  - [Amazon Machine Learning (AML)](MachineLearning.md)
-  - [SageMaker](MachineLearning.md)
-  - [Lambda](Lambda.md)
-  - [Glue](Analytics.md)
-  - [Big Data Tools](BigDataTools.md)
+    - [EMR](EMR.md)
+    - [EMR vs. Redshift](EMR.md)
+    - [HDFS vs. EMRFS](EMR.md)
+    - [Essential Big Data Tools on EMR](BigDataTools.md)
+    - [AML and SageMaker](MachineLearning.md)
+    - [Lambda](Lambda.md)
+    - [Glue](Analytics.md)
+    - [Big Data Tools](BigDataTools.md)
 - **Analysis**
-  - [Elasticsearch Service](Analytics.md)
-  - [Athena](Analytics.md)
-  - [Kinesis Analytics](Kinesis.md)
-  - [Redshift](Database.md)
+    - [Elasticsearch Service](Analytics.md)
+    - [Athena](Analytics.md)
+    - [Kinesis Analytics](Kinesis.md)
+    - [Redshift](Database.md)
 - **Visualisation**
-  - [QuickSight](Analytics.md)
+    - [QuickSight](Analytics.md)
 
 ---
 ## Database
-- [Key notes](Databases.md)
-- [Aurora, RDS, DMS, SCT](RDS.md)
-- [DynamoDB](DynamoDB.md)
-- [ElastiCache for Memcached](ElastiCache.md)
+- [One page key notes](Databases.md) for certification (2021)
 - [ElastiCache for Redis](ElastiCache.md)
 
 ---
 ## Security
 
-- **Incident Response and Automated Alerting**
-- **[Logging and Monitoring](LoggingAndMonitoring.md)**
-  - [VPC Flow Logs](VpcFlowLogs.md)
-- **Infrastructure Security**
-  - [Design edge security on AWS](DesignEdgeSecurity.md)
-  - [Design and implement a secure network infrastructure](SecureNetworkInfrastructure.md)
-  - [Design and implement host-based security](HostBasedSecurity.md)
-- **[Identity and Access Management](IdentityAndAccessManagement.md)**
-- **Data Protection**
-  - Key management with [Key Management Service (KMS)](KMS.md)
-  - Key management with [CloudHSM & On-Premises HSM](CloudHSM.md)
-  - [Encryption solutions for data at rest and data in transit](Encryption.md)
-  - [Secrets Manager](SecretsManager.md)
+- [Some security resources](SecurityResources.md)
+- Key notes for certification (2019)
+    - **[Logging and Monitoring](LoggingAndMonitoring.md)**
+      - [VPC Flow Logs](VpcFlowLogs.md)
+    - **Infrastructure Security**
+      - [Design edge security on AWS](DesignEdgeSecurity.md)
+      - [Design and implement a secure network infrastructure](SecureNetworkInfrastructure.md)
+      - [Design and implement host-based security](HostBasedSecurity.md)
+    - **[Identity and Access Management](IdentityAndAccessManagement.md)**
+    - **Data Protection**
+      - Key management with [KMS](KMS.md)
+      - Key management with [CloudHSM & On-Premises HSM](CloudHSM.md)
+      - [Encryption solutions for data at rest and data in transit](Encryption.md)
 
 ---
 ## Solutions Architect
 
-- **[DynamoDB](DynamoDB.md)**
-- **[EC2](EC2.md)**
-- **[ECS (Elastic Container Service)](ECS.md)**
-  - Auto Scaling policies
-  - Migrating from Amazon Linux to Amazon Linux 2 for ECS
-  - Subscribing to Amazon ECS-Optimized Amazon Linux AMI Update Notifications
-  - Retrieving Amazon ECS-Optimized AMI Metadata
-- **[ECS vs. EKS (Elastic Kubernetes Service)](EKS_v_ECS.md)**
-- **[Elastic Beanstalk](ElasticBeanstalk.md)**
-- **[ElastiCache](ElastiCache.md)**
-  - Redis
-  - Memcached
-- **[ELB](ELB.md)**
-  - Application Load Balancer
-  - Network Load Balancer
-  - Classic Load Balancer
-- EventBridge
-- **[Lambda](Lambda.md)**
-- **[S3](S3.md)**
+- [Architecture resources and notes](Architecture.md)
+- Key notes for certification (2018)
+    - **[ECS (Elastic Container Service)](ECS.md)**
+      - Auto Scaling policies
+      - Migrating from Amazon Linux to Amazon Linux 2 for ECS
+      - Subscribing to Amazon ECS-Optimized Amazon Linux AMI Update Notifications
+      - Retrieving Amazon ECS-Optimized AMI Metadata
+    - **[ECS vs. EKS (Elastic Kubernetes Service)](EKS_v_ECS.md)**
+    - **[Elastic Beanstalk](ElasticBeanstalk.md)**
+    - **[ElastiCache](ElastiCache.md)**
+    - **[ELB](ELB.md)**
+    - **[Lambda](Lambda.md)**
+    - **[S3](S3.md)**
 
 ---
-## Multi-region active-active architecture
+## More
 
-- TODO
-
----
-## Machine Learning
-
-- [SageMaker]((MachineLearning.md))
-
----
-## AR & VR
-
-- Amazon Sumerian
-
----
-## Blockchain
-
-- Amazon Managed Blockchain
-- Amazon QLDB
-
----
-## GameTech
-
-- GameLift Realtime Servers - you can create multiplayer game servers that can be customized with just a few lines
-  of JavaScript and then scale to millions of players for a fraction of a penny per player per month.
-- Lumberyard - a game engine with no royalties or seat fees, frictionless integration with Twitch and AWS.
+- [Known Issues](KnownIssues.md)
+- [Disable TLS 1.0 and use TLS 1.1 or higher](ConfigureTLS.md)
+- [Connecting to EC2](ConnectingToEC2.md)
