@@ -9,6 +9,7 @@
 - [Routing and redundant connections](#routing-and-redundant-connections)
 - [Transit Gateway](#transit-gateway)
 - [VPC Endpoints](#vpc-endpoints)
+- [Gateway Load Balancer](#gateway-load-balancer)
 - [Enhanced Networking (network speeds)](#enhanced-networking-network-speeds)
 - [Placement groups](#placement-groups)
 - [DNS, R53](#dns-r53)
@@ -241,7 +242,7 @@
 1. If a Lambda function needs to access both VPC resources and the public internet, the VPC needs to have a 
   **NAT gateway** in a **public subnet**.
 
-### Gateway Load Balancer (L3)
+### Gateway Load Balancer
 1. Gateway Load Balancers enable you to deploy, scale, and manage virtual appliances, such as firewalls, intrusion detection and prevention systems, and deep packet inspection systems.
 1. L3 (network layer), listens for all IP packets across all ports and forwards traffic to the target group that's specified in the listener rule. 
 1. Use GENEVE protocol on port 6081. It supports a MTU (maximum transmission unit) size of 8500 bytes.
