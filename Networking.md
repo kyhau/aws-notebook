@@ -350,7 +350,7 @@
    - No SG (any traffic can reach NLB); 
    - **Use Proxy Protocol v2, source IP preserved** (only when you use EC2/ECS, not **IP as Target**)
 1. CLB (L4 or 7): TCP, SSL, HTTP, HTTPS; Sticky Session
-1. GWLB (L3): GENEVE protocol on port 6081
+1. GWLB (L3): IP; GENEVE protocol on port 6081
    - GWLBs enable you to deploy, scale, and manage virtual appliances, such as firewalls, intrusion detection and prevention systems, and deep packet inspection systems.
    - L3 (network layer), listens for all IP packets across all ports and forwards traffic to the target group that's specified in the listener rule. 
    - It supports a MTU (maximum transmission unit) size of 8500 bytes.
