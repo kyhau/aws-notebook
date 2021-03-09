@@ -9,13 +9,12 @@
 - [Routing and redundant connections](#routing-and-redundant-connections)
 - [Transit Gateway](#transit-gateway)
 - [VPC Endpoints](#vpc-endpoints)
-- [Gateway Load Balancer](#gateway-load-balancer)
 - [Enhanced Networking (network speeds)](#enhanced-networking-network-speeds)
 - [Placement groups](#placement-groups)
 - [DNS, R53](#dns-r53)
 - [AD](#ad)
 - [Resolving DNS Queries Between VPCs and Your Network](#resolving-dns-queries-between-vpcs-and-your-network)
-- [ELB](#elb)
+- [ELB - ALB/NLB/CLB/GWLB](#elb)
 - [CloudHSM](#cloudhsm)
 - [CloudFront, WAF](#cloudfront-waf)
 - [Workspaces](#workspaces)
@@ -229,11 +228,11 @@
    - To use **private DNS names**, 
       - Enable **Private DNS Name **(when creating new Interface VPC Endpoint)
       - Set **VPC settings to true: enableDnsHostnames, enableDnsSupport**.
-1. Gateway Load Balancer endpoint (powered by AWS PrivateLink)
+1. Gateway Load Balancer endpoint (GWLBe) (powered by AWS PrivateLink)
    - A VPC endpoint that provides private connectivity between virtual appliances in the service provider VPC and application servers in the service consumer VPC.
-   - Traffic to and from a Gateway Load Balancer endpoint is configured using route tables. 
-   - Traffic flows from the service consumer VPC over the Gateway Load Balancer endpoint to the Gateway Load Balancer in the service provider VPC, and then returns to the service consumer VPC. 
-   - You must create the Gateway Load Balancer endpoint and the application servers in different subnets. This enables you to configure the Gateway Load Balancer endpoint as the next hop in the route table for the application subnet.
+   - Traffic to and from a GWLBe is configured using route tables. 
+   - Traffic flows from the service consumer VPC over the GWLBe to the GWLB in the service provider VPC, and then returns to the service consumer VPC. 
+   - You must create the GWLBe and the application servers in different subnets. This enables you to configure the GWLBe as the next hop in the route table for the application subnet.
 1. Gateway VPC Endpoint for S3
    1. Attach an **Endpoint Policy** to the endpoint to limit its functionality.
    2. Add a **route** in the route tables for any subnets where the gateway will be used. 
@@ -241,12 +240,6 @@
    3. Use **bucket policies** to control access to buckets from specific endpoints, or specific VPCs.
 1. If a Lambda function needs to access both VPC resources and the public internet, the VPC needs to have a 
   **NAT gateway** in a **public subnet**.
-
-### Gateway Load Balancer
-1. Gateway Load Balancers enable you to deploy, scale, and manage virtual appliances, such as firewalls, intrusion detection and prevention systems, and deep packet inspection systems.
-1. L3 (network layer), listens for all IP packets across all ports and forwards traffic to the target group that's specified in the listener rule. 
-1. Use GENEVE protocol on port 6081. It supports a MTU (maximum transmission unit) size of 8500 bytes.
-1. It maintains stickiness of flows to a specific target appliance using 5-tuple (for TCP/UDP flows) or 3-tuple (for non-TCP/UDP flows). 
 
 ### Enhanced Networking (network speeds)
 1. Higher packet-per-second (PPS) performance, lower inter-instance latencies, very low network jitter:
@@ -357,6 +350,11 @@
    - No SG (any traffic can reach NLB); 
    - **Use Proxy Protocol v2, source IP preserved** (only when you use EC2/ECS, not **IP as Target**)
 1. CLB (L4 or 7): TCP, SSL, HTTP, HTTPS; Sticky Session
+1. GWLB (L3): GENEVE protocol on port 6081
+   - GWLBs enable you to deploy, scale, and manage virtual appliances, such as firewalls, intrusion detection and prevention systems, and deep packet inspection systems.
+   - L3 (network layer), listens for all IP packets across all ports and forwards traffic to the target group that's specified in the listener rule. 
+   - It supports a MTU (maximum transmission unit) size of 8500 bytes.
+   - It maintains stickiness of flows to a specific target appliance using 5-tuple (for TCP/UDP flows) or 3-tuple (for non-TCP/UDP flows). 
 1. **How to pass the original client IP to the backend for non web application?** 
    - Only NLBs supports source IP preserving for **Non-HTTP** applications on EC2 instances.
    - ALBs/CLBs (connect to instances with private Load Balancer IP) do not support source IP preserving.
