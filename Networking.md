@@ -41,20 +41,20 @@
    - Can use: non-RFC 1918, or `100.64.0.0/10` (RFC 6598)
    - Cannot use: `198.19.0.0/16`
    - Primary `10.0.0.0/8`  =>  any other CIDR from `10.0.0.0/8` range
-      - If primary CIDR falls within `10.0.0.0/15`, cannot add a CIDR block from `10.0.0.0/16` 
+      - If primary CIDR falls within `10.0.0.0/15`, cannot add a CIDR block from `10.0.0.0/16`
    - Primary `172.16.0.0/12`  =>  any other CIDR from `172.16.0.0/12`, except `172.31.0.0/16`
    - Primary `192.168.0.0/16` =>  any other CIDR from 192.168.0.0/16
    - Primary `198.19.0.0/16`
    - Primary Non-RFC 1918, `100.64.0.0/10`
 1. Calculate IP range
    ```
-   E.g. 10.0.8.0/21 encompasses addresses from 10.0.8.0 to 10.0.15.255. 
+   E.g. 10.0.8.0/21 encompasses addresses from 10.0.8.0 to 10.0.15.255.
    Calculation: (Source)
    10.0.8.0 in binary:    00000010 00000000 00001000 00000000
    Network mask (21):     11111111 11111111 11111000 00000000 (twenty-one 1s)
                            ----------------------------------- [Logical AND]
    FirstIP/NetworkAddr:   00000010 00000000 00001000 00000000 ----> 10.0.8.0
-   
+
    10.0.8.0 in binary:    00000010 00000000 00001000 00000000
    Host bit mask (21):    00000000 00000000 00000hhh hhhhhhhh ----> 2^11 = 2048 IPs
                            ----------------------------------- [Force host bits]
@@ -65,7 +65,7 @@
 1. Max. **5 VPCs** (and **5 IGWs**) per Region by default (can have 100+ of VPCs per Region).
 1. NACL needs an outbound rule allowing return traffic on ports (e.g. 32768 - 65535).
 1. In case of a DDoS, the fastest way to stop incoming requests is to delete the default NACL in a VPC.
-1. A **subnet** can have **one NACL**.  **Max 10 subnets** can use **one NACL**. 
+1. A **subnet** can have **one NACL**.  **Max 10 subnets** can use **one NACL**.
 1. A **subnet** can have **one route table**. A **Route table** can be associated with **multiple subnets**.
 1. Configuration elements scoped to an **ENI**: **SRC and DST check**, **SGs**, **Private IPs**, **Mac address**.
 1. You can move an ENI between subnets, but not AZs.
@@ -90,8 +90,8 @@
 1. Internet
    ```
    1. IGW (public IPs):   main route table:             0.0.0.0/0, igw-id
-   2. NAT gateway + IGW:  private subnet route table:   0.0.0.0/0, nat-gw-id 
-                          public subnet route table:    0.0.0.0/0, igw-id 
+   2. NAT gateway + IGW:  private subnet route table:   0.0.0.0/0, nat-gw-id
+                          public subnet route table:    0.0.0.0/0, igw-id
    3. Egress-Only IGW:    private subnet route table:   ::/0,      e-igw-id
    ```
 2. VPN
@@ -131,7 +131,7 @@
 1. **Max 100 BGP advertised routes** per route table. If > 100, **use default route**, or **summarize routes**.
 1. BGP session is going from established to idle state (means routes > 100)
 1. **Private VIFs**: up to **100 prefixes** advertised over BGP
-1. **Public VIFs**: up to **1000** prefixes advertised over BGP 
+1. **Public VIFs**: up to **1000** prefixes advertised over BGP
 1. **BGP: TCP/179**; make sure not being blocked by firewall or ACL rules
 
 ### VPN
@@ -203,14 +203,14 @@
 1. When you create a VPN attachment, it will create a site-to-site VPN for you.
 1. You can use **ECMP routing** to get higher VPN bandwidth by aggregating multiple VPN connections.
 1. Each Transit Gateway: **5000 attachments, 50 peering attachments, 20 transit gateway route tables, 10000 static routes, 20 DX gateways, 2 subnets for a VPC**
-1. Each attachment can associate to 1 route table. 
-1. **50 Gbps** per VPC, DX gateway, peered transit gateway, 
+1. Each attachment can associate to 1 route table.
+1. **50 Gbps** per VPC, DX gateway, peered transit gateway,
 1. **1.25 Gbps** per VPN
 1. Support **multicast** between VPCs.
 1. Routes propagated to/from on-prem networks: **BGP (dynamic)**
 1. When you attach a VPC to a Transit Gateway or resize an attached VPC, the VPC CIDR will propagate into the Transit
   Gateway route table using internal APIs (not BGP).
-1. Routes in the Transit Gateway route table will not be propagated to the VPC’s route table. 
+1. Routes in the Transit Gateway route table will not be propagated to the VPC’s route table.
   VPC owner need to create static route to send traffic to the Transit Gateway.
 
 ### VPC Endpoints
@@ -225,20 +225,20 @@
    - Through **IGW** (not using Interface Endpoint): DNS **sns.us-east-1.amazonaws.com, public IP**
    - Using Interface Endpoint: DNS **vpce-<id>.sns.<region>.amazonaws.com, private IP**
    - Using Interface Endpoint with Private DNS Name: DNS **sns.us-east-1.amazonaws.com, private IP**
-   - To use **private DNS names**, 
+   - To use **private DNS names**,
       - Enable **Private DNS Name **(when creating new Interface VPC Endpoint)
       - Set **VPC settings to true: enableDnsHostnames, enableDnsSupport**.
 1. Gateway Load Balancer endpoint (GWLBe) (powered by AWS PrivateLink)
    - A VPC endpoint that provides private connectivity between virtual appliances in the service provider VPC and application servers in the service consumer VPC.
-   - Traffic to and from a GWLBe is configured using route tables. 
-   - Traffic flows from the service consumer VPC over the GWLBe to the GWLB in the service provider VPC, and then returns to the service consumer VPC. 
+   - Traffic to and from a GWLBe is configured using route tables.
+   - Traffic flows from the service consumer VPC over the GWLBe to the GWLB in the service provider VPC, and then returns to the service consumer VPC.
    - You must create the GWLBe and the application servers in different subnets. This enables you to configure the GWLBe as the next hop in the route table for the application subnet.
 1. Gateway VPC Endpoint for S3
    1. Attach an **Endpoint Policy** to the endpoint to limit its functionality.
-   2. Add a **route** in the route tables for any subnets where the gateway will be used. 
+   2. Add a **route** in the route tables for any subnets where the gateway will be used.
       - Subnet route table:  **Destination: pl-id-for-s3, Target: vpce-id**
    3. Use **bucket policies** to control access to buckets from specific endpoints, or specific VPCs.
-1. If a Lambda function needs to access both VPC resources and the public internet, the VPC needs to have a 
+1. If a Lambda function needs to access both VPC resources and the public internet, the VPC needs to have a
   **NAT gateway** in a **public subnet**.
 
 ### Enhanced Networking (network speeds)
@@ -260,7 +260,7 @@
    - An externally-facing ENI with an MTU of **1500 bytes (internet communication)**.
 1. You can only use high MTU values (Jumbo frames 9001 MTU) within a VPC.
 1. Once the traffic leaves the VPC, use **1500 MTU**.
-1. **VPN connections and traffic sent over an IGW are limited to 1500 MTU**. 
+1. **VPN connections and traffic sent over an IGW are limited to 1500 MTU**.
   If packets are over 1500 bytes, they are fragmented, or they are dropped if the **Don’t Fragment** flag is set in
   the IP header
 1. **`tracepath`** is used to check MTU between 2 hosts; **Path MTU Discovery**; need UDP
@@ -280,7 +280,7 @@
 1. Private hosted zone
    - Set **VPC settings to true: enableDnsHostnames, enableDnsSupport**.
    - Routing policies: Simple Routing, Failover Routing, Multivalue Answer Routing, Weighted Routing
-   - To associate VPCs belonging to different accounts with a single hosted zone, 
+   - To associate VPCs belonging to different accounts with a single hosted zone,
       - Account (private hosted zone): submit a CreateVPCAssociationAuthorization request (for each VPC)
       - Account (VPC): submit an AssociateVPCWithHostedZone request.
 1. To re-use nameservers across different hosted zones, create a **Reusable Delegation Set** using the **API or CLI**;
@@ -305,17 +305,17 @@
    have been sent to R53, or the on-prem DNS server.
 1. Use **Squid proxy** (NAT instance/EC2) to restrict HTTP/HTTPs outbound traffic to a given set of Internet domains.
 
-### AD 
+### AD
 1. **AD: port 389**
 1. **Hosted AD**: replicate data from on-prem to AWS; authenticate locally without using transit bandwidth.
 1. **AD Connector**: acts as a proxy to existing AD; not perform auth; may cause too much auth traffic.
-1. **Simple AD**: provides IP addresses for submitting DNS queries from on-prem network to private hosted zone. 
+1. **Simple AD**: provides IP addresses for submitting DNS queries from on-prem network to private hosted zone.
 
 ### Resolving DNS Queries Between VPCs and Your Network
 1. DNS resolution within VPC
-   1. When you create a VPC, you automatically get DNS resolution within the VPC from R53 Resolver. 
-   2. By default, Resolver answers DNS queries for VPC domain names such as domain names for EC2 instances or ELB load balancers. 
-   3. Resolver performs recursive lookups against public name servers for all other domain names. 
+   1. When you create a VPC, you automatically get DNS resolution within the VPC from R53 Resolver.
+   2. By default, Resolver answers DNS queries for VPC domain names such as domain names for EC2 instances or ELB load balancers.
+   3. Resolver performs recursive lookups against public name servers for all other domain names.
    ([Source](https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/resolver.html))
 2. On-prem to VPC DNS resolution using EC2 instance-based DNS forwarder
    1. **`Remote machine → DNS server (on-prem, example.com) → DNS Forwarder (AWS) → R53`**
@@ -325,10 +325,10 @@
    1. **`Resolver (AWS) → Outbound Endpoint (forward query with Conditional Forward rule) → DNS server (on-prem)`**
    2. A server in a VPC needs to access an on-prem client. R53 uses a Conditional Forward Rule to query the on-prem DNS server.
 5. On-prem to VPC DNS resolution using Simple AD and Route 53
-   1. Simple AD provides redundant and managed DNS services across AZs. 
-   2. These DNS services automatically forward requests for non-authoritative domains to the VPC-provided DNS. 
-      Therefore, they can be used to resolve DNS records stored in a R53 private hosted zone. 
-      ([Source](https://aws.amazon.com/blogs/security/how-to-set-up-dns-resolution-between-on-premises-networks-and-aws-using-aws-directory-service-and-amazon-route-53/)) 
+   1. Simple AD provides redundant and managed DNS services across AZs.
+   2. These DNS services automatically forward requests for non-authoritative domains to the VPC-provided DNS.
+      Therefore, they can be used to resolve DNS records stored in a R53 private hosted zone.
+      ([Source](https://aws.amazon.com/blogs/security/how-to-set-up-dns-resolution-between-on-premises-networks-and-aws-using-aws-directory-service-and-amazon-route-53/))
 6. VPC to on-prem DNS resolution using Simple AD and Route 53
    ([Source](https://aws.amazon.com/blogs/security/how-to-set-up-dns-resolution-between-on-premises-networks-and-aws-using-aws-directory-service-and-amazon-route-53/))
 7. On-prem to VPC DNS resolution using AWS Managed Microsoft AD
@@ -342,23 +342,27 @@
    ([Source](https://aws.amazon.com/blogs/security/how-to-add-dns-filtering-to-your-nat-instance-with-squid/))
 
 ### ELB
-1. ALB (L7): HTTP, HTTPS; Content-based/Host-based/Path-based routing; Sticky Session, SNI, Auth
+1. ALB (L7): HTTP, HTTPS, gRPC
+   - Target type: IP, Instance, Lambda
+   - Content-based/Host-based/Path-based routing; Sticky Session, SNI, Auth
    - Listener -> Rules -> Target Groups (EC2/ECS/IP) and Health Check
    - Auto scaling does NOT apply to **IP as Target** (e.g. on-prem).
    - In order to use path-routing, need to use HTTPS (decrypt at load balancer).
-1. NLB (L4): TCP, UDP, TLS; provides the ability to have static IP address; SNI
-   - No SG (any traffic can reach NLB); 
+1. NLB (L4): TCP, UDP, TLS
+   - Target type: IP, Instance
+   - provides the ability to have static IP address; SNI
+   - No SG (any traffic can reach NLB);
    - **Use Proxy Protocol v2, source IP preserved** (only when you use EC2/ECS, not **IP as Target**)
-1. CLB (L4 or 7): TCP, SSL, HTTP, HTTPS; Sticky Session
-1. GWLB (L3): IP; GENEVE protocol on port 6081
+1. GWLB (L3 Gateway + L4 Load Balancing): IP
    - GWLBs enable you to deploy, scale, and manage virtual appliances, such as firewalls, intrusion detection and prevention systems, and deep packet inspection systems.
-   - L3 (network layer), listens for all IP packets across all ports and forwards traffic to the target group that's specified in the listener rule. 
+   - L3 (network layer), listens for all IP packets across all ports and forwards traffic to the target group that's specified in the listener rule.
    - It supports a MTU (maximum transmission unit) size of 8500 bytes.
-   - It maintains stickiness of flows to a specific target appliance using 5-tuple (for TCP/UDP flows) or 3-tuple (for non-TCP/UDP flows). 
-1. **How to pass the original client IP to the backend for non web application?** 
+   - It maintains stickiness of flows to a specific target appliance using 5-tuple (for TCP/UDP flows) or 3-tuple (for non-TCP/UDP flows).
+1. CLB (L4 or 7): TCP, SSL, HTTP, HTTPS; Sticky Session
+1. **How to pass the original client IP to the backend for non web application?**
    - Only NLBs supports source IP preserving for **Non-HTTP** applications on EC2 instances.
    - ALBs/CLBs (connect to instances with private Load Balancer IP) do not support source IP preserving.
-   - For HTTP services on your instances, you can get the client IP with **X-Forwarded-For header**. 
+   - For HTTP services on your instances, you can get the client IP with **X-Forwarded-For header**.
    - For non-HTTP (e.g. SMTP) services, enable **Proxy Protocol** and implement Proxy-protocol in your backend service.
 1. SSL negotiation: change the **security policy** on the ELB to disable vulnerable protocols and ciphers.
 1. SSL Offload: SSL cert needs only live on the Load Balancer, and it performs the encryption and decryption operations.
@@ -372,7 +376,7 @@
    - TCP_Client_Reset_Count, TCP_ELB_ResetCount, TCP_TargetResetCount
    - HealthyHostCount, UnhealthyHostCount
 
-### CloudHSM 
+### CloudHSM
 1. When you create a CloudHSM cluster with more than one HSM, you automatically get load balancing.
 1. CloudHSM instances **SSL/TLS offload** with ELB: **NLB, listener 443, target 443**.
 
@@ -401,7 +405,7 @@
 
 ### AppStream 2.0
 1. AppStream: **443 (TCP)** and **1400-1499 (TCP)**
-1. AppStream 2.0 requires Internet connectivity to authenticate users and deliver the web assets. 
+1. AppStream 2.0 requires Internet connectivity to authenticate users and deliver the web assets.
 1. How do I use my DX, AWS VPN, or other VPN tunnel to stream my applications?
    1. Configure a VPC with private subnets and a NAT Gateway (recommended)
    2. Create a **VPC interface endpoint** for AppStream in the **same VPC** as your DX, VPN, or VPN tunnel.
@@ -416,5 +420,5 @@
    1. Private subnets + NAT gateway + IGW
    2. Public subnet + IGW (enable Default Internet Access)
    3. Default VPC with public subnet and SG (enable Default Internet Access)
-1. When **Default Internet Access** is enabled, max **100 fleet instances** is supported. 
+1. When **Default Internet Access** is enabled, max **100 fleet instances** is supported.
   If your deployment must support more than 100 concurrent users, use the **NAT gateway** configuration instead.
